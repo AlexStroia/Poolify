@@ -21,6 +21,19 @@ const themeOptions : ThemeOptions= {
     },
 
   },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          // Add your custom styles for MuiTextField
+          borderColor: 'red', // Border color
+          '&:focus': {
+            borderColor: 'blue', // Focused border color
+          },
+        },
+      },
+  },
+},
   typography: {
     fontFamily: 'Roboto, sans-serif',
     fontSize: 14,
