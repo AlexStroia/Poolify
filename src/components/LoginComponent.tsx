@@ -11,6 +11,9 @@ export const LoginComponent = () => {
       container
       direction="column"
       justifyContent="center"
+      display="flex"
+      alignItems="center"
+
       style={{ height: "100vh" }}
     >
       <PoolifyTextField label="Email" placeholder="johndoe@gmail.com" />

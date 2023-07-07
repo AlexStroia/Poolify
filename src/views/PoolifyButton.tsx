@@ -1,5 +1,6 @@
-import { Button} from "@mui/material";
-
+import { useTheme } from "@emotion/react";
+import { Button, Typography } from "@mui/material";
+import { theme } from "../theme";
 
 interface PoolifyButtonsProps {
   title: String;
@@ -10,7 +11,23 @@ export const PoolifyButton: React.FC<PoolifyButtonsProps> = ({
   title,
   onTap,
 }) => {
-  return <Button
-
-  onClick={onTap}>{title}</Button>;
+  const appTheme = theme;
+  return (
+    <Button
+      style={{
+        display: "inline",
+        backgroundColor: appTheme.palette.primary.main,
+        color: "white",
+        marginTop:'2px',
+        marginBottom: "2px",
+        marginLeft: "30px",
+        marginRight: "30px",
+      }}
+      onClick={onTap}
+    >
+      <Typography variant="button" color="inherit">
+        {title}
+      </Typography>
+    </Button>
+  );
 };
