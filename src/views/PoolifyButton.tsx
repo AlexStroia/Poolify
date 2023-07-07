@@ -15,6 +15,7 @@ export const PoolifyButton: React.FC<PoolifyButtonsProps> = ({
   return (
     <Button
       style={{
+        width: '50%',
         display: "inline",
         backgroundColor: appTheme.palette.primary.main,
         color: "white",

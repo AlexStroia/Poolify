@@ -1,8 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 import { PoolifyTextField, PoolifyTextFieldInputType } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
+import { theme } from "../theme";
+import { TransparentButton } from "../views/TransparentButton";
+import { PoolifyAppBar } from "../views/PoolifyAppBar";
 
-export const SignupComponent = () => {
+export const SignupComponent = ({ onSigninTap = () => {}}) => {
   return (
     <Grid
       container
@@ -12,6 +15,7 @@ export const SignupComponent = () => {
       alignItems="center"
       style={{ height: "100vh" }}
     >
+            <PoolifyAppBar title="Signup"/>
       <PoolifyTextField label="Email" placeholder="johndoe@gmail.com" />
       <PoolifyTextField
         label="Password"
@@ -20,12 +24,15 @@ export const SignupComponent = () => {
       />
       <PoolifyButton
         title="Signup"
+        
         onTap={function (): {} {
           throw new Error("Function not implemented.");
         }}
       />
       <Typography>
-        Do not have an account? <span>Sign Up</span>
+        Do not have an account? <TransparentButton
+        title={'Sign In'.toLowerCase()}
+        onTap={onSigninTap} />
       </Typography>
     </Grid>
   );

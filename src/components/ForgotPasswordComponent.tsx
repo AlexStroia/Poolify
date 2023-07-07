@@ -4,11 +4,8 @@ import {
   PoolifyTextFieldInputType,
 } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
-import { theme } from "../theme";
-import { TransparentButton } from "../views/TransparentButton";
-import { PoolifyAppBar } from "../views/PoolifyAppBar";
 
-export const LoginComponent = ({ onSignupTap = () => {} }) => {
+export const ForgotPasswordComponent = ({ onForgotPasswordTap = () => {} }) => {
   return (
     <Grid
       container
@@ -16,9 +13,9 @@ export const LoginComponent = ({ onSignupTap = () => {} }) => {
       justifyContent="center"
       display="flex"
       alignItems="center"
+
       style={{ height: "100vh" }}
     >
-      <PoolifyAppBar title="Login"/>
       <PoolifyTextField label="Email" placeholder="johndoe@gmail.com" />
       <PoolifyTextField
         label="Password"
@@ -26,17 +23,9 @@ export const LoginComponent = ({ onSignupTap = () => {} }) => {
         inputType={PoolifyTextFieldInputType.Password}
       />
       <PoolifyButton
-        title="Login"
-        onTap={function (): {} {
-          throw new Error("Function not implemented.");
-        }}
+        title="Send Password"
+        onTap={() => onForgotPasswordTap}
       />
-      <Typography
-      >
-        Do not have an account? <TransparentButton
-        title={'Sign Up'}
-        onTap={onSignupTap} />
-      </Typography>
     </Grid>
   );
 };
