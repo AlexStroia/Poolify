@@ -10,12 +10,12 @@ interface PoolifyAppBarProps {
 export const PoolifyAppBar: React.FC<PoolifyAppBarProps> = ({ title }) => {
   const navigator = useNavigate();
   const pathName = useLocation().pathname;
-  const showBackButton = navigator.length > 1  && pathName !== '/';
+  const showBackButton = navigator.length > 1 && pathName !== "/";
   const handleGoBack = () => {
     navigator(-1);
   };
 
-  console.log("Value is " + showBackButton + "....length" +navigator.length);
+  console.log("Value is " + showBackButton + "....length" + navigator.length);
 
   return (
     <AppBar position="fixed">
