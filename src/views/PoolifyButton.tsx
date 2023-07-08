@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import { Button, Typography } from "@mui/material";
 import { theme } from "../theme";
 
@@ -15,11 +14,11 @@ export const PoolifyButton: React.FC<PoolifyButtonsProps> = ({
   return (
     <Button
       style={{
-        width: '50%',
+        width: "50%",
         display: "inline",
         backgroundColor: appTheme.palette.primary.main,
         color: "white",
-        marginTop:'2px',
+        marginTop: "2px",
         marginBottom: "2px",
         marginLeft: "30px",
         marginRight: "30px",

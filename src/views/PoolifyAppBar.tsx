@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface PoolifyAppBarProps {
   title: string;
@@ -9,17 +9,26 @@ interface PoolifyAppBarProps {
 
 export const PoolifyAppBar: React.FC<PoolifyAppBarProps> = ({ title }) => {
   const navigator = useNavigate();
-  const showBackButton = navigator.length > 1;
+  const pathName = useLocation().pathname;
+  const showBackButton = navigator.length > 1  && pathName !== '/';
   const handleGoBack = () => {
     navigator(-1);
-  }
+  };
+
+  console.log("Value is " + showBackButton + "....length" +navigator.length);
 
   return (
     <AppBar position="fixed">
       <Toolbar>
-        {showBackButton ??  <IconButton edge="start" color="inherit" onClick={handleGoBack}>
+        {showBackButton && (
+          <IconButton
+            edge="start"
+            style={{ color: "white" }}
+            onClick={handleGoBack}
+          >
             <ArrowBack />
-          </IconButton>}
+          </IconButton>
+        )}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {title}
         </Typography>
@@ -27,4 +36,3 @@ export const PoolifyAppBar: React.FC<PoolifyAppBarProps> = ({ title }) => {
     </AppBar>
   );
 };
-

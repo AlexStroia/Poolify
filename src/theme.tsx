@@ -1,7 +1,7 @@
-import { ThemeOptions, createTheme } from '@mui/material';
-import { deepPurple, grey, orange, purple, teal } from '@mui/material/colors';
+import { ThemeOptions, createTheme } from "@mui/material";
+import { deepPurple, grey, orange, purple, teal } from "@mui/material/colors";
 
-const themeOptions : ThemeOptions= {
+const themeOptions: ThemeOptions = {
   palette: {
     primary: {
       main: purple[500],
@@ -16,26 +16,25 @@ const themeOptions : ThemeOptions= {
       main: orange[500],
     },
     background: {
-      default: '#ffffff',
+      default: "#ffffff",
       paper: grey[50],
     },
-
   },
   components: {
     MuiTextField: {
       styleOverrides: {
         root: {
           // Add your custom styles for MuiTextField
-          borderColor: 'red', // Border color
-          '&:focus': {
-            borderColor: 'blue', // Focused border color
+          borderColor: "red", // Border color
+          "&:focus": {
+            borderColor: "blue", // Focused border color
           },
         },
       },
+    },
   },
-},
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: "Roboto, sans-serif",
     fontSize: 14,
     h1: {
       fontSize: 26,
@@ -50,6 +49,6 @@ const themeOptions : ThemeOptions= {
       color: grey[800],
     },
   },
-}
+};
 
 export const theme = createTheme(themeOptions);

@@ -1,14 +1,17 @@
-import { Grid, Typography, makeStyles } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import {
   PoolifyTextField,
   PoolifyTextFieldInputType,
 } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
-import { theme } from "../theme";
 import { TransparentButton } from "../views/TransparentButton";
 import { PoolifyAppBar } from "../views/PoolifyAppBar";
+import { theme } from "../theme";
 
-export const LoginComponent = ({ onSignupTap = () => {} }) => {
+export const LoginComponent = ({
+  onTapSignup = () => {},
+  onTapForgotPassword = () => {},
+}) => {
   return (
     <Grid
       container
@@ -18,7 +21,6 @@ export const LoginComponent = ({ onSignupTap = () => {} }) => {
       alignItems="center"
       style={{ height: "100vh" }}
     >
-      <PoolifyAppBar title="Login"/>
       <PoolifyTextField label="Email" placeholder="johndoe@gmail.com" />
       <PoolifyTextField
         label="Password"
@@ -31,11 +33,18 @@ export const LoginComponent = ({ onSignupTap = () => {} }) => {
           throw new Error("Function not implemented.");
         }}
       />
+      <Typography>
+        Do not have an account?{" "}
+        <TransparentButton title={"Sign Up"} onTap={onTapSignup} />
+      </Typography>
+
       <Typography
+        onClick={onTapForgotPassword}
+        sx={{
+          color: theme.palette.primary.main,
+        }}
       >
-        Do not have an account? <TransparentButton
-        title={'Sign Up'}
-        onTap={onSignupTap} />
+        Forgot Password
       </Typography>
     </Grid>
   );

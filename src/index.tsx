@@ -6,10 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme";
 import { BrowserRouter } from "react-router-dom";
+import firebase from "firebase";
+import { firebaseConfig } from "./firebase";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 root.render(
   <ThemeProvider theme={theme}>
     <BrowserRouter>
