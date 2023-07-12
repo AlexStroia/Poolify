@@ -1,13 +1,17 @@
 import { AuthenticationState } from "./AuthenticationState";
-
+import { User } from "../model/User";
 export interface ApplicationState {
   auth: AuthenticationState;
 }
 
-export const initialState: ApplicationState = {
-  // Initial state properties
+export const appState: ApplicationState = {
   auth: {
-    user: null,
+    user: {
+      id: null,
+      email: null,
+      token: null,
+    },
     error: null,
+    loading: false,
   },
 };

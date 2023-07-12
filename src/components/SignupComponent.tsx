@@ -5,13 +5,15 @@ import {
 } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
 import { TransparentButton } from "../views/TransparentButton";
-import { PoolifyAppBar } from "../views/PoolifyAppBar";
 import { theme } from "../theme";
+import { useRef } from "react";
 
 export const SignupComponent = ({
   onTapSignin = () => {},
   onTapForgotPassword = () => {},
 }) => {
+  const email = useRef(null);
+  const password = useRef(null);
   return (
     <Grid
       container
@@ -21,11 +23,16 @@ export const SignupComponent = ({
       alignItems="center"
       style={{ height: "100vh" }}
     >
-      <PoolifyTextField label="Email" placeholder="johndoe@gmail.com" />
+      <PoolifyTextField
+        label="Email"
+        placeholder="johndoe@gmail.com"
+        inputRef={email}
+      />
       <PoolifyTextField
         label="Password"
         placeholder="123456"
         inputType={PoolifyTextFieldInputType.Password}
+        inputRef={password}
       />
       <PoolifyButton
         title="Signup"

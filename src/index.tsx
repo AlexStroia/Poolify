@@ -9,12 +9,14 @@ import firebase from "firebase";
 import { firebaseConfig } from "./firebase";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import "firebase/auth";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const firebaseAuth = firebase.auth();
 root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>

@@ -1,12 +1,19 @@
-import { useDispatch } from "react-redux";
-import { login } from "../reducers/AuthenticationSlice";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AuthenticationData } from "../model/AuthenticationData";
+import "firebase/auth";
+import firebase from "firebase";
 
-//TODO ADD //handleLogin: () => {}
-// const handleLogin = () => {
-//     const dispatch = useDispatch();
-//     // Simulate login API request
-//     // Replace this with your actual API call
-//     const email = "a";
-//     const password = "b";
-//     dispatch(login({ email, password }));
-//   };
+export const loginAction = createAsyncThunk(
+  "auth/login",
+  async (loginData: AuthenticationData, { rejectWithValue }) => {
+    try {
+      const { email, password } = loginData;
+      const credential = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      return credential;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
