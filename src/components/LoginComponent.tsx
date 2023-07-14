@@ -5,16 +5,31 @@ import {
 } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
 import { TransparentButton } from "../views/TransparentButton";
-import { PoolifyAppBar } from "../views/PoolifyAppBar";
 import { theme } from "../theme";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { ApplicationState } from "../state/ApplicationState";
 
 export const LoginComponent = ({
   onTapSignup = () => {},
   onTapForgotPassword = () => {},
+  onTapSignIn = (email: string, password: string) => {},
 }) => {
-  const email = useRef(null);
-  const password = useRef(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  useSelector((state: ApplicationState) => {
+    const stateError = state.authentication;
+
+    console.log("Error is " + stateError.error);
+  });
+
+  const handleSignIn = () => {
+    const emailValue = email.current?.value ?? "";
+    const passwordValue = password.current?.value ?? "";
+    onTapSignIn(emailValue, passwordValue);
+  };
+
   return (
     <Grid
       container

@@ -15,8 +15,6 @@ export const PoolifyAppBar: React.FC<PoolifyAppBarProps> = ({ title }) => {
     navigator(-1);
   };
 
-  console.log("Value is " + showBackButton + "....length" + navigator.length);
-
   return (
     <AppBar position="fixed">
       <Toolbar>

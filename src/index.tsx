@@ -12,7 +12,7 @@ import { store } from "./store/store";
 import "firebase/auth";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -24,7 +24,7 @@ root.render(
         <App />
       </BrowserRouter>
     </ThemeProvider>
-  </Provider>
+  </Provider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

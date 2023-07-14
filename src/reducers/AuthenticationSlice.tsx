@@ -10,10 +10,10 @@ export const authenticationSlice = createSlice({
   reducers: {
     login(
       state,
-      action: PayloadAction<{ email: string; token: string; id: string }>
+      action: PayloadAction<{ email: string; token: string; id: string }>,
     ) {
       const payload = action.payload;
-      state.auth.user = {
+      state.authentication.user = {
         id: payload.id,
         email: payload.email,
         token: payload.token,
@@ -21,10 +21,10 @@ export const authenticationSlice = createSlice({
     },
     signup(
       state,
-      action: PayloadAction<{ email: string; token: string; id: string }>
+      action: PayloadAction<{ email: string; token: string; id: string }>,
     ) {
       const payload = action.payload;
-      state.auth.user = {
+      state.authentication.user = {
         id: payload.id,
         email: payload.email,
         token: payload.token,
@@ -34,22 +34,28 @@ export const authenticationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginAction.pending, (state) => {
-        state.auth = { ...state.auth, loading: true };
+        state.authentication = { ...state.authentication, loading: true };
       })
       .addCase(loginAction.fulfilled, (state) => {
-        state.auth = { ...state.auth, loading: false };
+        state.authentication = { ...state.authentication, loading: false };
       })
       .addCase(loginAction.rejected, (state, action) => {
-        state.auth = { ...state.auth, error: action.payload, loading: false };
+        state.authentication = {
+          ...state.authentication,
+          error: action.payload as string,
+          loading: false,
+        };
       })
       .addCase(signupAction.pending, (state) => {
-        state.auth = { ...state.auth, loading: true };
+        state.authentication = { ...state.authentication, loading: true };
       })
       .addCase(signupAction.fulfilled, (state, action) => {
-        state.auth = { ...state.auth, loading: false };
+        state.authentication = { ...state.authentication, loading: false };
       })
       .addCase(signupAction.rejected, (state, action) => {
-        state.auth = { ...state.auth, error: action.payload, loading: false };
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.authentication.error = message;
       });
   },
 });

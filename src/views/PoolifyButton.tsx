@@ -3,7 +3,7 @@ import { theme } from "../theme";
 
 interface PoolifyButtonsProps {
   title: String;
-  onTap: () => {};
+  onTap: () => void;
 }
 
 export const PoolifyButton: React.FC<PoolifyButtonsProps> = ({

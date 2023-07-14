@@ -17,7 +17,7 @@ export const PoolifyTextField: React.FC<PoolifyTextFieldProps> = ({
   label,
   placeholder,
   inputType = PoolifyTextFieldInputType.Text,
-  inputRef
+  inputRef,
 }) => {
   return (
     <TextField
