@@ -6,9 +6,11 @@ import {
 import { PoolifyButton } from "../views/PoolifyButton";
 import { TransparentButton } from "../views/TransparentButton";
 import { theme } from "../theme";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
+import { SpinnerComponent } from "./SpinnerComponent";
+import ErrorComponent from "./ErrorComponent";
 
 export const LoginComponent = ({
   onTapSignup = () => {},
@@ -18,10 +20,13 @@ export const LoginComponent = ({
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const error = useSelector(
-    (state: ApplicationState) => state.authentication.error,
+  const [loading, setLoading] = useState<boolean>(false);
+  const errorState = useSelector(
+    (state: ApplicationState) => state.authentication.error
   );
-  console.log("Error is " + error);
+  const loadingState = useSelector(
+    (state: ApplicationState) => state.authentication.loading
+  );
 
   const handleSignIn = () => {
     const emailValue = email.current?.value ?? "";
@@ -29,7 +34,17 @@ export const LoginComponent = ({
     onTapSignIn(emailValue, passwordValue);
   };
 
-  return (
+  useEffect(() => {
+    if (errorState.length > 0) {
+      setErrorMessage(errorState);
+    }
+    console.log(loadingState);
+    setLoading(loadingState);
+  });
+
+  return loading ? (
+    <SpinnerComponent />
+  ) : (
     <Grid
       container
       direction="column"
@@ -38,6 +53,8 @@ export const LoginComponent = ({
       alignItems="center"
       style={{ height: "100vh" }}
     >
+      <ErrorComponent message={errorMessage} />
+
       <PoolifyTextField
         label="Email"
         placeholder="johndoe@gmail.com"
@@ -51,9 +68,7 @@ export const LoginComponent = ({
       />
       <PoolifyButton
         title="Login"
-        onTap={function (): {} {
-          throw new Error("Function not implemented.");
-        }}
+        onTap={handleSignIn}
       />
       <Typography>
         Do not have an account?{" "}

@@ -16,7 +16,6 @@ export const SignupComponent = ({
   onTapSignin = () => {},
   onTapForgotPassword = () => {},
   onTapSignUp = (email?: string, password?: string) => {},
-  onTapDismiss = () => {},
 }) => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
@@ -55,7 +54,7 @@ export const SignupComponent = ({
       alignItems="center"
       style={{ height: "100vh" }}
     >
-      <ErrorComponent message={errorMessage} onTapDismiss={onTapDismiss} />
+      <ErrorComponent message={errorMessage} />
       <PoolifyTextField
         label="Email"
         placeholder="johndoe@gmail.com"

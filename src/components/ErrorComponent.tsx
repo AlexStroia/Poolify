@@ -9,11 +9,9 @@ import {
 } from "@mui/material";
 
 export const ErrorComponent = ({
-  onTapDismiss,
   message,
 }: {
   message: string;
-  onTapDismiss: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -24,12 +22,10 @@ export const ErrorComponent = ({
 
   const handleClose = () => {
     setIsOpen(false);
-    onTapDismiss();
   };
 
   const handleDismiss = () => {
     setIsOpen(false);
-    onTapDismiss();
   };
 
   return (
