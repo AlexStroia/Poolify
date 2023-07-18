@@ -16,7 +16,6 @@ const root = ReactDOM.createRoot(
 );
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const firebaseAuth = firebase.auth();
 root.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>

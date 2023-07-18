@@ -18,11 +18,10 @@ export const LoginComponent = ({
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  useSelector((state: ApplicationState) => {
-    const stateError = state.authentication;
-
-    console.log("Error is " + stateError.error);
-  });
+  const error = useSelector(
+    (state: ApplicationState) => state.authentication.error,
+  );
+  console.log("Error is " + error);
 
   const handleSignIn = () => {
     const emailValue = email.current?.value ?? "";

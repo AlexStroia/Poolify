@@ -1,19 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { appState } from "../state/ApplicationState";
+import { authenticationState } from "../state/ApplicationState";
 import "firebase/auth";
 import { loginAction } from "../actions/LoginAction";
 import { signupAction } from "../actions/SignupAction";
 
 export const authenticationSlice = createSlice({
-  name: "auth",
-  initialState: appState,
+  name: "authentication",
+  initialState: authenticationState,
   reducers: {
     login(
       state,
       action: PayloadAction<{ email: string; token: string; id: string }>,
     ) {
       const payload = action.payload;
-      state.authentication.user = {
+      state.user = {
         id: payload.id,
         email: payload.email,
         token: payload.token,
@@ -24,7 +24,8 @@ export const authenticationSlice = createSlice({
       action: PayloadAction<{ email: string; token: string; id: string }>,
     ) {
       const payload = action.payload;
-      state.authentication.user = {
+      state.error = "";
+      state.user = {
         id: payload.id,
         email: payload.email,
         token: payload.token,
@@ -34,28 +35,32 @@ export const authenticationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginAction.pending, (state) => {
-        state.authentication = { ...state.authentication, loading: true };
+        state.loading = true;
+        state.error = "";
       })
       .addCase(loginAction.fulfilled, (state) => {
-        state.authentication = { ...state.authentication, loading: false };
+        state.loading = false;
+        state.error = "";
       })
       .addCase(loginAction.rejected, (state, action) => {
-        state.authentication = {
-          ...state.authentication,
-          error: action.payload as string,
-          loading: false,
-        };
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.error = message;
+        state.loading = false;
       })
       .addCase(signupAction.pending, (state) => {
-        state.authentication = { ...state.authentication, loading: true };
+        state.loading = true;
+        state.error = "";
       })
       .addCase(signupAction.fulfilled, (state, action) => {
-        state.authentication = { ...state.authentication, loading: false };
+        state.loading = false;
+        state.error = "";
       })
       .addCase(signupAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
-        state.authentication.error = message;
+        state.error = message;
+        state.loading = false;
       });
   },
 });

@@ -1,28 +1,51 @@
-import React from "react";
-import { Alert, AlertTitle } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Alert,
+  AlertTitle,
+  ClickAwayListener,
+  Dialog,
+  Button,
+  Box,
+} from "@mui/material";
 
-const ErrorComponent = (message: string) => {
+export const ErrorComponent = ({
+  onTapDismiss,
+  message,
+}: {
+  message: string;
+  onTapDismiss: () => void;
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    console.log("Message " + message);
+    setIsOpen(message.length > 0);
+  }, [message]);
+
+  const handleClose = () => {
+    setIsOpen(false);
+    onTapDismiss();
+  };
+
+  const handleDismiss = () => {
+    setIsOpen(false);
+    onTapDismiss();
+  };
+
   return (
-    <div
-      style={{
-        width: "100%",
-        maxWidth: "400",
-        margin: "0 auto",
-        marginTop: "4",
-      }}
-    >
-      <Alert severity="error" variant="outlined">
-        <AlertTitle
-          style={{
-            fontWeight: "bold",
-            marginBottom: "1",
-          }}
-        >
-          Error
-        </AlertTitle>
-        {message}
-      </Alert>
-    </div>
+    <Dialog open={isOpen} onClose={handleClose} closeAfterTransition>
+      <Box sx={{ p: 2 }}>
+        <Alert severity="error" variant="outlined">
+          <AlertTitle>Error</AlertTitle>
+          {message}
+        </Alert>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+          <Button variant="contained" onClick={handleDismiss}>
+            Dismiss
+          </Button>
+        </Box>
+      </Box>
+    </Dialog>
   );
 };
 

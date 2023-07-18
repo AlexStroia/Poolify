@@ -6,7 +6,6 @@ import { ForgotPasswordComponent } from "./components/ForgotPasswordComponent";
 import { PoolifyAppBar } from "./views/PoolifyAppBar";
 import { signupAction } from "./actions/SignupAction";
 import { useDispatch } from "react-redux";
-import { AuthenticationData } from "./model/AuthenticationData";
 import { loginAction } from "./actions/LoginAction";
 
 function App() {
