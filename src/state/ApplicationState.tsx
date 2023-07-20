@@ -10,7 +10,7 @@ export const authenticationState: AuthenticationState = {
     token: null,
   },
   loading: false,
-  error: "",
+  errorMessage: "",
 };
 
 export const appState: ApplicationState = {
@@ -21,6 +21,6 @@ export const appState: ApplicationState = {
       token: null,
     },
     loading: false,
-    error: "",
+    errorMessage: "",
   },
 };

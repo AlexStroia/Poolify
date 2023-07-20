@@ -9,79 +9,58 @@ export const authenticationSlice = createSlice({
   name: "authentication",
   initialState: authenticationState,
   reducers: {
-    // login(
-    //   state,
-    //   action: PayloadAction<{ email: string; token: string; id: string }>
-    // ) {
-    //   const payload = action.payload;
-    //   state.error = "";
-    //   state.user = {
-    //     id: payload.id,
-    //     email: payload.email,
-    //     token: payload.token,
-    //   };
-    // },
-    // signup(
-    //   state,
-    //   action: PayloadAction<{ email: string; token: string; id: string }>
-    // ) {
-    //   console.log("Signup called");
-    //   const payload = action.payload;
-    //   state.error = "";
-    //   state.user = {
-    //     id: payload.id,
-    //     email: payload.email,
-    //     token: payload.token,
-    //   };
-    // },
-    // forgotPassword(state, action) {
-    //   const payload = action.payload;
-    //   state.error = "";
-    // },
+    reset(state) {
+      state.errorMessage = "";
+      state.loading = false;
+      state.success = null;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginAction.pending, (state) => {
         state.loading = true;
-        state.error = "";
+        state.errorMessage = "";
       })
       .addCase(loginAction.fulfilled, (state) => {
         state.loading = false;
-        state.error = "";
+        state.errorMessage = "";
       })
       .addCase(loginAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
-        state.error = message;
+        state.errorMessage = message;
         state.loading = false;
       })
       .addCase(signupAction.pending, (state) => {
         state.loading = true;
-        state.error = "";
+        state.errorMessage = "";
       })
       .addCase(signupAction.fulfilled, (state, action) => {
+        state.success = true;
         state.loading = false;
-        state.error = "";
+        state.errorMessage = "";
       })
       .addCase(signupAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
-        state.error = message;
+        state.errorMessage = message;
         state.loading = false;
       })
       .addCase(forgotPasswordAction.pending, (state) => {
         state.loading = true;
-        state.error = "";
+        state.errorMessage = "";
       })
       .addCase(forgotPasswordAction.fulfilled, (state, action) => {
-        state.loading = true;
-        state.error = "";
+        state.loading = false;
+        state.errorMessage = "";
       })
       .addCase(forgotPasswordAction.rejected, (state, action) => {
-        state.loading = true;
-        state.error = "";
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.errorMessage = message;
+        state.loading = false;
       });
   },
 });
-// export const { login, signup, forgotPassword } = authenticationSlice.actions;
+export const { reset } = authenticationSlice.actions;
 export const authReducer = authenticationSlice.reducer;

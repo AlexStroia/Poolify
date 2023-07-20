@@ -11,36 +11,28 @@ import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
 import ErrorComponent from "./ErrorComponent";
+import PoolifySnackbar from "../views/PoolifySnackBar";
 
 export const LoginComponent = ({
   onTapSignup = () => {},
   onTapForgotPassword = () => {},
   onTapSignIn = (email: string, password: string) => {},
+  onClose = () => {},
 }) => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const errorState = useSelector(
-    (state: ApplicationState) => state.authentication.error
-  );
-  const loadingState = useSelector(
-    (state: ApplicationState) => state.authentication.loading
-  );
+
+  const {
+    errorMessage: error,
+    loading,
+    success,
+  } = useSelector((state: ApplicationState) => state.authentication);
 
   const handleSignIn = () => {
     const emailValue = email.current?.value ?? "";
     const passwordValue = password.current?.value ?? "";
     onTapSignIn(emailValue, passwordValue);
   };
-
-  useEffect(() => {
-    if (errorState.length > 0) {
-      setErrorMessage(errorState);
-    }
-    console.log(loadingState);
-    setLoading(loadingState);
-  });
 
   return loading ? (
     <SpinnerComponent />
@@ -53,8 +45,13 @@ export const LoginComponent = ({
       alignItems="center"
       style={{ height: "100vh" }}
     >
-      <ErrorComponent message={errorMessage} />
-
+      <PoolifySnackbar
+        open={success === true}
+        message={"Logged in with success"}
+        severity={undefined}
+        onClose={onClose}
+      />
+      <ErrorComponent message={error} />
       <PoolifyTextField
         label="Email"
         placeholder="johndoe@gmail.com"
@@ -66,10 +63,7 @@ export const LoginComponent = ({
         inputType={PoolifyTextFieldInputType.Password}
         inputRef={password}
       />
-      <PoolifyButton
-        title="Login"
-        onTap={handleSignIn}
-      />
+      <PoolifyButton title="Login" onTap={handleSignIn} />
       <Typography>
         Do not have an account?{" "}
         <TransparentButton title={"Sign Up"} onTap={onTapSignup} />

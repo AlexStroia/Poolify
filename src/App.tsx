@@ -7,6 +7,8 @@ import { PoolifyAppBar } from "./views/PoolifyAppBar";
 import { signupAction } from "./actions/SignupAction";
 import { useDispatch } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
+import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
+import { reset } from "./reducers/AuthenticationSlice";
 
 function App() {
   const navigator = useNavigate();
@@ -49,6 +51,16 @@ function App() {
     }
   };
 
+  const handleOnClose = () => {
+    dispatch(reset());
+  };
+
+  const handleForgotPassword = (email?: string) => {
+    if (email != null) {
+      dispatch(forgotPasswordAction(email));
+    }
+  };
+
   return (
     <div>
       <PoolifyAppBar title={getPageTitle()} />
@@ -75,7 +87,12 @@ function App() {
         />
         <Route
           path="/forgot-password"
-          element={<ForgotPasswordComponent onForgotPasswordTap={() => {}} />}
+          element={
+            <ForgotPasswordComponent
+              onTapForgotPassword={handleForgotPassword}
+              onClose={handleOnClose}
+            />
+          }
         />
       </Routes>
     </div>

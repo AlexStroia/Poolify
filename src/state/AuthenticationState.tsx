@@ -2,6 +2,7 @@ import { User } from "../model/User";
 
 export interface AuthenticationState {
   user: User | null;
-  error: string | "";
+  errorMessage: string | "";
+  success?: boolean | null;
   loading: boolean | false;
 }

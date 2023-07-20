@@ -1,39 +1,45 @@
 import { Grid } from "@mui/material";
-import {
-  PoolifyTextField,
-  PoolifyTextFieldInputType,
-} from "../views/PoolifyTextField";
+import { PoolifyTextField } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
 import { PoolifyAppBar } from "../views/PoolifyAppBar";
 import { SpinnerComponent } from "./SpinnerComponent";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
-export const ForgotPasswordComponent = ({ onForgotPasswordTap = () => {} }) => {
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const errorState = useSelector(
-    (state: ApplicationState) => state.authentication.error,
-  );
-  const loadingState = useSelector(
-    (state: ApplicationState) => state.authentication.loading,
+import PoolifySnackbar from "../views/PoolifySnackBar";
+
+const emailSuccessMessage =
+  "If that email exist in our database, you should receive an email shortly.";
+
+export const ForgotPasswordComponent = ({
+  onTapForgotPassword = (email: string) => {},
+  onClose = () => {},
+}) => {
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
+  const email = useRef<HTMLInputElement>(null);
+
+  const { errorMessage: error, loading } = useSelector(
+    (state: ApplicationState) => state.authentication,
   );
 
-  useEffect(() => {
-    if (errorState.length > 0) {
-      setErrorMessage(errorState);
-    }
-    console.log(loadingState);
-    setLoading(loadingState);
-  });
+  const handleTapForgotPassword = () => {
+    const emailValue = email.current?.value ?? "";
+    onTapForgotPassword(emailValue);
+    handleOpenSnackbar();
+  };
 
-  const handleTapForgotPassword = (email: String) => {
-    
-  }
- 
-  return ( loading ? (
+  const handleOpenSnackbar = () => {
+    setShowSnackbar(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setShowSnackbar(false);
+    onClose();
+  };
+
+  return loading ? (
     <SpinnerComponent />
-  ) :
+  ) : (
     <Grid
       container
       direction="column"
@@ -42,14 +48,19 @@ export const ForgotPasswordComponent = ({ onForgotPasswordTap = () => {} }) => {
       alignItems="center"
       style={{ height: "100vh" }}
     >
-      <PoolifyAppBar title="Forgot Password" />
-      <PoolifyTextField label="Email" placeholder="johndoe@gmail.com" />
-      <PoolifyTextField
-        label="Password"
-        placeholder="123456"
-        inputType={PoolifyTextFieldInputType.Password}
+      <PoolifySnackbar
+        open={showSnackbar}
+        severity={error ? "error" : "success"}
+        message={error ?? emailSuccessMessage}
+        onClose={handleCloseSnackbar}
       />
-      <PoolifyButton title="Send Password" onTap={() => onForgotPasswordTap} />
+      <PoolifyAppBar title="Forgot Password" />
+      <PoolifyTextField
+        inputRef={email}
+        label="Email"
+        placeholder="johndoe@gmail.com"
+      />
+      <PoolifyButton title="Send Password" onTap={handleTapForgotPassword} />
     </Grid>
   );
 };

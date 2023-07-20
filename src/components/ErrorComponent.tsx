@@ -8,15 +8,10 @@ import {
   Box,
 } from "@mui/material";
 
-export const ErrorComponent = ({
-  message,
-}: {
-  message: string;
-}) => {
+export const ErrorComponent = ({ message }: { message: string }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
-    console.log("Message " + message);
     setIsOpen(message.length > 0);
   }, [message]);
 
