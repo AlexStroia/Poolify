@@ -21,9 +21,14 @@ export const authenticationSlice = createSlice({
         state.loading = true;
         state.errorMessage = "";
       })
-      .addCase(loginAction.fulfilled, (state) => {
+      .addCase(loginAction.fulfilled, (state, action) => {
+        const user = action.payload.user;
         state.loading = false;
         state.errorMessage = "";
+        state.user = {
+          displayName: user?.displayName,
+          email: user?.email,
+        }
       })
       .addCase(loginAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };

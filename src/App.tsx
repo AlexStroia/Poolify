@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
 import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
+import { useEffect } from "react";
 
 function App() {
   const navigator = useNavigate();

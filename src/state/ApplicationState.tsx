@@ -5,9 +5,8 @@ export interface ApplicationState {
 
 export const authenticationState: AuthenticationState = {
   user: {
-    id: null,
     email: null,
-    token: null,
+    displayName: null,
   },
   loading: false,
   errorMessage: "",
@@ -16,9 +15,8 @@ export const authenticationState: AuthenticationState = {
 export const appState: ApplicationState = {
   authentication: {
     user: {
-      id: null,
       email: null,
-      token: null,
+      displayName: null,
     },
     loading: false,
     errorMessage: "",
