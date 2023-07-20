@@ -4,6 +4,8 @@ import "firebase/auth";
 import { loginAction } from "../actions/LoginAction";
 import { signupAction } from "../actions/SignupAction";
 import { forgotPasswordAction } from "../actions/ForgotPasswordAction";
+import firebase from "firebase";
+import { logoutAction } from "../actions/LogoutAction";
 
 export const authenticationSlice = createSlice({
   name: "authentication",
@@ -28,7 +30,7 @@ export const authenticationSlice = createSlice({
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
-        }
+        };
       })
       .addCase(loginAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
@@ -41,9 +43,14 @@ export const authenticationSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(signupAction.fulfilled, (state, action) => {
+        const user = action.payload.user;
         state.success = true;
         state.loading = false;
         state.errorMessage = "";
+        state.user = {
+          displayName: user?.displayName,
+          email: user?.email,
+        };
       })
       .addCase(signupAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
@@ -60,6 +67,21 @@ export const authenticationSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(forgotPasswordAction.rejected, (state, action) => {
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.errorMessage = message;
+        state.loading = false;
+      })
+      .addCase(logoutAction.pending, (state, _) => {
+        state.loading = true;
+        state.errorMessage = "";
+      })
+      .addCase(logoutAction.fulfilled, (state, _) => {
+        state.loading = false;
+        state.errorMessage = "";
+        state.user = null;
+      })
+      .addCase(logoutAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
         state.errorMessage = message;
