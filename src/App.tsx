@@ -5,16 +5,29 @@ import { SignupComponent } from "./components/SignupComponent";
 import { ForgotPasswordComponent } from "./components/ForgotPasswordComponent";
 import { PoolifyAppBar } from "./views/PoolifyAppBar";
 import { signupAction } from "./actions/SignupAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
 import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
 import { useEffect } from "react";
+import { ApplicationState } from "./state/ApplicationState";
+import { DashboardComponent } from "./components/DashboardComponent";
 
 function App() {
   const navigator = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const isUserLoggedIn = useSelector(
+    (state: ApplicationState) => state.authentication.user !== null,
+  );
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      navigator("/dashboard");
+    } else {
+      navigator("/");
+    }
+  }, [isUserLoggedIn]);
 
   const getPageTitle = () => {
     const { pathname } = location;
@@ -25,6 +38,8 @@ function App() {
         return "Forgot Password";
       case "/signup":
         return "Signup";
+      case "/dashboard":
+        return "Dashboard";
       default:
         return "";
     }
@@ -64,7 +79,10 @@ function App() {
 
   return (
     <div>
-      <PoolifyAppBar title={getPageTitle()} />
+      <PoolifyAppBar
+        title={getPageTitle()}
+        hidden={getPageTitle().toLowerCase() === "dashboard"}
+      />
       <Routes>
         <Route
           path="/"
@@ -95,6 +113,7 @@ function App() {
             />
           }
         />
+        <Route path="/dashboard" element={<DashboardComponent />} />
       </Routes>
     </div>
   );

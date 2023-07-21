@@ -9,5 +9,5 @@ export const logoutAction = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

@@ -54,7 +54,6 @@ export const ForgotPasswordComponent = ({
         message={error ?? emailSuccessMessage}
         onClose={handleCloseSnackbar}
       />
-      <PoolifyAppBar title="Forgot Password" />
       <PoolifyTextField
         inputRef={email}
         label="Email"
