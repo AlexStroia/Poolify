@@ -26,11 +26,9 @@ export const PoolifyTextField: React.FC<PoolifyTextFieldProps> = ({
       type={inputType}
       inputRef={inputRef}
       sx={{
-        width: "50%",
         marginTop: "2px",
         marginBottom: "2px",
-        marginLeft: "30px",
-        marginRight: "30px",
+        justifyContent:'center'
       }}
     />
   );
