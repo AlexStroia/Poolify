@@ -6,7 +6,6 @@ export const forgotPasswordAction = createAsyncThunk(
   async (email: string, { rejectWithValue }) => {
     try {
       const credential = await firebase.auth().sendPasswordResetEmail(email);
-      console.log(credential);
       return credential;
     } catch (error) {
       return rejectWithValue(error);

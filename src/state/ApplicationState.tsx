@@ -1,6 +1,8 @@
 import { AuthenticationState } from "./AuthenticationState";
+import { DashboardPage, DashboardState } from "./DashboardState";
 export interface ApplicationState {
   authentication: AuthenticationState;
+  dashboard: DashboardState
 }
 
 export const authenticationState: AuthenticationState = {
@@ -12,6 +14,10 @@ export const authenticationState: AuthenticationState = {
   errorMessage: "",
 };
 
+export const dashboardPageInitialState: DashboardState = {
+  page : DashboardPage.HOME
+}
+
 export const appState: ApplicationState = {
   authentication: {
     user: {
@@ -21,4 +27,7 @@ export const appState: ApplicationState = {
     loading: false,
     errorMessage: "",
   },
+  dashboard: {
+    page: DashboardPage.HOME
+  }
 };

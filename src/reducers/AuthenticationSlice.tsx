@@ -4,7 +4,6 @@ import "firebase/auth";
 import { loginAction } from "../actions/LoginAction";
 import { signupAction } from "../actions/SignupAction";
 import { forgotPasswordAction } from "../actions/ForgotPasswordAction";
-import firebase from "firebase";
 import { logoutAction } from "../actions/LogoutAction";
 
 export const authenticationSlice = createSlice({
