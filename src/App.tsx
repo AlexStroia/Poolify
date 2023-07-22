@@ -11,7 +11,6 @@ import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
 import { useEffect } from "react";
 import { ApplicationState } from "./state/ApplicationState";
-import { DashboardComponent } from "./components/DashboardComponent";
 import firebase from "firebase";
 import { SaveUserData, saveUserAction } from "./actions/SaveUserAction";
 import NewComponent from "./components/NewComponent";
@@ -143,7 +142,6 @@ function App() {
             />
           }
         />
-        <Route path="/dashboard" element={<DashboardComponent />} />
         <Route path="/home" element={<HomeComponent />} />
         <Route path="/add" element={<NewComponent />} />
         <Route path="/leaderboard" element={<LeaderboardComponent />} />

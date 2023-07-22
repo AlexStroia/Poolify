@@ -24,11 +24,9 @@ export const NewComponent = () => {
   );
 
   const handleTapSave = () => {
-    const questionValue = questionTitle.current?.value ?? "";
     const questionOptionFirstValue = questionOptionFirst.current?.value ?? "";
     const questionOptionSecondValue = questionOptionSecond.current?.value ?? "";
     const saveUserQuestionData: SaveUserQuestionData = {
-      questionTitle: questionValue,
       questionOptionFirst: questionOptionFirstValue,
       questionOptionSecond: questionOptionSecondValue,
     };
@@ -53,17 +51,8 @@ export const NewComponent = () => {
       width="100%"
     >
       <PoolifyTabBar />
-
       <Typography variant="h4" gutterBottom>
-        Enter your question
-      </Typography>
-      <PoolifyTextField
-        label="Question"
-        placeholder="How much is 2+2?"
-        inputRef={questionTitle}
-      />
-      <Typography variant="h4" gutterBottom>
-        Answers
+        Would you rather?
       </Typography>
       <Grid
         container

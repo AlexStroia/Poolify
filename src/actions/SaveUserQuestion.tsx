@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import firebase from "firebase";
 
 export interface SaveUserQuestionData {
-  questionTitle: string;
   questionOptionFirst: string;
   questionOptionSecond: string;
 }
