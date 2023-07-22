@@ -19,5 +19,5 @@ export const saveUserAction = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

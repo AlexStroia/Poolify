@@ -30,7 +30,7 @@ export const authenticationSlice = createSlice({
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
-          userId : user?.uid
+          userId: user?.uid,
         };
       })
       .addCase(loginAction.rejected, (state, action) => {
@@ -51,7 +51,7 @@ export const authenticationSlice = createSlice({
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
-          userId : user?.uid
+          userId: user?.uid,
         };
       })
       .addCase(signupAction.rejected, (state, action) => {

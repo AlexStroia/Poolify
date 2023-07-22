@@ -1,3 +1,5 @@
+import { PoolifyTabBar } from "../views/PoolifyTabBar";
+
 export const LeaderboardComponent = () => {
-  return <div>Leaderboard Component</div>;
+  return <PoolifyTabBar />;
 };

@@ -28,7 +28,7 @@ export const PoolifyTextField: React.FC<PoolifyTextFieldProps> = ({
       sx={{
         marginTop: "2px",
         marginBottom: "2px",
-        justifyContent:'center'
+        justifyContent: "center",
       }}
     />
   );

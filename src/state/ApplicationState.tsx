@@ -2,7 +2,7 @@ import { AuthenticationState } from "./AuthenticationState";
 import { DashboardPage, DashboardState } from "./DashboardState";
 export interface ApplicationState {
   authentication: AuthenticationState;
-  dashboard: DashboardState
+  dashboard: DashboardState;
 }
 
 export const authenticationState: AuthenticationState = {
@@ -15,10 +15,10 @@ export const authenticationState: AuthenticationState = {
 };
 
 export const dashboardPageInitialState: DashboardState = {
-  page : DashboardPage.HOME,
+  page: DashboardPage.HOME,
   loading: false,
-  errorMessage: null
-}
+  errorMessage: null,
+};
 
 export const appState: ApplicationState = {
   authentication: {
@@ -32,6 +32,6 @@ export const appState: ApplicationState = {
   dashboard: {
     page: DashboardPage.HOME,
     loading: false,
-    errorMessage: null
-  }
+    errorMessage: null,
+  },
 };

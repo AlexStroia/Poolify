@@ -10,14 +10,16 @@ import { ApplicationState } from "../state/ApplicationState";
 import { logoutAction } from "../actions/LogoutAction";
 import { changePage } from "../reducers/DashboardSlice";
 import { DashboardPage } from "../state/DashboardState";
+import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const DashboardComponent = () => {
   const dispatch = useDispatch();
+  const navigator = useNavigate();
   const state = useSelector((state: ApplicationState) => state);
 
   const user = state.authentication.user;
   const page = state.dashboard.page;
-  console.log(user);
 
   const handleTabChange = (page: DashboardPage) => {
     dispatch(changePage(page));
@@ -30,36 +32,14 @@ export const DashboardComponent = () => {
   return (
     <div>
       <Grid container alignItems="center">
-        <Grid item sx={{ flex: 1 }}>
-          <Box sx={{ borderColor: theme.palette.primary.main }}>
-            <Tabs
-              value={page}
-              onChange={(_, newPage) => {
-                handleTabChange(newPage);
-              }}
-            >
-              <Tab label="Home" />
-              <Tab label="Leaderboard" />
-              <Tab label="New" />
-            </Tabs>
-          </Box>
-        </Grid>
-        <Grid item>
-          <Typography variant="body2" sx={{ marginRight: 2 }}>
-            {user?.email}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <PoolifyButton title="Logout" onTap={handleLogout} />
-        </Grid>
+        <TabPanelContent value={page} index={0} component={<HomeComponent />} />
+        <TabPanelContent
+          value={page}
+          index={1}
+          component={<LeaderboardComponent />}
+        />
+        <TabPanelContent value={page} index={2} component={<NewComponent />} />
       </Grid>
-      <TabPanelContent value={page} index={0} component={<HomeComponent />} />
-      <TabPanelContent
-        value={page}
-        index={1}
-        component={<LeaderboardComponent />}
-      />
-      <TabPanelContent value={page} index={2} component={<NewComponent />} />
     </div>
   );
 };

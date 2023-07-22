@@ -9,6 +9,7 @@ import {
 } from "../actions/SaveUserQuestion";
 import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
+import { PoolifyTabBar } from "../views/PoolifyTabBar";
 
 export const NewComponent = () => {
   const dispatch = useDispatch();
@@ -16,10 +17,10 @@ export const NewComponent = () => {
   const questionOptionFirst = useRef<HTMLInputElement>(null);
   const questionOptionSecond = useRef<HTMLInputElement>(null);
   const user = useSelector(
-    (state: ApplicationState) => state.authentication.user
+    (state: ApplicationState) => state.authentication.user,
   );
   const dashboardState = useSelector(
-    (state: ApplicationState) => state.dashboard
+    (state: ApplicationState) => state.dashboard,
   );
 
   const handleTapSave = () => {
@@ -35,7 +36,7 @@ export const NewComponent = () => {
       saveUserQuestion({
         userId: user?.userId,
         saveUserQuestionData: saveUserQuestionData,
-      })
+      }),
     );
   };
 
@@ -51,6 +52,8 @@ export const NewComponent = () => {
       alignItems="center"
       width="100%"
     >
+      <PoolifyTabBar />
+
       <Typography variant="h4" gutterBottom>
         Enter your question
       </Typography>

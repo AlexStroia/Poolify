@@ -15,22 +15,22 @@ export const saveUserQuestion = createAsyncThunk(
       saveUserQuestionData,
     }: { userId?: string | null; saveUserQuestionData: SaveUserQuestionData },
 
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const database = firebase.firestore();
       const users = database.collection("questions");
-      if(userId !== null) {
+      if (userId !== null) {
         await users.doc(userId).update({
-            [new Date().toISOString()]: saveUserQuestionData,
-          });
+          [new Date().toISOString()]: saveUserQuestionData,
+        });
       } else {
         return rejectWithValue({
-            message: 'Could not save the question.'
-        })
+          message: "Could not save the question.",
+        });
       }
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

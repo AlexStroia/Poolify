@@ -14,6 +14,9 @@ import { ApplicationState } from "./state/ApplicationState";
 import { DashboardComponent } from "./components/DashboardComponent";
 import firebase from "firebase";
 import { SaveUserData, saveUserAction } from "./actions/SaveUserAction";
+import NewComponent from "./components/NewComponent";
+import { LeaderboardComponent } from "./components/LeaderboardComponent";
+import { HomeComponent } from "./components/HomeComponent";
 
 function App() {
   const navigator = useNavigate();
@@ -25,12 +28,14 @@ function App() {
     return user;
   });
 
+  const page = useSelector((state: ApplicationState) => state.dashboard.page);
+  console.log(page);
   const isUserLoggedIn =
     user !== null && user.email !== null && user.email!.length > 0;
   useEffect(() => {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     if (isUserLoggedIn) {
-      navigator("/dashboard");
+      navigator("/home");
       const userData: SaveUserData = {
         email: user?.email ?? "",
         userId: user?.userId ?? "",
@@ -54,6 +59,12 @@ function App() {
         return "Signup";
       case "/dashboard":
         return "Dashboard";
+      case "/leaderboard":
+        return "Leaderboard";
+      case "/add":
+        return "Add";
+      case "/home":
+        return "Home";
       default:
         return "";
     }
@@ -65,7 +76,7 @@ function App() {
         signupAction({
           email: email,
           password: password,
-        })
+        }),
       );
     }
   };
@@ -76,7 +87,7 @@ function App() {
         loginAction({
           email: email,
           password: password,
-        })
+        }),
       );
     }
   };
@@ -95,7 +106,12 @@ function App() {
     <div>
       <PoolifyAppBar
         title={getPageTitle()}
-        hidden={getPageTitle().toLowerCase() === "dashboard"}
+        hidden={
+          getPageTitle().toLowerCase() === "dashboard" ||
+          getPageTitle().toLowerCase() === "leaderboard" ||
+          getPageTitle().toLowerCase() === "add" ||
+          getPageTitle().toLowerCase() === "home"
+        }
       />
       <Routes>
         <Route
@@ -128,6 +144,9 @@ function App() {
           }
         />
         <Route path="/dashboard" element={<DashboardComponent />} />
+        <Route path="/home" element={<HomeComponent />} />
+        <Route path="/add" element={<NewComponent />} />
+        <Route path="/leaderboard" element={<LeaderboardComponent />} />
       </Routes>
     </div>
   );
