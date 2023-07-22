@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, Card } from "@mui/material";
 import { PoolifyTextField } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
 import { useRef } from "react";
@@ -17,10 +17,10 @@ export const NewComponent = () => {
   const questionOptionFirst = useRef<HTMLInputElement>(null);
   const questionOptionSecond = useRef<HTMLInputElement>(null);
   const user = useSelector(
-    (state: ApplicationState) => state.authentication.user,
+    (state: ApplicationState) => state.authentication.user
   );
   const dashboardState = useSelector(
-    (state: ApplicationState) => state.dashboard,
+    (state: ApplicationState) => state.dashboard
   );
 
   const handleTapSave = () => {
@@ -34,52 +34,46 @@ export const NewComponent = () => {
       saveUserQuestion({
         userId: user?.userId,
         saveUserQuestionData: saveUserQuestionData,
-      }),
+      })
     );
   };
 
-  console.log(dashboardState.loading);
   return dashboardState.loading ? (
     <SpinnerComponent />
   ) : (
-    <Grid
-      display="flex"
-      justifyContent="center"
-      flexDirection="column"
-      alignContent="center"
-      alignItems="center"
-      width="100%"
-    >
+    <div>
       <PoolifyTabBar />
-      <Typography variant="h4" gutterBottom>
-        Would you rather?
-      </Typography>
-      <Grid
-        container
-        justifyContent="center"
-        alignContent="center"
-        alignItems="center"
-        rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      >
-        <Grid item>
-          <PoolifyTextField
-            label="First"
-            placeholder="3"
-            inputRef={questionOptionFirst}
-          />
-        </Grid>
-        <Box width="2px"></Box>
-        <Grid item>
-          <PoolifyTextField
-            label="Second"
-            placeholder="3"
-            inputRef={questionOptionSecond}
-          />
-        </Grid>
-      </Grid>
-      <PoolifyButton title="Save" onTap={handleTapSave} />
-    </Grid>
+        <Card
+          style={{ marginTop: "16px", borderRadius: "16px", padding: "16px",
+         }}
+        >
+          <div>
+            <Typography variant="h4" gutterBottom>
+              Would you rather?
+            </Typography>
+            <Grid container direction="column" spacing={2}
+            display="flex"
+            alignContent="ce"
+            >
+              <Grid item>
+                <PoolifyTextField
+                  label="First"
+                  placeholder="3"
+                  inputRef={questionOptionFirst}
+                />
+              </Grid>
+              <Grid item>
+                <PoolifyTextField
+                  label="Second"
+                  placeholder="3"
+                  inputRef={questionOptionSecond}
+                />
+              </Grid>
+            </Grid>
+            <PoolifyButton title="Save" onTap={handleTapSave} />
+          </div>
+        </Card>
+    </div>
   );
 };
 

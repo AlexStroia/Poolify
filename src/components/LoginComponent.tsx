@@ -3,7 +3,7 @@ import {
   PoolifyTextField,
   PoolifyTextFieldInputType,
 } from "../views/PoolifyTextField";
-import { PoolifyButton } from "../views/PoolifyButton";
+import { PoolifyButton, PoolifyButtonSize } from "../views/PoolifyButton";
 import { TransparentButton } from "../views/TransparentButton";
 import { theme } from "../theme";
 import { useRef } from "react";
@@ -41,9 +41,12 @@ export const LoginComponent = ({
       container
       direction="column"
       justifyContent="center"
-      display="flex"
-      alignItems="center"
-      style={{ height: "100vh" }}
+      alignItems="center" // Center align horizontally
+      padding="16px"
+      style={{
+        height: "100vh",
+        width: "100%",
+      }}
     >
       <PoolifySnackbar
         open={success === true}
