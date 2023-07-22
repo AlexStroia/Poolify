@@ -5,4 +5,6 @@ export enum DashboardPage {
 }
 export interface DashboardState {
     page: DashboardPage
+    loading: boolean
+    errorMessage?: string | null
 }

@@ -6,7 +6,7 @@ import {
 import { PoolifyButton } from "../views/PoolifyButton";
 import { TransparentButton } from "../views/TransparentButton";
 import { theme } from "../theme";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";

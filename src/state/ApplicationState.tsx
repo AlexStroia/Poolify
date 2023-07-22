@@ -15,7 +15,9 @@ export const authenticationState: AuthenticationState = {
 };
 
 export const dashboardPageInitialState: DashboardState = {
-  page : DashboardPage.HOME
+  page : DashboardPage.HOME,
+  loading: false,
+  errorMessage: null
 }
 
 export const appState: ApplicationState = {
@@ -28,6 +30,8 @@ export const appState: ApplicationState = {
     errorMessage: "",
   },
   dashboard: {
-    page: DashboardPage.HOME
+    page: DashboardPage.HOME,
+    loading: false,
+    errorMessage: null
   }
 };

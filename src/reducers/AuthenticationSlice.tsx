@@ -5,6 +5,7 @@ import { loginAction } from "../actions/LoginAction";
 import { signupAction } from "../actions/SignupAction";
 import { forgotPasswordAction } from "../actions/ForgotPasswordAction";
 import { logoutAction } from "../actions/LogoutAction";
+import { saveUserAction } from "../actions/SaveUserAction";
 
 export const authenticationSlice = createSlice({
   name: "authentication",
@@ -29,6 +30,7 @@ export const authenticationSlice = createSlice({
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
+          userId : user?.uid
         };
       })
       .addCase(loginAction.rejected, (state, action) => {
@@ -49,6 +51,7 @@ export const authenticationSlice = createSlice({
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
+          userId : user?.uid
         };
       })
       .addCase(signupAction.rejected, (state, action) => {
@@ -56,6 +59,20 @@ export const authenticationSlice = createSlice({
         const message = payload.message;
         state.errorMessage = message;
         state.loading = false;
+      })
+      .addCase(saveUserAction.pending, (state) => {
+        state.loading = true;
+        state.errorMessage = "";
+      })
+      .addCase(saveUserAction.rejected, (state, action) => {
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.errorMessage = message;
+        state.loading = false;
+      })
+      .addCase(saveUserAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.errorMessage = "";
       })
       .addCase(forgotPasswordAction.pending, (state) => {
         state.loading = true;

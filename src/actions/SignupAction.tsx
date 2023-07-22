@@ -15,5 +15,5 @@ export const signupAction = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  },
+  }
 );

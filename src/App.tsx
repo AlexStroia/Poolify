@@ -12,18 +12,32 @@ import { reset } from "./reducers/AuthenticationSlice";
 import { useEffect } from "react";
 import { ApplicationState } from "./state/ApplicationState";
 import { DashboardComponent } from "./components/DashboardComponent";
+import firebase from "firebase";
+import { SaveUserData, saveUserAction } from "./actions/SaveUserAction";
 
 function App() {
   const navigator = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const isUserLoggedIn = useSelector(
-    (state: ApplicationState) => state.authentication.user !== null,
-  );
+  const user = useSelector((state: ApplicationState) => {
+    const user = state.authentication.user;
+    return user;
+  });
+
+  const isUserLoggedIn =
+    user !== null && user.email !== null && user.email!.length > 0;
   useEffect(() => {
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     if (isUserLoggedIn) {
       navigator("/dashboard");
+      const userData: SaveUserData = {
+        email: user?.email ?? "",
+        userId: user?.userId ?? "",
+      };
+      console.log(user.email);
+      console.log(user.userId);
+      dispatch(saveUserAction(userData));
     } else {
       navigator("/");
     }
@@ -51,7 +65,7 @@ function App() {
         signupAction({
           email: email,
           password: password,
-        }),
+        })
       );
     }
   };
@@ -62,7 +76,7 @@ function App() {
         loginAction({
           email: email,
           password: password,
-        }),
+        })
       );
     }
   };

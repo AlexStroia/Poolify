@@ -17,6 +17,7 @@ export const DashboardComponent = () => {
 
   const user = state.authentication.user;
   const page = state.dashboard.page;
+  console.log(user);
 
   const handleTabChange = (page: DashboardPage) => {
     dispatch(changePage(page));
@@ -33,7 +34,7 @@ export const DashboardComponent = () => {
           <Box sx={{ borderColor: theme.palette.primary.main }}>
             <Tabs
               value={page}
-              onChange={(event, newPage) => {
+              onChange={(_, newPage) => {
                 handleTabChange(newPage);
               }}
             >
