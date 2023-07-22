@@ -1,8 +1,17 @@
-import { Box, Container, Divider, Grid, Typography } from "@mui/material";
-import { PoolifyTabBar } from "../views/PoolifyTabBar";
-import { QuestionList, QuestionListType } from "../views/QuestionList";
+import React from "react";
+import { Divider, Grid, Typography } from "@mui/material";
+import { QuestionItem } from "./QuestionItem";
 
-export const HomeComponent = () => {
+export enum QuestionListType {
+  NEW = "New questions",
+  Done = "Done",
+}
+
+export const QuestionList = ({
+  questionListType,
+}: {
+  questionListType: QuestionListType;
+}) => {
   const gridData = [
     { id: 1, email: "email1@yahoo.com", date: "2022 May 15" },
     { id: 2, email: "email2@gmail.com", date: "2022 June 22" },
@@ -22,19 +31,22 @@ export const HomeComponent = () => {
   ];
   return (
     <div>
-      <PoolifyTabBar />
-      <Container
+      <Typography
         sx={{
-          flexDirection: "column",
-          gap: "124px", // Increase the spacing between elements to 24px
+          marginBottom: "16px",
         }}
+        variant="h3"
       >
-        <Box height="32px" />
-
-        <QuestionList questionListType={QuestionListType.NEW} />
-        <Box height="32px" />
-        <QuestionList questionListType={QuestionListType.Done} />
-      </Container>
+        {questionListType.valueOf()}
+      </Typography>
+      <Divider />
+      <Grid container spacing={2}>
+        {gridData.map((element, index) => (
+          <Grid item key={element.id} xs={12} sm={6} md={4}>
+            <QuestionItem />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 };

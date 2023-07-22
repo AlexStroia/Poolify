@@ -19,14 +19,23 @@ export const saveUserQuestion = createAsyncThunk(
     try {
       const database = firebase.firestore();
       const users = database.collection("questions");
+
+      // Check if the "questions" collection exists
+      const collectionSnapshot = await database
+        .collectionGroup("questions")
+        .limit(1)
+        .get();
       if (userId !== null) {
-        await users.doc(userId).update({
-          [new Date().toISOString()]: saveUserQuestionData,
-        });
-      } else {
-        return rejectWithValue({
-          message: "Could not save the question.",
-        });
+        if (collectionSnapshot.empty) {
+          await users.doc(userId).set({
+            [new Date().toISOString()]: saveUserQuestionData,
+          });
+        } else {
+          // The "questions" collection exists, proceed with the update
+          await users.doc(userId).update({
+            [new Date().toISOString()]: saveUserQuestionData,
+          });
+        }
       }
     } catch (error) {
       return rejectWithValue(error);
