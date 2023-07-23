@@ -1,3 +1,4 @@
+import { QuestionData } from "../model/QuestionData";
 import { Grid, Typography, Box, Card } from "@mui/material";
 import { PoolifyTextField } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
@@ -7,42 +8,13 @@ import {
   SaveUserQuestionData,
   saveUserQuestion,
 } from "../actions/SaveUserQuestion";
-import { ApplicationState } from "../state/ApplicationState";
-import { SpinnerComponent } from "./SpinnerComponent";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
+import { useParams } from "react-router-dom";
 
-export const NewComponent = () => {
-  const dispatch = useDispatch();
-  const questionOptionFirst = useRef<HTMLInputElement>(null);
-  const questionOptionSecond = useRef<HTMLInputElement>(null);
-  const user = useSelector(
-    (state: ApplicationState) => state.authentication.user
-  );
-  const dashboardState = useSelector(
-    (state: ApplicationState) => state.dashboard
-  );
+export const QuestionComponent = () => {
+    const questionData = useParams<QuestionData>();
 
-  const handleTapSave = () => {
-    const questionOptionFirstValue = questionOptionFirst.current?.value ?? "";
-    const questionOptionSecondValue = questionOptionSecond.current?.value ?? "";
-    const saveUserQuestionData: SaveUserQuestionData = {
-      questionOptionFirst: questionOptionFirstValue,
-      questionOptionSecond: questionOptionSecondValue,
-      date: new Date().toISOString(),
-      userId: user?.userId ?? '',
-      email: user?.email ?? ''
-    };
-    dispatch(
-      saveUserQuestion({
-        userId: user?.userId,
-        saveUserQuestionData: saveUserQuestionData,
-      })
-    );
-  };
-
-  return dashboardState.loading ? (
-    <SpinnerComponent />
-  ) : (
+    return (
     <div>
       <PoolifyTabBar />
       <Card
@@ -76,11 +48,7 @@ export const NewComponent = () => {
                 display: "flex",
               }}
             >
-              <PoolifyTextField
-                label="First"
-                placeholder="3"
-                inputRef={questionOptionFirst}
-              />
+              <Typography>{questionData.questionOptionFirst}</Typography>
             </Grid>
             <Grid
               item
@@ -89,11 +57,7 @@ export const NewComponent = () => {
                 display: "flex",
               }}
             >
-              <PoolifyTextField
-                label="Second"
-                placeholder="3"
-                inputRef={questionOptionSecond}
-              />
+              <Typography>{questionData.questionOptionSecond}</Typography>
             </Grid>
             <Grid
               item
@@ -101,14 +65,10 @@ export const NewComponent = () => {
                 justifyContent: "center",
                 display: "flex",
               }}
-            >
-              <PoolifyButton title="Save" onTap={handleTapSave} />
-            </Grid>
+            ></Grid>
           </Grid>
         </div>
       </Card>
     </div>
   );
 };
-
-export default NewComponent;

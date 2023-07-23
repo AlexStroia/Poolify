@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { dashboardPageInitialState } from "../state/ApplicationState";
 import { saveUserAction } from "../actions/SaveUserAction";
 import { saveUserQuestion } from "../actions/SaveUserQuestion";
+import { getNewQuestionsAction } from "../actions/GetNewQuestionsAction";
 
 export const dashboardSlice = createSlice({
   name: "dashboard",
@@ -26,7 +27,22 @@ export const dashboardSlice = createSlice({
         const message = payload.message;
         state.loading = false;
         state.errorMessage = message;
-      });
+      })
+      .addCase(getNewQuestionsAction.pending, (state,_) => {
+        state.loading = true;
+        state.errorMessage = ""
+      }).addCase(getNewQuestionsAction.rejected, (state,action) => {
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.loading = false;
+        state.errorMessage = message;
+      }).addCase(getNewQuestionsAction.fulfilled, (state,action) => {
+        const questions = action.payload;
+        state.loading = false;
+        state.errorMessage = "";
+        state.questions = questions;
+      })
+      ;
   },
 });
 

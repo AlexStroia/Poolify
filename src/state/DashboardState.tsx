@@ -1,3 +1,5 @@
+import { QuestionData } from "../model/QuestionData";
+
 export enum DashboardPage {
   HOME = 0,
   LEADERBOARD = 1,
@@ -7,4 +9,5 @@ export interface DashboardState {
   page: DashboardPage;
   loading: boolean;
   errorMessage?: string | null;
+  questions: QuestionData[]
 }

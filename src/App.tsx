@@ -16,6 +16,7 @@ import { SaveUserData, saveUserAction } from "./actions/SaveUserAction";
 import NewComponent from "./components/NewComponent";
 import { LeaderboardComponent } from "./components/LeaderboardComponent";
 import { HomeComponent } from "./components/HomeComponent";
+import { QuestionComponent } from "./components/QuestionComponent";
 
 function App() {
   const navigator = useNavigate();
@@ -27,8 +28,6 @@ function App() {
     return user;
   });
 
-  const page = useSelector((state: ApplicationState) => state.dashboard.page);
-  console.log(page);
   const isUserLoggedIn =
     user !== null && user.email !== null && user.email!.length > 0;
   useEffect(() => {
@@ -39,8 +38,6 @@ function App() {
         email: user?.email ?? "",
         userId: user?.userId ?? "",
       };
-      console.log(user.email);
-      console.log(user.userId);
       dispatch(saveUserAction(userData));
     } else {
       navigator("/");
@@ -145,6 +142,8 @@ function App() {
         <Route path="/home" element={<HomeComponent />} />
         <Route path="/add" element={<NewComponent />} />
         <Route path="/leaderboard" element={<LeaderboardComponent />} />
+        <Route path="/question/:question_id" element={<QuestionComponent />} />
+
       </Routes>
     </div>
   );

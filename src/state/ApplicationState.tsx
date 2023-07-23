@@ -18,6 +18,7 @@ export const dashboardPageInitialState: DashboardState = {
   page: DashboardPage.HOME,
   loading: false,
   errorMessage: null,
+  questions: []
 };
 
 export const appState: ApplicationState = {
@@ -33,5 +34,6 @@ export const appState: ApplicationState = {
     page: DashboardPage.HOME,
     loading: false,
     errorMessage: null,
+    questions: []
   },
 };
