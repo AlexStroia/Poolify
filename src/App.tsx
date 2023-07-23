@@ -59,6 +59,8 @@ function App() {
         return "Leaderboard";
       case "/add":
         return "Add";
+      case "questions/:id":
+        return "Question";
       case "/home":
         return "Home";
       default:
@@ -142,8 +144,7 @@ function App() {
         <Route path="/home" element={<HomeComponent />} />
         <Route path="/add" element={<NewComponent />} />
         <Route path="/leaderboard" element={<LeaderboardComponent />} />
-        <Route path="/question/:question_id" element={<QuestionComponent />} />
-
+        <Route path="/questions/:question_id" element={<QuestionComponent />} />
       </Routes>
     </div>
   );

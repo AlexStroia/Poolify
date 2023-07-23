@@ -1,74 +1,102 @@
 import { QuestionData } from "../model/QuestionData";
 import { Grid, Typography, Box, Card } from "@mui/material";
-import { PoolifyTextField } from "../views/PoolifyTextField";
-import { PoolifyButton } from "../views/PoolifyButton";
-import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  SaveUserQuestionData,
-  saveUserQuestion,
-} from "../actions/SaveUserQuestion";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getQuestionAction } from "../actions/GetQuestionAction";
+import { ApplicationState } from "../state/ApplicationState";
+import { SpinnerComponent } from "./SpinnerComponent";
+import ErrorComponent from "./ErrorComponent";
+import { PoolifyButton } from "../views/PoolifyButton";
 
 export const QuestionComponent = () => {
-    const questionData = useParams<QuestionData>();
+  const { question_id } = useParams();
+  const dispatch = useDispatch();
+  const state = useSelector((state: ApplicationState) => state.question);
+  const questionData = state.question;
+  const error = state.error;
+  console.log("Question data boss is " + questionData);
 
-    return (
-    <div>
-      <PoolifyTabBar />
-      <Card
-        style={{ marginTop: "16px", borderRadius: "16px", padding: "16px" }}
-      >
-        <div>
-          <Grid
-            container
-            direction="column"
-            spacing={2}
-            display="flex"
-            alignContent="ce"
-          >
-            {" "}
-            <Grid
-              item
-              sx={{
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              {" "}
-              <Typography variant="h4" gutterBottom>
-                Would you rather?
-              </Typography>
+  useEffect(() => {
+    if (question_id !== null && question_id !== undefined) {
+      dispatch(getQuestionAction(question_id!));
+    }
+  }, []);
+
+  return state.loading ? (
+    <SpinnerComponent />
+  ) : (
+    <Grid
+      container
+      direction="column"
+      spacing={2}
+      display="flex"
+      alignContent="center"
+      alignItems="center"
+    >
+      <Grid item>
+        <PoolifyTabBar />
+      </Grid>
+      <Grid item>
+        <Card
+          style={{ marginTop: "16px", borderRadius: "16px", padding: "16px" }}
+        >
+          <div>
+            <Grid container direction="column" spacing={2} display="flex">
+              <ErrorComponent message={error ?? ""} />
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography variant="h4" gutterBottom>
+                  Would you rather?
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <PoolifyButton
+                  title={questionData?.questionOptionFirst ?? ""}
+                  onTap={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                ></PoolifyButton>
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <PoolifyButton
+                  title={questionData?.questionOptionSecond ?? ""}
+                  onTap={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                ></PoolifyButton>{" "}
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>Choose an option</Typography>
+              </Grid>
             </Grid>
-            <Grid
-              item
-              sx={{
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              <Typography>{questionData.questionOptionFirst}</Typography>
-            </Grid>
-            <Grid
-              item
-              sx={{
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              <Typography>{questionData.questionOptionSecond}</Typography>
-            </Grid>
-            <Grid
-              item
-              sx={{
-                justifyContent: "center",
-                display: "flex",
-              }}
-            ></Grid>
-          </Grid>
-        </div>
-      </Card>
-    </div>
+          </div>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };

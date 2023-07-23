@@ -9,5 +9,5 @@ export interface DashboardState {
   page: DashboardPage;
   loading: boolean;
   errorMessage?: string | null;
-  questions: QuestionData[]
+  questions: QuestionData[];
 }

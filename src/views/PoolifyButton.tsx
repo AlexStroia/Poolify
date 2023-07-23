@@ -26,6 +26,8 @@ export const PoolifyButton: React.FC<PoolifyButtonsProps> = ({
         justifyContent: "center",
         alignItems: "center",
         alignContent: "center",
+        paddingLeft: "12px",
+        paddingRight: "12px",
         width: buttonSize === PoolifyButtonSize.NORMAL ? "50%" : "100%",
       }}
       onClick={onTap}

@@ -28,21 +28,22 @@ export const dashboardSlice = createSlice({
         state.loading = false;
         state.errorMessage = message;
       })
-      .addCase(getNewQuestionsAction.pending, (state,_) => {
+      .addCase(getNewQuestionsAction.pending, (state, _) => {
         state.loading = true;
-        state.errorMessage = ""
-      }).addCase(getNewQuestionsAction.rejected, (state,action) => {
+        state.errorMessage = "";
+      })
+      .addCase(getNewQuestionsAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
         state.loading = false;
         state.errorMessage = message;
-      }).addCase(getNewQuestionsAction.fulfilled, (state,action) => {
+      })
+      .addCase(getNewQuestionsAction.fulfilled, (state, action) => {
         const questions = action.payload;
         state.loading = false;
         state.errorMessage = "";
         state.questions = questions;
-      })
-      ;
+      });
   },
 });
 

@@ -25,5 +25,5 @@ export const getNewQuestionsAction = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

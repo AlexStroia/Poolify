@@ -15,11 +15,10 @@ export const HomeComponent = () => {
   useEffect(() => {
     dispatch(getNewQuestionsAction());
   }, []);
-  console.log(state);
 
   const handleOnTapQuestion = (questionId: string) => {
-    navigator(`/questions/${questionId}`)
-  }
+    navigator(`/questions/${questionId}`);
+  };
 
   return (
     <div>
@@ -38,8 +37,10 @@ export const HomeComponent = () => {
           onTapQuestion={handleOnTapQuestion}
         />
         <Box height="32px" />
-        <QuestionList questionListType={QuestionListType.DONE}
-        onTapQuestion={(questionId) => {}}/>
+        <QuestionList
+          questionListType={QuestionListType.DONE}
+          onTapQuestion={(questionId) => {}}
+        />
       </Container>
     </div>
   );

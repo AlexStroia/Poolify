@@ -17,7 +17,7 @@ export const saveUserQuestion = createAsyncThunk(
       saveUserQuestionData,
     }: { userId?: string | null; saveUserQuestionData: SaveUserQuestionData },
 
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const database = firebase.firestore();
@@ -26,5 +26,5 @@ export const saveUserQuestion = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

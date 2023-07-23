@@ -16,10 +16,10 @@ export const NewComponent = () => {
   const questionOptionFirst = useRef<HTMLInputElement>(null);
   const questionOptionSecond = useRef<HTMLInputElement>(null);
   const user = useSelector(
-    (state: ApplicationState) => state.authentication.user
+    (state: ApplicationState) => state.authentication.user,
   );
   const dashboardState = useSelector(
-    (state: ApplicationState) => state.dashboard
+    (state: ApplicationState) => state.dashboard,
   );
 
   const handleTapSave = () => {
@@ -29,14 +29,14 @@ export const NewComponent = () => {
       questionOptionFirst: questionOptionFirstValue,
       questionOptionSecond: questionOptionSecondValue,
       date: new Date().toISOString(),
-      userId: user?.userId ?? '',
-      email: user?.email ?? ''
+      userId: user?.userId ?? "",
+      email: user?.email ?? "",
     };
     dispatch(
       saveUserQuestion({
         userId: user?.userId,
         saveUserQuestionData: saveUserQuestionData,
-      })
+      }),
     );
   };
 
@@ -49,13 +49,7 @@ export const NewComponent = () => {
         style={{ marginTop: "16px", borderRadius: "16px", padding: "16px" }}
       >
         <div>
-          <Grid
-            container
-            direction="column"
-            spacing={2}
-            display="flex"
-            alignContent="ce"
-          >
+          <Grid container direction="column" spacing={2} display="flex">
             {" "}
             <Grid
               item
