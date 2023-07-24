@@ -19,8 +19,8 @@ export const getQuestionAction = createAsyncThunk(
           questionOptionFirst: data?.questionOptionFirst ?? "",
           questionOptionSecond: data?.questionOptionSecond ?? "",
           email: data?.email || "",
-          voteOptionFirst: data?.voteOptionFirst ?? '0',
-          voteOptionSecond: data?.voteOptionSecond ?? '0'
+          voteOptionFirst: data?.voteOptionFirst ?? "0",
+          voteOptionSecond: data?.voteOptionSecond ?? "0",
           // Provide a default value if 'email' is not available in the data object
         };
         console.log("Final is " + questionData);

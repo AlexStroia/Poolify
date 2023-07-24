@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { dashboardPageInitialState } from "../state/ApplicationState";
-import { saveUserAction } from "../actions/SaveUserAction";
 import { saveUserQuestion } from "../actions/SaveUserQuestion";
-import { getNewQuestionsAction } from "../actions/GetNewQuestionsAction";
+import { getAllQuestions } from "../actions/GetAllQuestions";
+import { getUserQuestions } from "../actions/GetUserQuestions";
+import { QuestionData } from "../model/QuestionData";
 
 export const dashboardSlice = createSlice({
   name: "dashboard",
@@ -10,6 +11,15 @@ export const dashboardSlice = createSlice({
   reducers: {
     changePage(state, action) {
       state.page = action.payload;
+    },
+    getNewQuestions(state, action: PayloadAction<QuestionData[]>) {
+      console.log("Get new questions called");
+      state.userNewQuestions = state.allQuestions.filter(
+        (question) =>
+          !state.userAnsweredQuestions.some(
+            (answeredQuestion) => answeredQuestion.id === question.id,
+          ),
+      );
     },
   },
   extraReducers: (builder) => {
@@ -19,7 +29,7 @@ export const dashboardSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(saveUserQuestion.fulfilled, (state, _) => {
-        state.loading= false;
+        state.loading = false;
         state.errorMessage = "";
       })
       .addCase(saveUserQuestion.rejected, (state, action) => {
@@ -28,24 +38,51 @@ export const dashboardSlice = createSlice({
         state.loading = false;
         state.errorMessage = message;
       })
-      .addCase(getNewQuestionsAction.pending, (state, _) => {
+      .addCase(getAllQuestions.pending, (state, _) => {
         state.loadingNewQuestions = true;
         state.errorMessage = "";
       })
-      .addCase(getNewQuestionsAction.rejected, (state, action) => {
+      .addCase(getAllQuestions.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
         state.loadingNewQuestions = false;
         state.errorMessage = message;
       })
-      .addCase(getNewQuestionsAction.fulfilled, (state, action) => {
+      .addCase(getAllQuestions.fulfilled, (state, action) => {
         const questions = action.payload;
         state.loadingNewQuestions = false;
         state.errorMessage = "";
-        state.questions = questions;
+        state.allQuestions = questions;
+      })
+      .addCase(getUserQuestions.pending, (state, _) => {
+        state.loadingNewQuestions = true;
+        state.loadingDoneQuestions = true;
+        state.errorMessage = "";
+      })
+      .addCase(getUserQuestions.fulfilled, (state, action) => {
+        const userAnsweredQuestions = action.payload;
+        state.loading = false;
+        state.loadingNewQuestions = false;
+        state.loadingDoneQuestions = false;
+        state.errorMessage = "";
+        state.userAnsweredQuestions = userAnsweredQuestions;
+        state.userNewQuestions = state.allQuestions.filter(
+          (question) =>
+            !state.userAnsweredQuestions.some(
+              (answeredQuestion) => answeredQuestion.id === question.id,
+            ),
+        );
+      })
+      .addCase(getUserQuestions.rejected, (state, action) => {
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.loading = false;
+        state.loadingNewQuestions = false;
+        state.loadingDoneQuestions = false;
+        state.errorMessage = message;
       });
   },
 });
 
-export const { changePage } = dashboardSlice.actions;
+export const { changePage, getNewQuestions } = dashboardSlice.actions;
 export const dashboardReducer = dashboardSlice.reducer;

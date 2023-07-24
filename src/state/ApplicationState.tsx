@@ -21,8 +21,10 @@ export const dashboardPageInitialState: DashboardState = {
   loadingNewQuestions: false,
   errorMessage: null,
   loading: false,
-  questions: [],
-  loadingDoneQuestions: false
+  allQuestions: [],
+  userAnsweredQuestions: [],
+  userNewQuestions: [],
+  loadingDoneQuestions: false,
 };
 
 export const questionInitialState: QuestionState = {
@@ -44,9 +46,11 @@ export const appState: ApplicationState = {
     page: DashboardPage.HOME,
     loadingNewQuestions: false,
     errorMessage: null,
-    questions: [],
+    allQuestions: [],
+    userAnsweredQuestions: [],
+    userNewQuestions: [],
     loading: false,
-    loadingDoneQuestions: false
+    loadingDoneQuestions: false,
   },
   question: {
     question: null,

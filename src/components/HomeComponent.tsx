@@ -1,20 +1,25 @@
 import { Box, Container, Divider } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import QuestionList, { QuestionListType } from "../views/QuestionList";
-import { useEffect } from "react";
-import { getNewQuestionsAction } from "../actions/GetNewQuestionsAction";
+import { useEffect, useState } from "react";
+import { getAllQuestions } from "../actions/GetAllQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import { useNavigate } from "react-router-dom";
 import { SpinnerComponent } from "./SpinnerComponent";
+import { getUserQuestions } from "../actions/GetUserQuestions";
 
 export const HomeComponent = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  const state = useSelector((state: ApplicationState) => state.dashboard);
-
+  const state = useSelector((state: ApplicationState) => state);
+  const dashboardState = state.dashboard;
+  const user = state.authentication.user;
   useEffect(() => {
-    dispatch(getNewQuestionsAction());
+    dispatch(getAllQuestions());
+    if (user?.userId !== null) {
+      dispatch(getUserQuestions(user!.userId!));
+    }
   }, []);
 
   const handleOnTapQuestion = (questionId: string) => {
@@ -31,19 +36,20 @@ export const HomeComponent = () => {
         }}
       >
         <Box height="32px" />
-        {state.loadingNewQuestions ? (
+        {dashboardState.loadingNewQuestions ? (
           <SpinnerComponent />
         ) : (
           <QuestionList
             questionListType={QuestionListType.NEW}
-            questionDataList={state.questions}
+            questionDataList={dashboardState.userNewQuestions}
             onTapQuestion={handleOnTapQuestion}
           />
         )}
         <Box height="32px" />
         <QuestionList
           questionListType={QuestionListType.DONE}
-          onTapQuestion={(questionId) => {}}
+          questionDataList={dashboardState.userAnsweredQuestions}
+          onTapQuestion={handleOnTapQuestion}
         />
       </Container>
     </div>

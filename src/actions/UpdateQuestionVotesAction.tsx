@@ -13,7 +13,7 @@ export const updateQuestionVotesAction = createAsyncThunk(
       voteOptionFirst?: string | null;
       voteOptionSecond?: string | null;
     },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const database = firebase.firestore();
@@ -22,7 +22,7 @@ export const updateQuestionVotesAction = createAsyncThunk(
       const exists = await question.get();
       console.log("updating");
       if (exists) {
-        console.log('exists');
+        console.log("exists");
         if (voteOptionFirst !== null) {
           await question.update({
             voteOptionFirst: firebase.firestore.FieldValue.increment(1) ?? 0,
@@ -39,5 +39,5 @@ export const updateQuestionVotesAction = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

@@ -11,5 +11,7 @@ export interface DashboardState {
   loadingDoneQuestions: boolean;
   loading: boolean;
   errorMessage?: string | null;
-  questions: QuestionData[];
+  allQuestions: QuestionData[];
+  userAnsweredQuestions: QuestionData[];
+  userNewQuestions: QuestionData[];
 }

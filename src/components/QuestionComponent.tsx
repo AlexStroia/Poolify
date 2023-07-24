@@ -47,7 +47,7 @@ export const QuestionComponent = () => {
           questionId,
           voteOptionFirst,
           voteOptionSecond,
-        })
+        }),
       );
       dispatch(getQuestionAction(question_id!));
       navigator(-1);
@@ -71,7 +71,7 @@ export const QuestionComponent = () => {
           questionId,
           voteOptionFirst,
           voteOptionSecond,
-        })
+        }),
       );
       navigator(-1);
     }
@@ -123,7 +123,7 @@ export const QuestionComponent = () => {
                   title={questionData?.questionOptionFirst ?? ""}
                   onTap={() =>
                     handleUserFirstAnswer(
-                      questionData?.questionOptionFirst ?? ""
+                      questionData?.questionOptionFirst ?? "",
                     )
                   }
                 ></PoolifyButton>
@@ -145,7 +145,7 @@ export const QuestionComponent = () => {
                   title={questionData?.questionOptionSecond ?? ""}
                   onTap={() =>
                     handleUserSecondAnswer(
-                      questionData?.questionOptionSecond ?? ""
+                      questionData?.questionOptionSecond ?? "",
                     )
                   }
                 ></PoolifyButton>{" "}

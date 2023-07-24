@@ -12,9 +12,7 @@ export interface SaveUserQuestionData {
 export const saveUserQuestion = createAsyncThunk(
   "dashboard/new",
   async (
-    {
-      saveUserQuestionData,
-    }: {saveUserQuestionData: SaveUserQuestionData },
+    { saveUserQuestionData }: { saveUserQuestionData: SaveUserQuestionData },
 
     { rejectWithValue },
   ) => {

@@ -1,7 +1,7 @@
-import { QuestionData } from "./QuestionData"
+import { QuestionData } from "./QuestionData";
 
-export type UserQuestionAnswer ={
-    questionData: QuestionData
-    questionOptionFirst?: string | null
-    questionOptionSecond?: string | null
-}
+export type UserQuestionAnswer = {
+  questionData: QuestionData;
+  questionOptionFirst?: string | null;
+  questionOptionSecond?: string | null;
+};

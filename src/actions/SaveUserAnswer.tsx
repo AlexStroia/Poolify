@@ -12,7 +12,7 @@ export const saveUserAnswerAction = createAsyncThunk(
       userId: string;
       userQuestionAnswer: UserQuestionAnswer;
     },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const firestore = firebase.firestore();
@@ -26,13 +26,19 @@ export const saveUserAnswerAction = createAsyncThunk(
 
       if (!doc.exists) {
         // If the document doesn't exist, create a new one
-        await userDocRef.collection("questions").doc(date).set(userQuestionAnswer);
+        await userDocRef
+          .collection("questions")
+          .doc(date)
+          .set(userQuestionAnswer);
       } else {
         // If the document exists, update it
-        await userDocRef.collection("questions").doc(date).update(userQuestionAnswer);
+        await userDocRef
+          .collection("questions")
+          .doc(date)
+          .update(userQuestionAnswer);
       }
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );

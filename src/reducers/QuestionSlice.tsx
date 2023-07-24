@@ -42,7 +42,7 @@ export const questionSlice = createSlice({
         state.loading = false;
         state.error = null;
       })
-      
+
       .addCase(updateQuestionVotesAction.pending, (state, _) => {
         state.loading = true;
         state.error = null;
@@ -57,9 +57,6 @@ export const questionSlice = createSlice({
         state.loading = false;
         state.error = null;
       });
-      
-      
-      ;
   },
 });
 

@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import firebase from "firebase";
 import { QuestionData } from "../model/QuestionData";
 
-export const getNewQuestionsAction = createAsyncThunk(
+export const getAllQuestions = createAsyncThunk(
   "questions/get",
   async (_, { rejectWithValue }) => {
     try {
