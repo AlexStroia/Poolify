@@ -1,4 +1,3 @@
-import { error } from "console";
 import { AuthenticationState } from "./AuthenticationState";
 import { DashboardPage, DashboardState } from "./DashboardState";
 import { QuestionState } from "./QuestionState";
@@ -19,9 +18,11 @@ export const authenticationState: AuthenticationState = {
 
 export const dashboardPageInitialState: DashboardState = {
   page: DashboardPage.HOME,
-  loading: false,
+  loadingNewQuestions: false,
   errorMessage: null,
+  loading: false,
   questions: [],
+  loadingDoneQuestions: false
 };
 
 export const questionInitialState: QuestionState = {
@@ -41,9 +42,11 @@ export const appState: ApplicationState = {
   },
   dashboard: {
     page: DashboardPage.HOME,
-    loading: false,
+    loadingNewQuestions: false,
     errorMessage: null,
     questions: [],
+    loading: false,
+    loadingDoneQuestions: false
   },
   question: {
     question: null,

@@ -19,7 +19,7 @@ export const dashboardSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(saveUserQuestion.fulfilled, (state, _) => {
-        state.loading = false;
+        state.loading= false;
         state.errorMessage = "";
       })
       .addCase(saveUserQuestion.rejected, (state, action) => {
@@ -29,18 +29,18 @@ export const dashboardSlice = createSlice({
         state.errorMessage = message;
       })
       .addCase(getNewQuestionsAction.pending, (state, _) => {
-        state.loading = true;
+        state.loadingNewQuestions = true;
         state.errorMessage = "";
       })
       .addCase(getNewQuestionsAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
-        state.loading = false;
+        state.loadingNewQuestions = false;
         state.errorMessage = message;
       })
       .addCase(getNewQuestionsAction.fulfilled, (state, action) => {
         const questions = action.payload;
-        state.loading = false;
+        state.loadingNewQuestions = false;
         state.errorMessage = "";
         state.questions = questions;
       });

@@ -1,7 +1,7 @@
 import { QuestionData } from "../model/QuestionData";
 import { Grid, Typography, Box, Card } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../actions/GetQuestionAction";
@@ -9,14 +9,20 @@ import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
 import ErrorComponent from "./ErrorComponent";
 import { PoolifyButton } from "../views/PoolifyButton";
+import { UserQuestionAnswer } from "../model/UserQuestionAnswer";
+import { saveUserAnswerAction } from "../actions/SaveUserAnswer";
+import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction";
 
 export const QuestionComponent = () => {
+  const navigator = useNavigate();
   const { question_id } = useParams();
   const dispatch = useDispatch();
-  const state = useSelector((state: ApplicationState) => state.question);
-  const questionData = state.question;
-  const error = state.error;
-  console.log("Question data boss is " + questionData);
+  const state = useSelector((state: ApplicationState) => state);
+
+  const user = state.authentication.user;
+  const questionState = state.question;
+  const questionData = questionState.question;
+  const error = questionState.error;
 
   useEffect(() => {
     if (question_id !== null && question_id !== undefined) {
@@ -24,7 +30,54 @@ export const QuestionComponent = () => {
     }
   }, []);
 
-  return state.loading ? (
+  const handleUserFirstAnswer = (value: string) => {
+    if (user !== null || user !== undefined) {
+      const userId = user?.userId!;
+      const userQuestionAnswer: UserQuestionAnswer = {
+        questionData: questionData!,
+        questionOptionFirst: value,
+        questionOptionSecond: null,
+      };
+      const questionId = question_id!;
+      const voteOptionFirst = value;
+      const voteOptionSecond = null;
+      dispatch(saveUserAnswerAction({ userId, userQuestionAnswer }));
+      dispatch(
+        updateQuestionVotesAction({
+          questionId,
+          voteOptionFirst,
+          voteOptionSecond,
+        })
+      );
+      dispatch(getQuestionAction(question_id!));
+      navigator(-1);
+    }
+  };
+
+  const handleUserSecondAnswer = (value: string) => {
+    if (user !== null || user !== undefined) {
+      const userId = user?.userId!;
+      const userQuestionAnswer: UserQuestionAnswer = {
+        questionData: questionData!,
+        questionOptionSecond: value,
+        questionOptionFirst: null,
+      };
+      const questionId = question_id!;
+      const voteOptionSecond = value;
+      const voteOptionFirst = null;
+      dispatch(saveUserAnswerAction({ userId, userQuestionAnswer }));
+      dispatch(
+        updateQuestionVotesAction({
+          questionId,
+          voteOptionFirst,
+          voteOptionSecond,
+        })
+      );
+      navigator(-1);
+    }
+  };
+
+  return questionState.loading ? (
     <SpinnerComponent />
   ) : (
     <Grid
@@ -61,28 +114,44 @@ export const QuestionComponent = () => {
                 sx={{
                   justifyContent: "center",
                   display: "flex",
+                  alignContent: "center",
+                  alignItems: "center",
+                  gap: "2px",
                 }}
               >
                 <PoolifyButton
                   title={questionData?.questionOptionFirst ?? ""}
-                  onTap={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
+                  onTap={() =>
+                    handleUserFirstAnswer(
+                      questionData?.questionOptionFirst ?? ""
+                    )
+                  }
                 ></PoolifyButton>
+                <Typography variant="body1">
+                  {questionData?.voteOptionFirst}
+                </Typography>
               </Grid>
               <Grid
                 item
                 sx={{
                   justifyContent: "center",
                   display: "flex",
+                  alignContent: "center",
+                  alignItems: "center",
+                  gap: "2px",
                 }}
               >
                 <PoolifyButton
                   title={questionData?.questionOptionSecond ?? ""}
-                  onTap={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
+                  onTap={() =>
+                    handleUserSecondAnswer(
+                      questionData?.questionOptionSecond ?? ""
+                    )
+                  }
                 ></PoolifyButton>{" "}
+                <Typography variant="body1">
+                  {questionData?.voteOptionSecond}
+                </Typography>
               </Grid>
               <Grid
                 item

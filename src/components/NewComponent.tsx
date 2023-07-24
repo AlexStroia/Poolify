@@ -34,7 +34,6 @@ export const NewComponent = () => {
     };
     dispatch(
       saveUserQuestion({
-        userId: user?.userId,
         saveUserQuestionData: saveUserQuestionData,
       }),
     );

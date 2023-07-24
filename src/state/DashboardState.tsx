@@ -7,6 +7,8 @@ export enum DashboardPage {
 }
 export interface DashboardState {
   page: DashboardPage;
+  loadingNewQuestions: boolean;
+  loadingDoneQuestions: boolean;
   loading: boolean;
   errorMessage?: string | null;
   questions: QuestionData[];

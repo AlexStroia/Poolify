@@ -6,6 +6,7 @@ import { getNewQuestionsAction } from "../actions/GetNewQuestionsAction";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import { useNavigate } from "react-router-dom";
+import { SpinnerComponent } from "./SpinnerComponent";
 
 export const HomeComponent = () => {
   const dispatch = useDispatch();
@@ -30,12 +31,15 @@ export const HomeComponent = () => {
         }}
       >
         <Box height="32px" />
-
-        <QuestionList
-          questionListType={QuestionListType.NEW}
-          questionDataList={state.questions}
-          onTapQuestion={handleOnTapQuestion}
-        />
+        {state.loadingNewQuestions ? (
+          <SpinnerComponent />
+        ) : (
+          <QuestionList
+            questionListType={QuestionListType.NEW}
+            questionDataList={state.questions}
+            onTapQuestion={handleOnTapQuestion}
+          />
+        )}
         <Box height="32px" />
         <QuestionList
           questionListType={QuestionListType.DONE}
