@@ -3,6 +3,8 @@ import { PoolifyButton, PoolifyButtonSize } from "./PoolifyButton";
 import { theme } from "../theme";
 import { QuestionData } from "../model/QuestionData";
 
+
+
 export const QuestionItem = ({
   questionData,
   onTapQuestion,
@@ -13,7 +15,19 @@ export const QuestionItem = ({
   const handleOnTapQuestion = (questionId: string) => {
     onTapQuestion(questionId);
   };
+  const date: Date = new Date(questionData.date);
 
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZone: "UTC"
+  };
+  
+  const formattedDate: string = date.toLocaleString("en-US", options);
   return (
     <Card sx={{ borderRadius: "16px" }}>
       <Grid
@@ -30,7 +44,7 @@ export const QuestionItem = ({
           <Typography textAlign="center">{questionData.email}</Typography>
         </Grid>
         <Grid item>
-          <Typography textAlign="center">{questionData.date}</Typography>
+          <Typography textAlign="center">{formattedDate}</Typography>
         </Grid>
         <Grid item>
           <Divider

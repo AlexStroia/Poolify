@@ -1,9 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { dashboardPageInitialState } from "../state/ApplicationState";
 import { saveUserQuestion } from "../actions/SaveUserQuestion";
 import { getAllQuestions } from "../actions/GetAllQuestions";
 import { getUserQuestions } from "../actions/GetUserQuestions";
-import { QuestionData } from "../model/QuestionData";
 
 export const dashboardSlice = createSlice({
   name: "dashboard",
@@ -11,15 +10,6 @@ export const dashboardSlice = createSlice({
   reducers: {
     changePage(state, action) {
       state.page = action.payload;
-    },
-    getNewQuestions(state, action: PayloadAction<QuestionData[]>) {
-      console.log("Get new questions called");
-      state.userNewQuestions = state.allQuestions.filter(
-        (question) =>
-          !state.userAnsweredQuestions.some(
-            (answeredQuestion) => answeredQuestion.id === question.id,
-          ),
-      );
     },
   },
   extraReducers: (builder) => {
@@ -84,5 +74,5 @@ export const dashboardSlice = createSlice({
   },
 });
 
-export const { changePage, getNewQuestions } = dashboardSlice.actions;
+export const { changePage } = dashboardSlice.actions;
 export const dashboardReducer = dashboardSlice.reducer;
