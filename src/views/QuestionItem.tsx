@@ -3,8 +3,6 @@ import { PoolifyButton, PoolifyButtonSize } from "./PoolifyButton";
 import { theme } from "../theme";
 import { QuestionData } from "../model/QuestionData";
 
-
-
 export const QuestionItem = ({
   questionData,
   onTapQuestion,
@@ -24,9 +22,9 @@ export const QuestionItem = ({
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-    timeZone: "UTC"
+    timeZone: "UTC",
   };
-  
+
   const formattedDate: string = date.toLocaleString("en-US", options);
   return (
     <Card sx={{ borderRadius: "16px" }}>

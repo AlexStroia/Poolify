@@ -5,7 +5,7 @@ import { loginAction } from "../actions/LoginAction";
 import { signupAction } from "../actions/SignupAction";
 import { forgotPasswordAction } from "../actions/ForgotPasswordAction";
 import { logoutAction } from "../actions/LogoutAction";
-import { saveUserAction } from "../actions/SaveUserAction";
+import { saveUserProfileAction } from "../actions/SaveUserProfileAction";
 
 export const authenticationSlice = createSlice({
   name: "authentication",
@@ -60,17 +60,17 @@ export const authenticationSlice = createSlice({
         state.errorMessage = message;
         state.loading = false;
       })
-      .addCase(saveUserAction.pending, (state) => {
+      .addCase(saveUserProfileAction.pending, (state) => {
         state.loading = true;
         state.errorMessage = "";
       })
-      .addCase(saveUserAction.rejected, (state, action) => {
+      .addCase(saveUserProfileAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
         state.errorMessage = message;
         state.loading = false;
       })
-      .addCase(saveUserAction.fulfilled, (state, action) => {
+      .addCase(saveUserProfileAction.fulfilled, (state, action) => {
         state.loading = false;
         state.errorMessage = "";
       })

@@ -1,4 +1,5 @@
 import { QuestionData } from "../model/QuestionData";
+import { User } from "../model/User";
 
 export enum DashboardPage {
   HOME = 0,
@@ -14,4 +15,5 @@ export interface DashboardState {
   allQuestions: QuestionData[];
   userAnsweredQuestions: QuestionData[];
   userNewQuestions: QuestionData[];
+  users?: User[];
 }

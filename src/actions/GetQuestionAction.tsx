@@ -21,9 +21,7 @@ export const getQuestionAction = createAsyncThunk(
           email: data?.email || "",
           voteOptionFirst: data?.voteOptionFirst ?? "0",
           voteOptionSecond: data?.voteOptionSecond ?? "0",
-          // Provide a default value if 'email' is not available in the data object
         };
-        console.log("Final is " + questionData);
         return questionData;
       } else {
         return rejectWithValue({ message: "Question does not exist" });

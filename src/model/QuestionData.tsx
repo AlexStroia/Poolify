@@ -6,4 +6,5 @@ export type QuestionData = {
   id: string;
   voteOptionFirst?: string;
   voteOptionSecond?: string;
+  userId?: string;
 };

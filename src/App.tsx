@@ -12,7 +12,10 @@ import { reset } from "./reducers/AuthenticationSlice";
 import { useEffect } from "react";
 import { ApplicationState } from "./state/ApplicationState";
 import firebase from "firebase";
-import { SaveUserData, saveUserAction } from "./actions/SaveUserAction";
+import {
+  SaveUserData,
+  saveUserProfileAction,
+} from "./actions/SaveUserProfileAction";
 import NewComponent from "./components/NewComponent";
 import { LeaderboardComponent } from "./components/LeaderboardComponent";
 import { HomeComponent } from "./components/HomeComponent";
@@ -38,7 +41,7 @@ function App() {
         email: user?.email ?? "",
         userId: user?.userId ?? "",
       };
-      dispatch(saveUserAction(userData));
+      dispatch(saveUserProfileAction(userData));
     } else {
       navigator("/");
     }

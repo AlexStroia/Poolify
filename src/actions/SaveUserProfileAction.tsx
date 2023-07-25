@@ -6,7 +6,7 @@ export interface SaveUserData {
   userId: string;
 }
 
-export const saveUserAction = createAsyncThunk(
+export const saveUserProfileAction = createAsyncThunk(
   "authentication/save-user",
   async ({ email, userId }: SaveUserData, { rejectWithValue }) => {
     try {

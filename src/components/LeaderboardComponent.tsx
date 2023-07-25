@@ -1,23 +1,25 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Typography } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
-import React from "react";
+import { getAllUsers } from "../actions/GetAllUsers";
+import { ApplicationState } from "../state/ApplicationState";
+import { SpinnerComponent } from "./SpinnerComponent";
 
 export const LeaderboardComponent = () => {
-  const data = [
-    {
-      name: "John Doe",
-      avatar: "https://example.com/avatar/john.png",
-      questionsAsked: 10,
-      questionsAnswered: 25,
-    },
-    {
-      name: "Jane Smith",
-      avatar: "https://example.com/avatar/jane.png",
-      questionsAsked: 5,
-      questionsAnswered: 15,
-    },
-    // Add more data objects for additional rows
-  ];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  const state = useSelector((state: ApplicationState) => state.dashboard);
+  const users = state.users ?? [];
+  const sortedUsers = users
+    .slice()
+    .sort(
+      (first, second) =>
+        second.questionsAnswered!.length - first.questionsAnswered!.length,
+    );
 
   return (
     <Grid>
@@ -49,29 +51,43 @@ export const LeaderboardComponent = () => {
         </Grid>
 
         {/* Data Rows */}
-        {data.map((item, index) => (
-          <React.Fragment key={index}>
-            <Grid item xs={3}>
-              <Typography textAlign="center" variant="body1">
-                {item.name}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-            {/* Center the image */}
-            <img src={item.avatar} alt={item.name} style={{ width: "36px", height: "36px", display: "block", margin: "0 auto" }} />
-          </Grid>
-            <Grid item xs={3}>
-              <Typography textAlign="center" variant="body1">
-                {item.questionsAsked}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography textAlign="center" variant="body1">
-                {item.questionsAnswered}
-              </Typography>
-            </Grid>
-          </React.Fragment>
-        ))}
+        {state.loading ? (
+          <SpinnerComponent />
+        ) : (
+          sortedUsers &&
+          sortedUsers.map((item, index) => (
+            <React.Fragment key={index}>
+              <Grid item xs={3}>
+                <Typography textAlign="center" variant="body1">
+                  {item.email}
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                {/* Display the user's avatar */}
+                <img
+                  src={"TODO"}
+                  alt="Avatar"
+                  style={{
+                    width: "36px",
+                    height: "36px",
+                    display: "block",
+                    margin: "0 auto",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <Typography textAlign="center" variant="body1">
+                  {item.questionsPut?.length}
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography textAlign="center" variant="body1">
+                  {item.questionsAnswered?.length}
+                </Typography>
+              </Grid>
+            </React.Fragment>
+          ))
+        )}
       </Grid>
     </Grid>
   );

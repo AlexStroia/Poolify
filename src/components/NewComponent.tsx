@@ -16,10 +16,10 @@ export const NewComponent = () => {
   const questionOptionFirst = useRef<HTMLInputElement>(null);
   const questionOptionSecond = useRef<HTMLInputElement>(null);
   const user = useSelector(
-    (state: ApplicationState) => state.authentication.user
+    (state: ApplicationState) => state.authentication.user,
   );
   const dashboardState = useSelector(
-    (state: ApplicationState) => state.dashboard
+    (state: ApplicationState) => state.dashboard,
   );
 
   const handleTapSave = () => {
@@ -35,7 +35,7 @@ export const NewComponent = () => {
     dispatch(
       saveUserQuestion({
         saveUserQuestionData: saveUserQuestionData,
-      })
+      }),
     );
   };
 

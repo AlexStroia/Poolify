@@ -18,8 +18,12 @@ export const saveUserQuestion = createAsyncThunk(
   ) => {
     try {
       const database = firebase.firestore();
-      const questions = database.collection("questions");
-      questions.add(saveUserQuestionData);
+      const questionsDatabase = database.collection("questions");
+      const usersDatabase = database.collection("users");
+      const user = usersDatabase.doc(saveUserQuestionData.userId);
+      user.collection("questionsCreated").add(saveUserQuestionData);
+      questionsDatabase.add(saveUserQuestionData);
+      return questionsDatabase;
     } catch (error) {
       return rejectWithValue(error);
     }

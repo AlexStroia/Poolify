@@ -19,6 +19,7 @@ export const getAllQuestions = createAsyncThunk(
           questionOptionFirst: data["questionOptionFirst"] ?? "",
           questionOptionSecond: data["questionOptionSecond"] ?? "",
           email: data["email"],
+          userId: data["userId"] ?? "",
         };
         return questionData;
       });
