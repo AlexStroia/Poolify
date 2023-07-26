@@ -1,5 +1,5 @@
 import { QuestionData } from "../model/QuestionData";
-import { Grid, Typography, Box, Card } from "@mui/material";
+import { Grid, Typography, Box, Card, Avatar } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -12,6 +12,7 @@ import { PoolifyButton } from "../views/PoolifyButton";
 import { UserQuestionAnswer } from "../model/UserQuestionAnswer";
 import { saveUserAnswerAction } from "../actions/SaveUserAnswer";
 import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction";
+import { getAvatarUrlAction } from "../actions/GetAvatarUrlAction";
 
 export const QuestionComponent = () => {
   const navigator = useNavigate();
@@ -19,20 +20,24 @@ export const QuestionComponent = () => {
   const dispatch = useDispatch();
   const state = useSelector((state: ApplicationState) => state);
 
-  const user = state.authentication.user;
+  const authenticatedUser = state.authentication.user;
   const questionState = state.question;
   const questionData = questionState.question;
   const error = questionState.error;
-
+  const avatar = state.question.avatarUrl;
   useEffect(() => {
     if (question_id !== null && question_id !== undefined) {
       dispatch(getQuestionAction(question_id!));
     }
+    console.log("QuestionData user id" + questionData?.userId);
+    if (questionData?.userId !== null && questionData?.userId !== undefined) {
+      dispatch(getAvatarUrlAction(questionData?.userId));
+    }
   }, []);
 
   const handleUserFirstAnswer = (value: string) => {
-    if (user !== null || user !== undefined) {
-      const userId = user?.userId!;
+    if (authenticatedUser !== null || authenticatedUser !== undefined) {
+      const userId = authenticatedUser?.userId!;
       const userQuestionAnswer: UserQuestionAnswer = {
         questionData: questionData!,
         questionOptionFirst: value,
@@ -55,8 +60,8 @@ export const QuestionComponent = () => {
   };
 
   const handleUserSecondAnswer = (value: string) => {
-    if (user !== null || user !== undefined) {
-      const userId = user?.userId!;
+    if (authenticatedUser !== null || authenticatedUser !== undefined) {
+      const userId = authenticatedUser?.userId!;
       const userQuestionAnswer: UserQuestionAnswer = {
         questionData: questionData!,
         questionOptionSecond: value,
@@ -87,9 +92,20 @@ export const QuestionComponent = () => {
       display="flex"
       alignContent="center"
       alignItems="center"
+      gap={"16px"}
     >
       <Grid item>
         <PoolifyTabBar />
+      </Grid>
+      <Grid item>
+        <Avatar
+          src={avatar as string}
+          style={{
+            height: "150px",
+            width: "150px",
+            cursor: "pointer",
+          }}
+        />
       </Grid>
       <Grid item>
         <Card

@@ -31,6 +31,7 @@ export const authenticationSlice = createSlice({
           displayName: user?.displayName,
           email: user?.email,
           userId: user?.uid,
+          avatarUrl: user?.photoURL ?? "",
         };
       })
       .addCase(loginAction.rejected, (state, action) => {
@@ -44,7 +45,7 @@ export const authenticationSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(signupAction.fulfilled, (state, action) => {
-        const user = action.payload.user;
+        const user = action.payload;
         state.success = true;
         state.loading = false;
         state.errorMessage = "";
@@ -52,6 +53,7 @@ export const authenticationSlice = createSlice({
           displayName: user?.displayName,
           email: user?.email,
           userId: user?.uid,
+          avatarUrl: user?.photoURL ?? "",
         };
       })
       .addCase(signupAction.rejected, (state, action) => {

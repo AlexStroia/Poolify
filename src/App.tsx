@@ -40,6 +40,8 @@ function App() {
       const userData: SaveUserData = {
         email: user?.email ?? "",
         userId: user?.userId ?? "",
+        displayName: user?.displayName ?? "",
+        avatar: user.avatarUrl ?? "",
       };
       dispatch(saveUserProfileAction(userData));
     } else {
@@ -49,6 +51,9 @@ function App() {
 
   const getPageTitle = () => {
     const { pathname } = location;
+    if (pathname.includes("/questions")) {
+      return "Would you rather?";
+    }
     switch (pathname) {
       case "/":
         return "Login";
@@ -62,8 +67,6 @@ function App() {
         return "Leaderboard";
       case "/add":
         return "Add";
-      case "questions/:id":
-        return "Question";
       case "/home":
         return "Home";
       default:
@@ -71,23 +74,35 @@ function App() {
     }
   };
 
-  const handleSignUp = (email?: string, password?: string) => {
-    if (email != null && password != null) {
+  const handleSignUp = (
+    email?: string,
+    password?: string,
+    displayName?: string,
+    avatar?: File,
+  ) => {
+    if (
+      email !== undefined &&
+      password !== undefined &&
+      displayName !== undefined &&
+      avatar !== undefined
+    ) {
       dispatch(
         signupAction({
-          email: email,
-          password: password,
+          email: email!,
+          password: password!,
+          displayName: displayName!,
+          avatarFile: avatar,
         }),
       );
     }
   };
 
   const handleSignIn = (email?: string, password?: string) => {
-    if (email != null && password != null) {
+    if (email !== null && password !== null) {
       dispatch(
         loginAction({
-          email: email,
-          password: password,
+          email: email!,
+          password: password!,
         }),
       );
     }

@@ -15,6 +15,8 @@ export const getAllUsers = createAsyncThunk(
       const userPromises = userSnapshot.docs.map(async (snapshot) => {
         const userData = snapshot.data();
         const email = userData.email;
+        const displayName = userData.displayName;
+        const avatar = userData.avatar;
 
         const questionsAnsweredSnapshot = await snapshot.ref
           .collection("questions")
@@ -38,6 +40,8 @@ export const getAllUsers = createAsyncThunk(
           email: email,
           questionsAnswered: questionsAnsweredData,
           questionsPut: questionsPutData,
+          displayName: displayName,
+          avatarUrl: avatar,
         };
 
         return user;

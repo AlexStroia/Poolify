@@ -6,4 +6,5 @@ export type User = {
   userId?: string | null;
   questionsAnswered?: QuestionData[];
   questionsPut?: QuestionData[];
+  avatarUrl?: string | null;
 };

@@ -10,7 +10,6 @@ export const getQuestionAction = createAsyncThunk(
       const questionsRef = database.collection("questions");
       const docRef = questionsRef.doc(id);
       const question = await docRef.get();
-      console.log(question);
       if (question.exists && question.data()) {
         const data = question.data();
         const questionData: QuestionData = {
@@ -21,6 +20,7 @@ export const getQuestionAction = createAsyncThunk(
           email: data?.email || "",
           voteOptionFirst: data?.voteOptionFirst ?? "0",
           voteOptionSecond: data?.voteOptionSecond ?? "0",
+          userId: data?.userId ?? "",
         };
         return questionData;
       } else {

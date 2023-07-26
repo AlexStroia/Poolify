@@ -46,14 +46,9 @@ export const LoginComponent = ({
       style={{
         height: "100vh",
         width: "100%",
+        gap: "16px",
       }}
     >
-      <PoolifySnackbar
-        open={success === true}
-        message={"Logged in with success"}
-        severity={undefined}
-        onClose={onClose}
-      />
       <ErrorComponent message={error} />
       <PoolifyTextField
         label="Email"

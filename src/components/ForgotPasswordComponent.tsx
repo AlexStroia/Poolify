@@ -46,7 +46,7 @@ export const ForgotPasswordComponent = ({
       justifyContent="center"
       display="flex"
       alignItems="center"
-      style={{ height: "100vh" }}
+      style={{ height: "100vh", gap: "16px" }}
     >
       <PoolifySnackbar
         open={showSnackbar}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Typography } from "@mui/material";
+import { Avatar, Grid, Typography } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import { getAllUsers } from "../actions/GetAllUsers";
 import { ApplicationState } from "../state/ApplicationState";
@@ -21,7 +21,9 @@ export const LeaderboardComponent = () => {
         second.questionsAnswered!.length - first.questionsAnswered!.length,
     );
 
-  return (
+  return state.loading ? (
+    <SpinnerComponent />
+  ) : (
     <Grid>
       <Grid item marginBottom={"16px"}>
         <PoolifyTabBar />
@@ -50,7 +52,6 @@ export const LeaderboardComponent = () => {
           </Grid>
         </Grid>
 
-        {/* Data Rows */}
         {state.loading ? (
           <SpinnerComponent />
         ) : (
@@ -62,15 +63,16 @@ export const LeaderboardComponent = () => {
                   {item.email}
                 </Typography>
               </Grid>
+
               <Grid item xs={3}>
                 {/* Display the user's avatar */}
-                <img
-                  src={"TODO"}
-                  alt="Avatar"
+                <Avatar
+                  src={item.avatarUrl as string}
                   style={{
-                    width: "36px",
                     height: "36px",
-                    display: "block",
+                    width: "36px",
+                    cursor: "pointer",
+                    justifyContent: "center",
                     margin: "0 auto",
                   }}
                 />

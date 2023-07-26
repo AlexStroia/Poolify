@@ -20,9 +20,7 @@ export const updateQuestionVotesAction = createAsyncThunk(
       const questions = database.collection("questions");
       const question = questions.doc(questionId);
       const exists = await question.get();
-      console.log("updating");
       if (exists) {
-        console.log("exists");
         if (voteOptionFirst !== null) {
           await question.update({
             voteOptionFirst: firebase.firestore.FieldValue.increment(1) ?? 0,

@@ -42,7 +42,7 @@ export const PoolifyTabBar = () => {
       </Grid>
       <Grid item>
         <Typography variant="body2" sx={{ marginRight: 2 }}>
-          {user?.email}
+          {user?.displayName}
         </Typography>
       </Grid>
       <Grid item>
