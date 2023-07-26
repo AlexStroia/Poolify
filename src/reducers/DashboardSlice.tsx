@@ -58,12 +58,24 @@ export const dashboardSlice = createSlice({
         state.loadingDoneQuestions = false;
         state.errorMessage = "";
         state.userAnsweredQuestions = userAnsweredQuestions;
-        state.userNewQuestions = state.allQuestions.filter(
-          (question) =>
-            !state.userAnsweredQuestions.some(
-              (answeredQuestion) => answeredQuestion.id === question.id,
-            ),
-        );
+        if (
+          state.userNewQuestions !== null &&
+          state.userNewQuestions !== undefined &&
+          state.userAnsweredQuestions !== null &&
+          state.userAnsweredQuestions !== undefined
+        ) {
+          if (
+            Array.isArray(state.userNewQuestions) &&
+            Array.isArray(state.userAnsweredQuestions)
+          ) {
+            state.userNewQuestions = state.allQuestions.filter(
+              (question) =>
+                !state.userAnsweredQuestions.some(
+                  (answeredQuestion) => answeredQuestion.id === question.id,
+                ),
+            );
+          }
+        }
       })
       .addCase(getUserQuestions.rejected, (state, action) => {
         const payload = action.payload as { message: string };

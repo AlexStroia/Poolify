@@ -5,4 +5,5 @@ export interface QuestionState {
   loading: boolean | false;
   error?: string | null;
   avatarUrl?: string | null;
+  userAnswer?: string | null;
 }

@@ -14,24 +14,28 @@ export const signupAction = createAsyncThunk(
         email,
         password,
       );
-      const user = userCredential.user;
-      if (avatarFile !== null) {
-        const blob = new Blob([avatarFile!], { type: avatarFile!.type });
-        const storageRef = firebaseStorage.child(`images/${user?.uid}`);
-        await storageRef.put(blob);
+      if (userCredential) {
+        await firebaseAuth.signInWithCredential(userCredential!.credential!);
 
-        const downloadURL = await storageRef.getDownloadURL();
+        const user = userCredential.user;
+        if (avatarFile !== null) {
+          const blob = new Blob([avatarFile!], { type: avatarFile!.type });
+          const storageRef = firebaseStorage.child(`images/${user?.uid}`);
+          await storageRef.put(blob);
 
-        await user?.updateProfile({
-          displayName: displayName,
-          photoURL: downloadURL,
-        });
-      } else {
-        await user?.updateProfile({
-          displayName: displayName,
-        });
+          const downloadURL = await storageRef.getDownloadURL();
+
+          await user?.updateProfile({
+            displayName: displayName,
+            photoURL: downloadURL,
+          });
+        } else {
+          await user?.updateProfile({
+            displayName: displayName,
+          });
+        }
+        return user;
       }
-      return user;
     } catch (error) {
       return rejectWithValue(error);
     }

@@ -7,10 +7,17 @@ export const getAvatarUrlAction = createAsyncThunk(
     try {
       const firebaseStorage = firebase.storage().ref();
       const storageRef = firebaseStorage.child(`images/${userId}`);
-      const downloadURL: string = await storageRef.getDownloadURL();
-      return downloadURL;
+      if (storageRef != null) {
+        const downloadURL: string = await storageRef.getDownloadURL();
+        return downloadURL;
+      } else {
+        return;
+      }
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        message:
+          "Seems like there is a problem with loading the image. Try again later",
+      });
     }
   },
 );

@@ -1,6 +1,5 @@
-import "./App.css";
-import { LoginComponent } from "./components/LoginComponent";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { LoginComponent } from "./components/LoginComponent";
 import { SignupComponent } from "./components/SignupComponent";
 import { ForgotPasswordComponent } from "./components/ForgotPasswordComponent";
 import { PoolifyAppBar } from "./views/PoolifyAppBar";
@@ -9,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
 import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ApplicationState } from "./state/ApplicationState";
 import firebase from "firebase";
 import {
@@ -19,35 +18,42 @@ import {
 import NewComponent from "./components/NewComponent";
 import { LeaderboardComponent } from "./components/LeaderboardComponent";
 import { HomeComponent } from "./components/HomeComponent";
+import { NotFoundComponent } from "./components/NotFoundComponent";
 import { QuestionComponent } from "./components/QuestionComponent";
+import { ProtectedRouteComponent } from "./components/ProtectedRouteComponent";
 
 function App() {
   const navigator = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const [authenticated, setAuthenticated] = useState(false);
 
   const user = useSelector((state: ApplicationState) => {
     const user = state.authentication.user;
     return user;
   });
 
-  const isUserLoggedIn =
-    user !== null && user.email !== null && user.email!.length > 0;
   useEffect(() => {
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    if (isUserLoggedIn) {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log("User is ====" + user);
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+    console.log("Authenticated--- todo" + authenticated);
+    if (authenticated) {
       navigator("/home");
       const userData: SaveUserData = {
         email: user?.email ?? "",
         userId: user?.userId ?? "",
         displayName: user?.displayName ?? "",
-        avatar: user.avatarUrl ?? "",
+        avatar: user?.avatarUrl ?? "",
       };
       dispatch(saveUserProfileAction(userData));
-    } else {
-      navigator("/");
     }
-  }, [isUserLoggedIn]);
+  }, []);
 
   const getPageTitle = () => {
     const { pathname } = location;
@@ -98,7 +104,7 @@ function App() {
   };
 
   const handleSignIn = (email?: string, password?: string) => {
-    if (email !== null && password !== null) {
+    if (email && password) {
       dispatch(
         loginAction({
           email: email!,
@@ -129,7 +135,9 @@ function App() {
           getPageTitle().toLowerCase() === "home"
         }
       />
+
       <Routes>
+        <Route path="/error" element={<NotFoundComponent />} />
         <Route
           path="/"
           element={
@@ -159,10 +167,38 @@ function App() {
             />
           }
         />
-        <Route path="/home" element={<HomeComponent />} />
-        <Route path="/add" element={<NewComponent />} />
-        <Route path="/leaderboard" element={<LeaderboardComponent />} />
-        <Route path="/questions/:question_id" element={<QuestionComponent />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRouteComponent isLoggedIn={authenticated}>
+              <HomeComponent />
+            </ProtectedRouteComponent>
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <ProtectedRouteComponent isLoggedIn={authenticated}>
+              <NewComponent />
+            </ProtectedRouteComponent>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRouteComponent isLoggedIn={authenticated}>
+              <LeaderboardComponent />
+            </ProtectedRouteComponent>
+          }
+        />
+        <Route
+          path="/questions/:question_id"
+          element={
+            <ProtectedRouteComponent isLoggedIn={authenticated}>
+              <QuestionComponent />
+            </ProtectedRouteComponent>
+          }
+        />
       </Routes>
     </div>
   );

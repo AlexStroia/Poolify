@@ -1,4 +1,4 @@
-import { Box, Container, Divider } from "@mui/material";
+import { Box, Container, Divider, Typography } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import QuestionList, { QuestionListType } from "../views/QuestionList";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ export const HomeComponent = () => {
   const state = useSelector((state: ApplicationState) => state);
   const dashboardState = state.dashboard;
   const user = state.authentication.user;
+
   useEffect(() => {
     dispatch(getAllQuestions());
     if (user?.userId !== null) {
@@ -25,6 +26,30 @@ export const HomeComponent = () => {
   const handleOnTapQuestion = (questionId: string) => {
     navigator(`/questions/${questionId}`);
   };
+
+  const questionsNewOrdered =
+    dashboardState.userNewQuestions !== undefined &&
+    Array.isArray(dashboardState.userNewQuestions) &&
+    dashboardState.userNewQuestions.length > 0
+      ? dashboardState.userNewQuestions
+          .slice()
+          .sort(
+            (first, second) =>
+              new Date(second.date).getTime() - new Date(first.date).getTime(),
+          )
+      : [];
+
+  const questionAnsweredOrdered =
+    dashboardState.userAnsweredQuestions !== undefined &&
+    Array.isArray(dashboardState.userAnsweredQuestions) &&
+    dashboardState.userAnsweredQuestions.length > 0
+      ? dashboardState.userAnsweredQuestions
+          .slice()
+          .sort(
+            (first, second) =>
+              new Date(second.date).getTime() - new Date(first.date).getTime(),
+          )
+      : [];
 
   return (
     <div>
@@ -38,19 +63,26 @@ export const HomeComponent = () => {
         <Box height="32px" />
         {dashboardState.loadingNewQuestions ? (
           <SpinnerComponent />
-        ) : (
+        ) : dashboardState.userAnsweredQuestions !== undefined &&
+          dashboardState.userAnsweredQuestions.length > 0 ? (
           <QuestionList
             questionListType={QuestionListType.NEW}
-            questionDataList={dashboardState.userNewQuestions}
+            questionDataList={questionsNewOrdered}
             onTapQuestion={handleOnTapQuestion}
           />
+        ) : (
+          <Typography>No data to show</Typography>
         )}
         <Box height="32px" />
-        <QuestionList
-          questionListType={QuestionListType.DONE}
-          questionDataList={dashboardState.userAnsweredQuestions}
-          onTapQuestion={handleOnTapQuestion}
-        />
+        {dashboardState.userNewQuestions.length > 0 ? (
+          <QuestionList
+            questionListType={QuestionListType.DONE}
+            questionDataList={questionAnsweredOrdered}
+            onTapQuestion={handleOnTapQuestion}
+          />
+        ) : (
+          <Typography>No data to show</Typography>
+        )}
       </Container>
     </div>
   );

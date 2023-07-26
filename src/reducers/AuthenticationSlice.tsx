@@ -6,6 +6,7 @@ import { signupAction } from "../actions/SignupAction";
 import { forgotPasswordAction } from "../actions/ForgotPasswordAction";
 import { logoutAction } from "../actions/LogoutAction";
 import { saveUserProfileAction } from "../actions/SaveUserProfileAction";
+import { useNavigate } from "react-router-dom";
 
 export const authenticationSlice = createSlice({
   name: "authentication",
@@ -24,6 +25,7 @@ export const authenticationSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(loginAction.fulfilled, (state, action) => {
+        console.log("action" + action);
         const user = action.payload.user;
         state.loading = false;
         state.errorMessage = "";

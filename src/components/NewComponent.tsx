@@ -10,6 +10,7 @@ import {
 import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
+import ErrorComponent from "./ErrorComponent";
 
 export const NewComponent = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,11 @@ export const NewComponent = () => {
   const user = useSelector(
     (state: ApplicationState) => state.authentication.user,
   );
+
   const dashboardState = useSelector(
     (state: ApplicationState) => state.dashboard,
   );
+  const error = dashboardState.errorMessage ?? "";
 
   const handleTapSave = () => {
     const questionOptionFirstValue = questionOptionFirst.current?.value ?? "";
@@ -60,6 +63,8 @@ export const NewComponent = () => {
           display: "flex",
         }}
       >
+        <ErrorComponent message={error} />
+
         <Card
           style={{ marginTop: "16px", borderRadius: "16px", padding: "16px" }}
         >

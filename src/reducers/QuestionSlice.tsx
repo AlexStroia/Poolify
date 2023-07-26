@@ -5,6 +5,7 @@ import { saveUserQuestion } from "../actions/SaveUserQuestion";
 import { saveUserAnswerAction } from "../actions/SaveUserAnswer";
 import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction";
 import { getAvatarUrlAction } from "../actions/GetAvatarUrlAction";
+import { getUserQuestionAnswerById } from "../actions/GetUserQuestionAnswerById";
 
 export const questionSlice = createSlice({
   name: "question",
@@ -68,12 +69,27 @@ export const questionSlice = createSlice({
         state.loading = false;
       })
       .addCase(getAvatarUrlAction.fulfilled, (state, action) => {
-        console.log("ACtion starts");
-        console.log(action);
         const avatarUrl = action.payload;
         state.loading = false;
         state.error = null;
         state.avatarUrl = avatarUrl;
+      })
+
+      .addCase(getUserQuestionAnswerById.pending, (state, _) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUserQuestionAnswerById.rejected, (state, action) => {
+        const payload = action.payload as { message: string };
+        const message = payload.message;
+        state.error = message;
+        state.loading = false;
+      })
+      .addCase(getUserQuestionAnswerById.fulfilled, (state, action) => {
+        const userAnswer = action.payload ?? "";
+        state.loading = false;
+        state.error = null;
+        state.userAnswer = userAnswer;
       });
   },
 });

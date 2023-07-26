@@ -2,7 +2,7 @@ import { QuestionData } from "../model/QuestionData";
 import { Grid, Typography, Box, Card, Avatar } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../actions/GetQuestionAction";
 import { ApplicationState } from "../state/ApplicationState";
@@ -13,6 +13,7 @@ import { UserQuestionAnswer } from "../model/UserQuestionAnswer";
 import { saveUserAnswerAction } from "../actions/SaveUserAnswer";
 import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction";
 import { getAvatarUrlAction } from "../actions/GetAvatarUrlAction";
+import { getUserQuestionAnswerById } from "../actions/GetUserQuestionAnswerById";
 
 export const QuestionComponent = () => {
   const navigator = useNavigate();
@@ -25,13 +26,42 @@ export const QuestionComponent = () => {
   const questionData = questionState.question;
   const error = questionState.error;
   const avatar = state.question.avatarUrl;
+
+  const handlePercentageVotes = (
+    firstOptionVotes: number,
+    secondOptionVotes: number,
+  ) => {
+    const totalVotes = firstOptionVotes + secondOptionVotes;
+    const percentageFirstOption = Math.round(
+      (firstOptionVotes / totalVotes) * 100,
+    );
+    const percentageSecondOption = Math.round(
+      (secondOptionVotes / totalVotes) * 100,
+    );
+    return { percentageFirstOption, percentageSecondOption };
+  };
+
+  const { percentageFirstOption, percentageSecondOption } =
+    handlePercentageVotes(
+      parseInt(questionData?.voteOptionFirst! ?? 0, 10),
+      parseInt(questionData?.voteOptionSecond! ?? 0, 10),
+    );
+
   useEffect(() => {
     if (question_id !== null && question_id !== undefined) {
       dispatch(getQuestionAction(question_id!));
     }
-    console.log("QuestionData user id" + questionData?.userId);
     if (questionData?.userId !== null && questionData?.userId !== undefined) {
       dispatch(getAvatarUrlAction(questionData?.userId));
+    }
+
+    if (authenticatedUser?.userId !== null && questionData?.id !== null) {
+      dispatch(
+        getUserQuestionAnswerById({
+          userId: authenticatedUser!.userId!,
+          questionId: question_id!,
+        }),
+      );
     }
   }, []);
 
@@ -144,7 +174,9 @@ export const QuestionComponent = () => {
                   }
                 ></PoolifyButton>
                 <Typography variant="body1">
-                  {questionData?.voteOptionFirst}
+                  {" "}
+                  Votes: {questionData?.voteOptionFirst} -{" "}
+                  {percentageFirstOption}%
                 </Typography>
               </Grid>
               <Grid
@@ -166,7 +198,8 @@ export const QuestionComponent = () => {
                   }
                 ></PoolifyButton>{" "}
                 <Typography variant="body1">
-                  {questionData?.voteOptionSecond}
+                  Votes: {questionData?.voteOptionSecond} -{" "}
+                  {percentageSecondOption}%
                 </Typography>
               </Grid>
               <Grid
@@ -178,6 +211,26 @@ export const QuestionComponent = () => {
               >
                 <Typography>Choose an option</Typography>
               </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                {questionState.userAnswer!.length > 0 ? (
+                  <Typography>{`You have voted ${questionState.userAnswer}`}</Typography>
+                ) : (
+                  <div></div>
+                )}
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              ></Grid>
             </Grid>
           </div>
         </Card>
