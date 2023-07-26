@@ -5,4 +5,5 @@ export interface AuthenticationState {
   errorMessage: string | "";
   success?: boolean | null;
   loading: boolean | false;
+  loggedOut?: boolean | null;
 }

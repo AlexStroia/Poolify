@@ -23,7 +23,6 @@ export const saveUserAnswerAction = createAsyncThunk(
 
       // Check if the document with the specific date exists
       const doc = await userDocRef.collection("questions").doc(date).get();
-      console.log("Updating");
 
       if (!doc.exists) {
         // If the document doesn't exist, create a new one

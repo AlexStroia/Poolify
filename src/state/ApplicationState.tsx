@@ -41,6 +41,7 @@ export const appState: ApplicationState = {
     },
     loading: false,
     errorMessage: "",
+    loggedOut: null,
   },
   dashboard: {
     page: DashboardPage.HOME,

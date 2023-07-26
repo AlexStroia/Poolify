@@ -26,25 +26,14 @@ function App() {
   const navigator = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const [authenticated, setAuthenticated] = useState(false);
-
-  const user = useSelector((state: ApplicationState) => {
-    const user = state.authentication.user;
-    return user;
+  const state = useSelector((state: ApplicationState) => {
+    return state;
   });
-
+  const user = state.authentication.user;
+  const authenticated = (user && user.email !== null ) ?? false ;
+  const loggedOut = state.authentication.loggedOut ?? false;
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      console.log("User is ====" + user);
-      if (user) {
-        setAuthenticated(true);
-      } else {
-        setAuthenticated(false);
-      }
-    });
-    console.log("Authenticated--- todo" + authenticated);
-    if (authenticated) {
-      navigator("/home");
+    if (user && user.email !== null) {
       const userData: SaveUserData = {
         email: user?.email ?? "",
         userId: user?.userId ?? "",
@@ -52,8 +41,14 @@ function App() {
         avatar: user?.avatarUrl ?? "",
       };
       dispatch(saveUserProfileAction(userData));
+      navigator("/home");
     }
-  }, []);
+    if(loggedOut) {
+      navigator('/')
+    }
+  }, [authenticated,loggedOut]);
+
+
 
   const getPageTitle = () => {
     const { pathname } = location;
@@ -84,7 +79,7 @@ function App() {
     email?: string,
     password?: string,
     displayName?: string,
-    avatar?: File,
+    avatar?: File
   ) => {
     if (
       email !== undefined &&
@@ -98,7 +93,7 @@ function App() {
           password: password!,
           displayName: displayName!,
           avatarFile: avatar,
-        }),
+        })
       );
     }
   };
@@ -109,7 +104,7 @@ function App() {
         loginAction({
           email: email!,
           password: password!,
-        }),
+        })
       );
     }
   };

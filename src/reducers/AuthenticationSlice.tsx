@@ -25,10 +25,10 @@ export const authenticationSlice = createSlice({
         state.errorMessage = "";
       })
       .addCase(loginAction.fulfilled, (state, action) => {
-        console.log("action" + action);
         const user = action.payload.user;
         state.loading = false;
         state.errorMessage = "";
+        state.loggedOut = null;
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
@@ -51,6 +51,7 @@ export const authenticationSlice = createSlice({
         state.success = true;
         state.loading = false;
         state.errorMessage = "";
+        state.loggedOut = null;
         state.user = {
           displayName: user?.displayName,
           email: user?.email,
@@ -100,6 +101,7 @@ export const authenticationSlice = createSlice({
         state.loading = false;
         state.errorMessage = "";
         state.user = null;
+        state.loggedOut = true;
       })
       .addCase(logoutAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
