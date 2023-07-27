@@ -1,48 +1,74 @@
-# Getting Started with Create React App
+# Employee Polls Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is part of the Udacity React Nano Degree program and aims to create an Employee Polls Web App. The application allows employees to participate in polls, view poll results, and see the overall poll statistics. It is built using React, Redux, and other web technologies.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Employee Polls Web App is a front-end application that facilitates employee engagement and feedback collection. It enables users to create polls with customizable questions, options, and collects responses from employees. The app provides real-time results and statistics for the polls, offering valuable insights to administrators and employees alike.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- User authentication and authorization: Employees can register and log in to participate in polls, and only authorized users can create new polls.
+- Poll creation: Authorized users can create new polls with custom questions and answer options.
+- Poll participation: Registered employees can vote on active polls.
+- Real-time results: Poll results are updated in real-time, allowing users to view the current standings.
+- Poll statistics: The application provides comprehensive statistics and visualizations for each poll.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+The project primarily uses the following technologies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React: A JavaScript library for building user interfaces.
+- Redux: A predictable state container for managing application state.
+- React Router: A library for handling navigation within the application.
+- Material UI React: A UI component library for styling the application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run the Employee Polls Web App on your local machine, follow these steps:
 
-### `npm run eject`
+1. Clone this repository to your local machine using:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+git clone https://github.com/AlexStroia/Poolify
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Navigate to the project directory:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+cd poolify
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Install the dependencies using npm (Node Package Manager):
 
-## Learn More
+```
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+After completing the installation, you can start the development server by running:
 
-# Poolify
+```
+npm start
+```
+
+The application will be accessible at `http://localhost:3000` in your web browser.
+
+## Contributing
+
+Contributions to this project are welcome. If you find any issues or want to add new features, feel free to open a pull request. Please ensure that your changes adhere to the coding standards and include relevant documentation.
+
+## License
+
+The project is licensed under the [MIT License](LICENSE), granting you the freedom to use, modify, and distribute the code. However, please be aware that Udacity may have specific guidelines regarding the use of this project for their React Nano Degree program. Make sure to review and comply with their policies.
