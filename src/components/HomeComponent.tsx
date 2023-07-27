@@ -1,7 +1,7 @@
-import { Box, Container, Divider, Typography } from "@mui/material";
+import { Box, Container, Divider, Grid, Typography } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import QuestionList, { QuestionListType } from "../views/QuestionList";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAllQuestions } from "../actions/GetAllQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
@@ -35,7 +35,7 @@ export const HomeComponent = () => {
           .slice()
           .sort(
             (first, second) =>
-              new Date(second.date).getTime() - new Date(first.date).getTime(),
+              new Date(second.date).getTime() - new Date(first.date).getTime()
           )
       : [];
 
@@ -47,9 +47,14 @@ export const HomeComponent = () => {
           .slice()
           .sort(
             (first, second) =>
-              new Date(second.date).getTime() - new Date(first.date).getTime(),
+              new Date(second.date).getTime() - new Date(first.date).getTime()
           )
       : [];
+
+  console.log("============");
+  console.log(questionAnsweredOrdered.length > 0);
+  console.log("new");
+  console.log(questionsNewOrdered.length > 0);
 
   return (
     <div>
@@ -63,25 +68,24 @@ export const HomeComponent = () => {
         <Box height="32px" />
         {dashboardState.loadingNewQuestions ? (
           <SpinnerComponent />
-        ) : dashboardState.userAnsweredQuestions !== undefined &&
-          dashboardState.userAnsweredQuestions.length > 0 ? (
-          <QuestionList
-            questionListType={QuestionListType.NEW}
-            questionDataList={questionsNewOrdered}
-            onTapQuestion={handleOnTapQuestion}
-          />
         ) : (
-          <Typography>No data to show</Typography>
-        )}
-        <Box height="32px" />
-        {dashboardState.userNewQuestions.length > 0 ? (
-          <QuestionList
-            questionListType={QuestionListType.DONE}
-            questionDataList={questionAnsweredOrdered}
-            onTapQuestion={handleOnTapQuestion}
-          />
-        ) : (
-          <Typography>No data to show</Typography>
+          <Grid>
+            <Grid item>
+              <QuestionList
+                questionListType={QuestionListType.NEW}
+                questionDataList={questionsNewOrdered}
+                onTapQuestion={handleOnTapQuestion}
+              />
+            </Grid>
+
+            <Grid item>
+              <QuestionList
+                questionListType={QuestionListType.DONE}
+                questionDataList={questionAnsweredOrdered}
+                onTapQuestion={handleOnTapQuestion}
+              />
+            </Grid>
+          </Grid>
         )}
       </Container>
     </div>

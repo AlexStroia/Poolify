@@ -3,7 +3,7 @@ import {
   PoolifyTextField,
   PoolifyTextFieldInputType,
 } from "../views/PoolifyTextField";
-import { PoolifyButton, PoolifyButtonSize } from "../views/PoolifyButton";
+import { PoolifyButton } from "../views/PoolifyButton";
 import { TransparentButton } from "../views/TransparentButton";
 import { theme } from "../theme";
 import { useRef } from "react";
@@ -11,13 +11,12 @@ import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
 import ErrorComponent from "./ErrorComponent";
-import PoolifySnackbar from "../views/PoolifySnackBar";
+import ImpersonateComponent from "./ImpersonateComponent";
 
 export const LoginComponent = ({
   onTapSignup = () => {},
   onTapForgotPassword = () => {},
   onTapSignIn = (email: string, password: string) => {},
-  onClose = () => {},
 }) => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
@@ -31,6 +30,18 @@ export const LoginComponent = ({
   const handleSignIn = () => {
     const emailValue = email.current?.value ?? "";
     const passwordValue = password.current?.value ?? "";
+    onTapSignIn(emailValue, passwordValue);
+  };
+
+  const handleSignInUdacityAccount = () => {
+    const emailValue = "udacity@gmail.com";
+    const passwordValue = "123456";
+    onTapSignIn(emailValue, passwordValue);
+  };
+
+  const handleSignInAlexAccount = () => {
+    const emailValue = "alextest@yahoo.com";
+    const passwordValue = "123456";
     onTapSignIn(emailValue, passwordValue);
   };
 
@@ -75,6 +86,11 @@ export const LoginComponent = ({
       >
         Forgot Password
       </Typography>
+
+      <ImpersonateComponent
+        onTapUdacityAccount={handleSignInUdacityAccount}
+        onTapAlexAccount={handleSignInAlexAccount}
+      />
     </Grid>
   );
 };

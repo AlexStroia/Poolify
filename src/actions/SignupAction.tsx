@@ -15,8 +15,6 @@ export const signupAction = createAsyncThunk(
         password,
       );
       if (userCredential) {
-        await firebaseAuth.signInWithCredential(userCredential!.credential!);
-
         const user = userCredential.user;
         if (avatarFile !== null) {
           const blob = new Blob([avatarFile!], { type: avatarFile!.type });
