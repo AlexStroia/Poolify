@@ -8,6 +8,7 @@ export const SpinnerComponent = () => {
       justifyContent="center"
       alignItems="center"
       height="100vh"
+      data-testid="spinner"
     >
       <CircularProgress
         sx={{
