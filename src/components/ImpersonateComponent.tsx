@@ -1,5 +1,6 @@
 import { Typography, Grid, Card } from "@mui/material";
 import { PoolifyButton } from "../views/PoolifyButton";
+import React from "react";
 
 export const ImpersonateComponent = ({
   onTapUdacityAccount,

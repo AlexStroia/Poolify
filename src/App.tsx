@@ -20,6 +20,7 @@ import { HomeComponent } from "./components/HomeComponent";
 import { NotFoundComponent } from "./components/NotFoundComponent";
 import { QuestionComponent } from "./components/QuestionComponent";
 import { ProtectedRouteComponent } from "./components/ProtectedRouteComponent";
+import React from "react";
 
 function App() {
   const navigator = useNavigate();

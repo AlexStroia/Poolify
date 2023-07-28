@@ -10,6 +10,7 @@ import { firebaseConfig } from "./firebase";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import "firebase/auth";
+import React from "react";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

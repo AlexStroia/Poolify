@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import PoolifySnackbar from "../views/PoolifySnackBar";
+import React from "react";
 
 const emailSuccessMessage =
   "If that email exist in our database, you should receive an email shortly.";

@@ -11,6 +11,7 @@ import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import ErrorComponent from "./ErrorComponent";
+import React from "react";
 
 export const NewComponent = () => {
   const dispatch = useDispatch();

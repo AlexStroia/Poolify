@@ -1,3 +1,5 @@
+import React from "react";
+
 interface TabPanelContentProps {
   value: number;
   index: number;

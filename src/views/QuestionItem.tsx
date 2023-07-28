@@ -2,6 +2,7 @@ import { Card, Divider, Grid, Typography } from "@mui/material";
 import { PoolifyButton, PoolifyButtonSize } from "./PoolifyButton";
 import { theme } from "../theme";
 import { QuestionData } from "../model/QuestionData";
+import React from "react";
 
 export const QuestionItem = ({
   questionData,
@@ -11,6 +12,7 @@ export const QuestionItem = ({
   onTapQuestion: (questionId: string) => {};
 }) => {
   const handleOnTapQuestion = (questionId: string) => {
+    console.log("Question id is " + questionId);
     onTapQuestion(questionId);
   };
   const date: Date = new Date(questionData.date);

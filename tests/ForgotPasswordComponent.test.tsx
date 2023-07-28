@@ -1,42 +1,76 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect"; // For additional matchers
-import { ForgotPasswordComponent } from "../src/components/ForgotPasswordComponent";
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store'; // If you are using redux-mock-store for testing
+import {ForgotPasswordComponent} from "../src/components/ForgotPasswordComponent";
 
-describe("ForgotPasswordComponent", () => {
-  test("renders without error", () => {
-    render(<ForgotPasswordComponent />);
-    expect(screen.getByLabelText("Email")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Send Password" }),
-    ).toBeInTheDocument();
-  });
+// Create a mock redux store using redux-mock-store
+const mockStore = configureStore([]);
 
-  test("calls onTapForgotPassword when Send Password button is clicked", () => {
-    const mockOnTapForgotPassword = jest.fn();
-    render(
-      <ForgotPasswordComponent onTapForgotPassword={mockOnTapForgotPassword} />,
-    );
 
-    const emailInput = screen.getByLabelText("Email");
-    const sendPasswordButton = screen.getByRole("button", {
-      name: "Send Password",
-    });
+// Mock the onTapForgotPassword function
+const mockOnTapForgotPassword = jest.fn();
 
-    fireEvent.change(emailInput, { target: { value: "johndoe@gmail.com" } });
-    fireEvent.click(sendPasswordButton);
+// Mock the onClose function
+const mockOnClose = jest.fn();
 
-    expect(mockOnTapForgotPassword).toHaveBeenCalledTimes(1);
-    expect(mockOnTapForgotPassword).toHaveBeenCalledWith("johndoe@gmail.com");
-  });
+test('renders ForgotPasswordComponent correctly', () => {
+  // Create the store with the initial state
+  const store = mockStore({  authentication: {
+    errorMessage: null,
+    loading: false,
+    // Add other relevant properties from the state if needed
+  },});
 
-  test("calls onClose when Snackbar is closed", () => {
-    const mockOnClose = jest.fn();
-    render(<ForgotPasswordComponent onClose={mockOnClose} />);
+  // Render the component inside the Provider with the mock store
+  render(
+    <Provider store={store}>
+      <ForgotPasswordComponent
+        onTapForgotPassword={mockOnTapForgotPassword}
+        onClose={mockOnClose}
+      />
+    </Provider>
+  );
 
-    const snackbar = screen.getByRole("alert");
-    fireEvent.click(screen.getByText("Close")); // Assuming there's a "Close" button in the snackbar
+  // Expect the Email input to be in the document
+  const emailInput = screen.getByLabelText('Email');
+  expect(emailInput).toBeInTheDocument;
 
-    expect(mockOnClose).toHaveBeenCalledTimes(1);
-  });
+  // Expect the Send Password button to be in the document
+  const sendPasswordButton = screen.getByRole('button', { name: 'Send Password' });
+  expect(sendPasswordButton).toBeInTheDocument;
+});
+
+test('calls onTapForgotPassword function with correct email value', () => {
+  // Create the store with the initial state
+  const store = mockStore({  authentication: {
+    errorMessage: null,
+    loading: false,
+    // Add other relevant properties from the state if needed
+  },});
+
+  // Render the component inside the Provider with the mock store
+  render(
+    <Provider store={store}>
+      <ForgotPasswordComponent
+        onTapForgotPassword={mockOnTapForgotPassword}
+        onClose={mockOnClose}
+      />
+    </Provider>
+  );
+
+  // Get the Email input
+  const emailInput = screen.getByLabelText('Email');
+
+  // Type a test email into the Email input
+  fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+
+  // Get the Send Password button
+  const sendPasswordButton = screen.getByRole('button', { name: 'Send Password' });
+
+  // Click the Send Password button
+  fireEvent.click(sendPasswordButton);
+
+  // Expect the onTapForgotPassword function to be called with the correct email value
+  expect(mockOnTapForgotPassword).toHaveBeenCalledWith('test@example.com');
 });

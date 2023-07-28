@@ -17,11 +17,11 @@ export const HomeComponent = () => {
   const user = state.authentication.user;
 
   useEffect(() => {
-    dispatch(getAllQuestions());
+   dispatch(getAllQuestions());
     if (user?.userId !== null) {
       dispatch(getUserQuestions(user!.userId!));
     }
-  });
+  },[]);
 
   const handleOnTapQuestion = (questionId: string) => {
     navigator(`/questions/${questionId}`);
@@ -51,14 +51,11 @@ export const HomeComponent = () => {
           )
       : [];
 
-  console.log("============");
-  console.log(questionAnsweredOrdered.length > 0);
-  console.log("new");
-  console.log(questionsNewOrdered.length > 0);
-
   return (
     <div>
-      <PoolifyTabBar />
+      <PoolifyTabBar
+          data-testid="poolify-tab-bar"
+      />
       <Container
         sx={{
           flexDirection: "column",
@@ -70,16 +67,21 @@ export const HomeComponent = () => {
           <SpinnerComponent />
         ) : (
           <Grid>
-            <Grid item>
+            <Grid item
+                                        data-testid="questions-list-done"
+            >
               <QuestionList
+                data-testid="questions-list-new"
                 questionListType={QuestionListType.NEW}
                 questionDataList={questionsNewOrdered}
                 onTapQuestion={handleOnTapQuestion}
               />
             </Grid>
 
-            <Grid item>
+            <Grid item
+data-testid="questions-list-new"            >
               <QuestionList
+                data-testid="questions-list-done"
                 questionListType={QuestionListType.DONE}
                 questionDataList={questionAnsweredOrdered}
                 onTapQuestion={handleOnTapQuestion}

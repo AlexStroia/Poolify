@@ -1,5 +1,6 @@
 import { CircularProgress, Box } from "@mui/material";
 import { theme } from "../theme";
+import React from "react";
 
 export const SpinnerComponent = () => {
   return (

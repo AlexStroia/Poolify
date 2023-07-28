@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import firebase from "firebase";
-
 export const getUserQuestionAnswerById = createAsyncThunk(
   "question/get-user-questions",
   async (

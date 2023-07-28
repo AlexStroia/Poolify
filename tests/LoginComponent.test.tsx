@@ -3,8 +3,6 @@ import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import { LoginComponent } from "../src/components/LoginComponent";
-import { MemoryRouter } from "react-router-dom";
-import { screen } from "@testing-library/react";
 
 const mockStore = configureStore([]);
 
@@ -23,19 +21,13 @@ describe("LoginComponent", () => {
     });
 
     const { getByLabelText, getByText } = render(
-      <MemoryRouter>
         <Provider store={store}>
           <LoginComponent />
         </Provider>
-        Xp
-      </MemoryRouter>,
     );
 
-    screen.debug();
-    // Use getByLabelText to find the PoolifyTextField components
-    const emailInput = getByLabelText("Email") as HTMLInputElement;
-    const passwordInput = getByLabelText("Password") as HTMLInputElement;
-    console.log("email input" + emailInput);
+    const emailInput = getByLabelText("Email");
+    const passwordInput = getByLabelText("Password");
     expect(emailInput).toBeInTheDocument;
     expect(passwordInput).toBeInTheDocument;
     expect(getByText("Login")).toBeInTheDocument;
@@ -67,8 +59,8 @@ describe("LoginComponent", () => {
       </Provider>,
     );
 
-    const emailInput = getByLabelText("Email") as HTMLInputElement;
-    const passwordInput = getByLabelText("Password") as HTMLInputElement;
+    const emailInput = getByLabelText("Email");
+    const passwordInput = getByLabelText("Password");
     const loginButton = getByText("Login");
 
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
@@ -91,11 +83,9 @@ describe("LoginComponent", () => {
     });
 
     const { getByTestId } = render(
-      <MemoryRouter>
         <Provider store={store}>
           <LoginComponent />
         </Provider>
-      </MemoryRouter>,
     );
 
     expect(getByTestId("spinner")).toBeInTheDocument;

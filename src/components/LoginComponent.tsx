@@ -12,6 +12,7 @@ import { ApplicationState } from "../state/ApplicationState";
 import { SpinnerComponent } from "./SpinnerComponent";
 import ErrorComponent from "./ErrorComponent";
 import ImpersonateComponent from "./ImpersonateComponent";
+import React from "react";
 
 export const LoginComponent = ({
   onTapSignup = () => {},

@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { theme } from "../theme";
+import React from "react";
 
 interface TransparentButtonProps {
   title: String;

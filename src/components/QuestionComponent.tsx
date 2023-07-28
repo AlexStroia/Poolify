@@ -13,6 +13,7 @@ import { saveUserAnswerAction } from "../actions/SaveUserAnswer";
 import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction";
 import { getAvatarUrlAction } from "../actions/GetAvatarUrlAction";
 import { getUserQuestionAnswerById } from "../actions/GetUserQuestionAnswerById";
+import React from "react";
 
 export const QuestionComponent = () => {
   const navigator = useNavigate();
