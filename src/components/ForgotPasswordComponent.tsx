@@ -1,9 +1,8 @@
 import { Grid } from "@mui/material";
 import { PoolifyTextField } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
-import { PoolifyAppBar } from "../views/PoolifyAppBar";
 import { SpinnerComponent } from "./SpinnerComponent";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import PoolifySnackbar from "../views/PoolifySnackBar";

@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, Card } from "@mui/material";
+import { Grid, Typography, Card } from "@mui/material";
 import { PoolifyTextField } from "../views/PoolifyTextField";
 import { PoolifyButton } from "../views/PoolifyButton";
 import { useRef } from "react";

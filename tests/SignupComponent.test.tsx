@@ -2,13 +2,13 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import { LoginComponent } from "../src/components/LoginComponent";
+import SignupComponent from "../src/components/SignupComponent";
 import { MemoryRouter } from "react-router-dom";
 import { screen } from "@testing-library/react";
 
 const mockStore = configureStore([]);
 
-describe("LoginComponent", () => {
+describe("SignupComponent", () => {
   it("renders the login form correctly", () => {
     const store = mockStore({
       authentication: {
@@ -25,7 +25,7 @@ describe("LoginComponent", () => {
     const { getByLabelText, getByText } = render(
       <MemoryRouter>
         <Provider store={store}>
-          <LoginComponent />
+          <SignupComponent />
         </Provider>
         Xp
       </MemoryRouter>,
@@ -35,18 +35,16 @@ describe("LoginComponent", () => {
     // Use getByLabelText to find the PoolifyTextField components
     const emailInput = getByLabelText("Email") as HTMLInputElement;
     const passwordInput = getByLabelText("Password") as HTMLInputElement;
-    console.log("email input" + emailInput);
+    const displayName = getByLabelText("Display Name") as HTMLInputElement;
     expect(emailInput).toBeInTheDocument;
     expect(passwordInput).toBeInTheDocument;
-    expect(getByText("Login")).toBeInTheDocument;
+    expect(displayName).toBeInTheDocument;
+    expect(getByText("Signup")).toBeInTheDocument;
     expect(getByText("Forgot Password")).toBeInTheDocument;
-    expect(getByText("Sign Up")).toBeInTheDocument;
-    expect(getByText("Login")).toBeInTheDocument;
-    expect(getByText("Sign Up")).toBeInTheDocument;
-    expect(getByText("Forgot Password")).toBeInTheDocument;
+    expect(getByText("Sign in")).toBeInTheDocument;
   });
 
-  it("calls onTapSignIn function with correct email and password", () => {
+  it("calls onTapSignUp function with correct email and password", () => {
     const store = mockStore({
       authentication: {
         user: {
@@ -59,23 +57,23 @@ describe("LoginComponent", () => {
       },
     });
 
-    const onTapSignInMock = jest.fn();
+    const onTapSignUpMock = jest.fn();
 
     const { getByLabelText, getByText } = render(
       <Provider store={store}>
-        <LoginComponent onTapSignIn={onTapSignInMock} />
+        <SignupComponent onTapSignUp={onTapSignUpMock} />
       </Provider>,
     );
 
     const emailInput = getByLabelText("Email") as HTMLInputElement;
     const passwordInput = getByLabelText("Password") as HTMLInputElement;
-    const loginButton = getByText("Login");
+    const signupButton = getByText("Signup");
 
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "password123" } });
-    fireEvent.click(loginButton);
+    fireEvent.click(signupButton);
 
-    expect(onTapSignInMock).toHaveBeenCalledWith(
+    expect(onTapSignUpMock).toHaveBeenCalledWith(
       "test@example.com",
       "password123",
     );
@@ -93,7 +91,7 @@ describe("LoginComponent", () => {
     const { getByTestId } = render(
       <MemoryRouter>
         <Provider store={store}>
-          <LoginComponent />
+          <SignupComponent />
         </Provider>
       </MemoryRouter>,
     );

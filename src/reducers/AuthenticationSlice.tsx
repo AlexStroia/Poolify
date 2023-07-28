@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { authenticationState } from "../state/ApplicationState";
 import "firebase/auth";
 import { loginAction } from "../actions/LoginAction";
@@ -6,7 +6,6 @@ import { signupAction } from "../actions/SignupAction";
 import { forgotPasswordAction } from "../actions/ForgotPasswordAction";
 import { logoutAction } from "../actions/LogoutAction";
 import { saveUserProfileAction } from "../actions/SaveUserProfileAction";
-import { useNavigate } from "react-router-dom";
 
 export const authenticationSlice = createSlice({
   name: "authentication",

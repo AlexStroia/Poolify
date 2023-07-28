@@ -21,11 +21,9 @@ export const LoginComponent = ({
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  const {
-    errorMessage: error,
-    loading,
-    success,
-  } = useSelector((state: ApplicationState) => state.authentication);
+  const { errorMessage: error, loading } = useSelector(
+    (state: ApplicationState) => state.authentication,
+  );
 
   const handleSignIn = () => {
     const emailValue = email.current?.value ?? "";

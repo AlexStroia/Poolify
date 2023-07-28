@@ -18,7 +18,9 @@ export const LeaderboardComponent = () => {
     .slice()
     .sort(
       (first, second) =>
-        (second.questionsAnswered!.length+ second.questionsPut!.length) - (first.questionsAnswered!.length + first.questionsPut!.length),
+        second.questionsAnswered!.length +
+        second.questionsPut!.length -
+        (first.questionsAnswered!.length + first.questionsPut!.length),
     );
 
   return state.loading ? (

@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  AlertTitle,
-  ClickAwayListener,
-  Dialog,
-  Button,
-  Box,
-} from "@mui/material";
+import { Alert, AlertTitle, Dialog, Button, Box } from "@mui/material";
 
 export const ErrorComponent = ({ message }: { message: string }) => {
   const [isOpen, setIsOpen] = useState(true);

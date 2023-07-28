@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { questionInitialState } from "../state/ApplicationState";
 import { getQuestionAction } from "../actions/GetQuestionAction";
-import { saveUserQuestion } from "../actions/SaveUserQuestion";
 import { saveUserAnswerAction } from "../actions/SaveUserAnswer";
 import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction";
 import { getAvatarUrlAction } from "../actions/GetAvatarUrlAction";

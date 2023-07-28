@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import firebase from "firebase";
-import { UserQuestionAnswer } from "../model/UserQuestionAnswer";
 
 // Action creator to fetch user's question data
 export const getUserQuestions = createAsyncThunk(

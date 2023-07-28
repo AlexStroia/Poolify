@@ -8,9 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
 import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ApplicationState } from "./state/ApplicationState";
-import firebase from "firebase";
 import {
   SaveUserData,
   saveUserProfileAction,
@@ -30,8 +29,9 @@ function App() {
     return state;
   });
   const user = state.authentication.user;
-  const authenticated = (user && user.email !== null ) ?? false ;
+  const authenticated = (user && user.email !== null) ?? false;
   const loggedOut = state.authentication.loggedOut ?? false;
+
   useEffect(() => {
     if (user && user.email !== null) {
       const userData: SaveUserData = {
@@ -43,12 +43,10 @@ function App() {
       dispatch(saveUserProfileAction(userData));
       navigator("/home");
     }
-    if(loggedOut) {
-      navigator('/')
+    if (loggedOut) {
+      navigator("/");
     }
-  }, [authenticated,loggedOut]);
-
-
+  }, [authenticated, loggedOut, dispatch, navigator, user]);
 
   const getPageTitle = () => {
     const { pathname } = location;
@@ -79,7 +77,7 @@ function App() {
     email?: string,
     password?: string,
     displayName?: string,
-    avatar?: File
+    avatar?: File,
   ) => {
     if (
       email !== undefined &&
@@ -93,7 +91,7 @@ function App() {
           password: password!,
           displayName: displayName!,
           avatarFile: avatar,
-        })
+        }),
       );
     }
   };
@@ -104,7 +102,7 @@ function App() {
         loginAction({
           email: email!,
           password: password!,
-        })
+        }),
       );
     }
   };

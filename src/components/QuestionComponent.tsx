@@ -1,8 +1,7 @@
-import { QuestionData } from "../model/QuestionData";
-import { Grid, Typography, Box, Card, Avatar } from "@mui/material";
+import { Grid, Typography, Card, Avatar } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../actions/GetQuestionAction";
 import { ApplicationState } from "../state/ApplicationState";
@@ -63,7 +62,7 @@ export const QuestionComponent = () => {
         }),
       );
     }
-  }, []);
+  });
 
   const handleUserFirstAnswer = (value: string) => {
     if (authenticatedUser !== null || authenticatedUser !== undefined) {

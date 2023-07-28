@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import firebase from "firebase";
-import { QuestionData } from "../model/QuestionData";
 
 export const getUserQuestionAnswerById = createAsyncThunk(
   "question/get-user-questions",

@@ -12,7 +12,7 @@ export const saveUserAnswerAction = createAsyncThunk(
       userId: string;
       userQuestionAnswer: UserQuestionAnswer;
     },
-    { rejectWithValue }
+    { rejectWithValue },
   ) => {
     try {
       const firestore = firebase.firestore();
@@ -37,5 +37,5 @@ export const saveUserAnswerAction = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
+  },
 );
