@@ -29,7 +29,9 @@ export const QuestionItem = ({
 
   const formattedDate: string = date.toLocaleString("en-US", options);
   return (
-    <Card sx={{ borderRadius: "16px" }}>
+    <Card 
+    // onClick={() => handleOnTapQuestion(questionData.id)}
+    sx={{ borderRadius: "16px" }}>
       <Grid
         sx={{
           display: "grid",
@@ -58,7 +60,9 @@ export const QuestionItem = ({
           <PoolifyButton
             buttonSize={PoolifyButtonSize.LARGE}
             title="Show"
-            onTap={() => handleOnTapQuestion(questionData.id)}
+            onTap={ 
+              () => handleOnTapQuestion(questionData.id)
+            }
           />
         </Grid>
       </Grid>

@@ -1,10 +1,11 @@
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { PoolifyButton } from "./PoolifyButton";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ApplicationState } from "../state/ApplicationState";
 import { logoutAction } from "../actions/LogoutAction";
 import { theme } from "../theme";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { changePage } from "../reducers/DashboardSlice";
 import { DashboardPage } from "../state/DashboardState";
 import React from "react";
@@ -15,7 +16,6 @@ export const PoolifyTabBar = () => {
 
   const user = state.authentication.user;
   const page = state.dashboard.page;
-  console.log('page is ' + page);
 
   const handleTabChange = (page: DashboardPage) => {
     dispatch(changePage(page));
@@ -26,8 +26,7 @@ export const PoolifyTabBar = () => {
   };
 
   return (
-    <Grid 
-    container alignItems="center">
+    <Grid container alignItems="center">
       <Grid item sx={{ flex: 1 }}>
         <Box sx={{ borderColor: theme.palette.primary.main }}>
           <Tabs

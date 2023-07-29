@@ -21,6 +21,7 @@ export const PoolifyButton: React.FC<PoolifyButtonsProps> = ({
   const appTheme = theme;
   return (
     <Button
+      data-testid="show-button"
       sx={{
         backgroundColor: appTheme.palette.primary.main,
         color: "white",

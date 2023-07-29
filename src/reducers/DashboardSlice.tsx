@@ -12,7 +12,6 @@ export const dashboardSlice = createSlice({
     changePage(state, action) {
       state.page = action.payload;
     },
-    mapQuestionsPutPerUser(state, action) {},
   },
   extraReducers: (builder) => {
     builder

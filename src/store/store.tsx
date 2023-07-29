@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "../reducers/AuthenticationSlice";
 import { dashboardReducer } from "../reducers/DashboardSlice";
-import { questionReducer } from "../reducers/QuestionSlice";
+import { reducer as questionReducer } from "../reducers/QuestionSlice";
+import thunk from 'redux-thunk'
 
 export const store = configureStore({
   reducer: {
@@ -9,4 +10,5 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     question: questionReducer,
   },
+  middleware: [thunk] // add the thunk middleware
 });

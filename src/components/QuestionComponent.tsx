@@ -63,7 +63,7 @@ export const QuestionComponent = () => {
         }),
       );
     }
-  });
+  },[]);
 
   const handleUserFirstAnswer = (value: string) => {
     if (authenticatedUser !== null || authenticatedUser !== undefined) {
@@ -108,7 +108,7 @@ export const QuestionComponent = () => {
           voteOptionSecond,
         }),
       );
-      navigator(-1);
+  //    navigator(-1);
     }
   };
 

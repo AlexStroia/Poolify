@@ -1,7 +1,7 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Box, Container, Divider, Grid, Typography } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import QuestionList, { QuestionListType } from "../views/QuestionList";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getAllQuestions } from "../actions/GetAllQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
@@ -17,11 +17,11 @@ export const HomeComponent = () => {
   const user = state.authentication.user;
 
   useEffect(() => {
-   dispatch(getAllQuestions());
+    dispatch(getAllQuestions());
     if (user?.userId !== null) {
       dispatch(getUserQuestions(user!.userId!));
     }
-  },[]);
+  }, []);
 
   const handleOnTapQuestion = (questionId: string) => {
     navigator(`/questions/${questionId}`);
@@ -35,7 +35,7 @@ export const HomeComponent = () => {
           .slice()
           .sort(
             (first, second) =>
-              new Date(second.date).getTime() - new Date(first.date).getTime(),
+              new Date(second.date).getTime() - new Date(first.date).getTime()
           )
       : [];
 
@@ -47,15 +47,13 @@ export const HomeComponent = () => {
           .slice()
           .sort(
             (first, second) =>
-              new Date(second.date).getTime() - new Date(first.date).getTime(),
+              new Date(second.date).getTime() - new Date(first.date).getTime()
           )
       : [];
 
   return (
     <div>
-      <PoolifyTabBar
-          data-testid="poolify-tab-bar"
-      />
+      <PoolifyTabBar />
       <Container
         sx={{
           flexDirection: "column",
@@ -66,22 +64,23 @@ export const HomeComponent = () => {
         {dashboardState.loadingNewQuestions ? (
           <SpinnerComponent />
         ) : (
-          <Grid>
-            <Grid item
-                                        data-testid="questions-list-done"
-            >
+          <Grid
+          >
+            <Grid 
+                      data-testid="questions-list-new"
+
+            item>
               <QuestionList
-                data-testid="questions-list-new"
                 questionListType={QuestionListType.NEW}
                 questionDataList={questionsNewOrdered}
                 onTapQuestion={handleOnTapQuestion}
               />
             </Grid>
 
-            <Grid item
-data-testid="questions-list-new"            >
+            <Grid 
+                      data-testid="questions-list-done"
+            item>
               <QuestionList
-                data-testid="questions-list-done"
                 questionListType={QuestionListType.DONE}
                 questionDataList={questionAnsweredOrdered}
                 onTapQuestion={handleOnTapQuestion}

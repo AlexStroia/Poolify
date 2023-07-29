@@ -93,4 +93,4 @@ export const questionSlice = createSlice({
   },
 });
 
-export const questionReducer = questionSlice.reducer;
+export const { actions, reducer } = questionSlice;

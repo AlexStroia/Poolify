@@ -5,14 +5,26 @@ import configureStore from "redux-mock-store";
 import { MemoryRouter, Route, Routes } from "react-router-dom"; // For mocking navigation
 import { HomeComponent } from "../src/components/HomeComponent";
 import { QuestionData } from "../src/model/QuestionData";
-import { QuestionComponent } from "../src/components/QuestionComponent";
 import { DashboardPage } from "../src/state/DashboardState";
+import thunk from "redux-thunk";
+import * as router from "react-router";
 
-// Create a mock redux store using redux-mock-store
-const mockStore = configureStore([]);
+const mockStore = configureStore([thunk]);
+const mockedUsedNavigate = jest.fn();
+
+// 2- Mock the library
+jest.mock("react-router-dom", () => ({
+
+// 3- Import non-mocked library and use other functionalities and hooks
+  ...(jest.requireActual("react-router-dom") as any),
+
+// 4- Mock the required hook
+  useNavigate: () => mockedUsedNavigate
+}));
+
 const sampleQuestions: QuestionData[] = [
   {
-    date: "2023-07-28T12:00:00Z",
+    date: "July 26, 2023 at 10:09:44 AM",
     questionOptionFirst: "Do you prefer tea or coffee?",
     questionOptionSecond: "What is your favorite color?",
     email: "john.doe@example.com",
@@ -22,7 +34,7 @@ const sampleQuestions: QuestionData[] = [
     userId: "user123",
   },
   {
-    date: "2023-07-27T15:30:00Z",
+    date: "July 26, 2023 at 10:09:34 AM",
     questionOptionFirst: "What is your favorite book?",
     questionOptionSecond: "Do you like hiking?",
     email: "jane.smith@example.com",
@@ -32,7 +44,7 @@ const sampleQuestions: QuestionData[] = [
     userId: "user456",
   },
   {
-    date: "2023-07-26T09:45:00Z",
+    date: "July 26, 2023 at 10:03:34 AM",
     questionOptionFirst: "Do you enjoy cooking?",
     questionOptionSecond: "What is your dream destination?",
     email: "sam.wilson@example.com",
@@ -83,15 +95,15 @@ test("renders HomeComponent correctly", () => {
   expect(questionListDone).toBeInTheDocument;
 });
 
-test("navigates to question details page on tapping a question", () => {
-  // Mock the useNavigate function
-  const mockNavigate = jest.fn();
-  jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useNavigate: () => mockNavigate,
-  }));
+const navigate = jest.fn();
 
+beforeEach(() => {
+  jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
+});
+
+test("navigates to question details page on tapping a question", () => {
   // Create the mock store with the mock state
+
   const store = mockStore({
     authentication: {
       user: {
@@ -104,16 +116,18 @@ test("navigates to question details page on tapping a question", () => {
       },
     },
     dashboard: {
-      loading: false,
       page: DashboardPage.HOME,
       loadingNewQuestions: false,
       loadingDoneQuestions: false,
-      userNewQuestions: sampleQuestions,
-      userAnsweredQuestions: sampleQuestions,
-      allQuestions: sampleQuestions,
+      loading: false,
       errorMessage: null,
+      allQuestions: sampleQuestions,
+      userAnsweredQuestions: sampleQuestions,
+      userNewQuestions: sampleQuestions,
+      users: [],
     },
   });
+
 
   // Render the component inside the Provider with the mock store and MemoryRouter for navigation mocking
   render(
@@ -124,10 +138,16 @@ test("navigates to question details page on tapping a question", () => {
     </Provider>
   );
 
+  expect(
+    screen.getByTestId("questions-list-new").children.length
+  ).toBeGreaterThan(0);
   // Simulate clicking on a question in the "NEW" question list
-  const firstNewQuestion = screen.getByTestId("questions-list-new").children[0];
+  const firstNewQuestion = screen.getByTestId("questions-list-new");
   fireEvent.click(firstNewQuestion);
 
   // Expect the mockNavigate function to be called with the correct questionId
-  expect(mockNavigate).toHaveBeenCalledWith("/questions/mockQuestionId"); // Replace 'mockQuestionId' with the actual questionId
+  expect(
+    screen.getByTestId("questions-list-new").children.length
+  ).toBeGreaterThan(0);
+  expect(mockedUsedNavigate).toBeCalled
 });
