@@ -70,7 +70,6 @@ describe("SignupComponent", () => {
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.change(passwordInput, { target: { value: "password123" } });
     fireEvent.change(displayInput, { target: { value: "Test" } });
-    console.log(displayInput);
     fireEvent.change(inputElement, {
       target: {
         files: [new File([], "test-image.jpg", { type: "image/jpeg" })],

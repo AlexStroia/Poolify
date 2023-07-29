@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewComponent matches the snapshot 1`] = `
+<DocumentFragment>
+   
+  <div
+    class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column css-1vpwcmr-MuiGrid-root"
+    style="height: 100vh; width: 100%;"
+  >
+    <div
+      class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container css-1vam7s3-MuiGrid-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item css-1s76rlx-MuiGrid-root"
+        >
+          <div
+            class="MuiBox-root css-1h5pmnd"
+          >
+            <div
+              class="MuiTabs-root css-1ujnqem-MuiTabs-root"
+            >
+              <div
+                class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+                style="overflow: hidden; margin-bottom: 0px;"
+              >
+                <div
+                  class="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
+                  role="tablist"
+                >
+                  <a
+                    aria-selected="false"
+                    class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                    href="/home"
+                    role="tab"
+                    tabindex="-1"
+                  >
+                    Home
+                    <span
+                      class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                    />
+                  </a>
+                  <a
+                    aria-selected="false"
+                    class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                    href="/leaderboard"
+                    role="tab"
+                    tabindex="-1"
+                  >
+                    Leaderboard
+                    <span
+                      class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                    />
+                  </a>
+                  <a
+                    aria-selected="false"
+                    class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary css-1h9z7r5-MuiButtonBase-root-MuiTab-root"
+                    href="/add"
+                    role="tab"
+                    tabindex="-1"
+                  >
+                    New
+                    <span
+                      class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                    />
+                  </a>
+                </div>
+                <span
+                  class="MuiTabs-indicator css-1aquho2-MuiTabs-indicator"
+                  style="left: 0px; width: 0px;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-1g8k7mg-MuiTypography-root"
+          />
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-u4gkmc-MuiButtonBase-root-MuiButton-root"
+            data-testid="show-button"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiTypography-root MuiTypography-button css-1bvnr3d-MuiTypography-root"
+            >
+              Logout
+            </span>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-root MuiGrid-item css-z7x17r-MuiGrid-root"
+    >
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-bhp9pd-MuiPaper-root-MuiCard-root"
+        style="margin-top: 16px; border-radius: 16px; padding: 16px;"
+      >
+        <div>
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column css-ymt1gn-MuiGrid-root"
+          >
+             
+            <div
+              class="MuiGrid-root MuiGrid-item css-z7x17r-MuiGrid-root"
+            >
+               
+              <h4
+                class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1vw6mcs-MuiTypography-root"
+              >
+                Would you rather?
+              </h4>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item css-z7x17r-MuiGrid-root"
+            >
+              <div
+                class="MuiFormControl-root MuiTextField-root css-1j94i89-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
+                  for=":r1:"
+                  id=":r1:-label"
+                >
+                  First
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    id=":r1:"
+                    placeholder="3"
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-yjsfm1"
+                    >
+                      <span>
+                        First
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item css-z7x17r-MuiGrid-root"
+            >
+              <div
+                class="MuiFormControl-root MuiTextField-root css-1j94i89-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
+                  for=":r2:"
+                  id=":r2:-label"
+                >
+                  Second
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    id=":r2:"
+                    placeholder="3"
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-yjsfm1"
+                    >
+                      <span>
+                        Second
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item css-z7x17r-MuiGrid-root"
+            >
+              <button
+                class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-u4gkmc-MuiButtonBase-root-MuiButton-root"
+                data-testid="show-button"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiTypography-root MuiTypography-button css-1bvnr3d-MuiTypography-root"
+                >
+                  Save
+                </span>
+                <span
+                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
