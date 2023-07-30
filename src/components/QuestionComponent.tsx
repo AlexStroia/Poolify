@@ -33,14 +33,14 @@ export const QuestionComponent = () => {
 
   const handlePercentageVotes = (
     firstOptionVotes: number,
-    secondOptionVotes: number
+    secondOptionVotes: number,
   ) => {
     const totalVotes = firstOptionVotes + secondOptionVotes;
     const percentageFirstOption = Math.round(
-      (firstOptionVotes / totalVotes) * 100
+      (firstOptionVotes / totalVotes) * 100,
     );
     const percentageSecondOption = Math.round(
-      (secondOptionVotes / totalVotes) * 100
+      (secondOptionVotes / totalVotes) * 100,
     );
     return { percentageFirstOption, percentageSecondOption };
   };
@@ -48,7 +48,7 @@ export const QuestionComponent = () => {
   const { percentageFirstOption, percentageSecondOption } =
     handlePercentageVotes(
       parseInt(questionData?.voteOptionFirst! ?? 0, 10),
-      parseInt(questionData?.voteOptionSecond! ?? 0, 10)
+      parseInt(questionData?.voteOptionSecond! ?? 0, 10),
     );
 
   function getUserInformation() {
@@ -64,7 +64,7 @@ export const QuestionComponent = () => {
         getUserQuestionAnswerById({
           userId: authenticatedUser!.userId!,
           questionId: question_id!,
-        })
+        }),
       );
     }
   }
@@ -90,7 +90,7 @@ export const QuestionComponent = () => {
           questionId,
           voteOptionFirst,
           voteOptionSecond,
-        })
+        }),
       );
     }
   };
@@ -112,7 +112,7 @@ export const QuestionComponent = () => {
           questionId,
           voteOptionFirst,
           voteOptionSecond,
-        })
+        }),
       );
     }
   };
@@ -174,7 +174,7 @@ export const QuestionComponent = () => {
                   title={questionData?.questionOptionFirst ?? ""}
                   onTap={() =>
                     handleUserFirstAnswer(
-                      questionData?.questionOptionFirst ?? ""
+                      questionData?.questionOptionFirst ?? "",
                     )
                   }
                 ></PoolifyButton>
@@ -198,7 +198,7 @@ export const QuestionComponent = () => {
                   title={questionData?.questionOptionSecond ?? ""}
                   onTap={() =>
                     handleUserSecondAnswer(
-                      questionData?.questionOptionSecond ?? ""
+                      questionData?.questionOptionSecond ?? "",
                     )
                   }
                 ></PoolifyButton>{" "}

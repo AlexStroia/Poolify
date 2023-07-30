@@ -27,7 +27,7 @@ describe("SignupComponent", () => {
           <SignupComponent />
         </Provider>
         Xp
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const emailInput = getByLabelText("Email");
@@ -58,13 +58,13 @@ describe("SignupComponent", () => {
     const { getByLabelText, getByText, getByTestId } = render(
       <Provider store={store}>
         <SignupComponent onTapSignUp={onTapSignUpMock} />
-      </Provider>
+      </Provider>,
     );
 
     const emailInput = getByLabelText("Email");
     const passwordInput = getByLabelText("Password");
     const displayInput = getByLabelText("Display Name");
-    const inputElement = getByTestId("input-id")
+    const inputElement = getByTestId("input-id");
     const signupButton = getByText("Signup");
 
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
@@ -82,27 +82,27 @@ describe("SignupComponent", () => {
       "test@example.com",
       "password123",
       "Test",
-      undefined // Use optional chaining and provide a default value (null) if inputElement is null
+      undefined, // Use optional chaining and provide a default value (null) if inputElement is null
     );
   });
 
-    it("displays the loading spinner when loading is true", () => {
-      const store = mockStore({
-        authentication: {
-          errorMessage: "",
-          loading: true,
-          success: false,
-        },
-      });
-
-      const { getByTestId } = render(
-        <MemoryRouter>
-          <Provider store={store}>
-            <SignupComponent />
-          </Provider>
-        </MemoryRouter>,
-      );
-
-      expect(getByTestId("spinner")).toBeInTheDocument;
+  it("displays the loading spinner when loading is true", () => {
+    const store = mockStore({
+      authentication: {
+        errorMessage: "",
+        loading: true,
+        success: false,
+      },
     });
+
+    const { getByTestId } = render(
+      <MemoryRouter>
+        <Provider store={store}>
+          <SignupComponent />
+        </Provider>
+      </MemoryRouter>,
+    );
+
+    expect(getByTestId("spinner")).toBeInTheDocument;
+  });
 });

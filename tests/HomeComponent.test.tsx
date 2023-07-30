@@ -14,12 +14,11 @@ const mockedUsedNavigate = jest.fn();
 
 // 2- Mock the library
 jest.mock("react-router-dom", () => ({
-
-// 3- Import non-mocked library and use other functionalities and hooks
+  // 3- Import non-mocked library and use other functionalities and hooks
   ...(jest.requireActual("react-router-dom") as any),
 
-// 4- Mock the required hook
-  useNavigate: () => mockedUsedNavigate
+  // 4- Mock the required hook
+  useNavigate: () => mockedUsedNavigate,
 }));
 
 const sampleQuestions: QuestionData[] = [
@@ -83,7 +82,7 @@ test("renders HomeComponent correctly", () => {
       <MemoryRouter>
         <HomeComponent />
       </MemoryRouter>
-    </Provider>
+    </Provider>,
   );
 
   // Expect the QuestionList with questionListType "NEW" to be in the document
@@ -128,18 +127,17 @@ test("navigates to question details page on tapping a question", () => {
     },
   });
 
-
   // Render the component inside the Provider with the mock store and MemoryRouter for navigation mocking
   render(
     <Provider store={store}>
       <MemoryRouter>
         <HomeComponent />
       </MemoryRouter>
-    </Provider>
+    </Provider>,
   );
 
   expect(
-    screen.getByTestId("questions-list-new").children.length
+    screen.getByTestId("questions-list-new").children.length,
   ).toBeGreaterThan(0);
   // Simulate clicking on a question in the "NEW" question list
   const firstNewQuestion = screen.getByTestId("questions-list-new");
@@ -147,7 +145,7 @@ test("navigates to question details page on tapping a question", () => {
 
   // Expect the mockNavigate function to be called with the correct questionId
   expect(
-    screen.getByTestId("questions-list-new").children.length
+    screen.getByTestId("questions-list-new").children.length,
   ).toBeGreaterThan(0);
-  expect(mockedUsedNavigate).toBeCalled
+  expect(mockedUsedNavigate).toBeCalled;
 });

@@ -34,11 +34,10 @@ export const SignupComponent = ({
   );
 
   const handleSignup = () => {
-      const emailValue = email.current?.value ?? "";
-      const passwordValue = password.current?.value ?? "";
-      const displayNameValue = displayName.current?.value ?? "";
-      onTapSignUp(emailValue, passwordValue, displayNameValue, avatarFile);
-  
+    const emailValue = email.current?.value ?? "";
+    const passwordValue = password.current?.value ?? "";
+    const displayNameValue = displayName.current?.value ?? "";
+    onTapSignUp(emailValue, passwordValue, displayNameValue, avatarFile);
   };
 
   const handleAvatarClick = () => {
@@ -85,8 +84,11 @@ export const SignupComponent = ({
         />
       </Tooltip>
       <Input
-       data-testid="input-id"
-      type="file" onChange={handleImageUpload} ref={fileInputRef} />
+        data-testid="input-id"
+        type="file"
+        onChange={handleImageUpload}
+        ref={fileInputRef}
+      />
       <Typography variant="body1">*Profile picture is mandatory</Typography>
       <PoolifyTextField
         label="Email"

@@ -62,7 +62,7 @@ export const LeaderboardComponent = () => {
             <React.Fragment key={index}>
               <Grid item xs={3}>
                 <Typography textAlign="center" variant="body1">
-                  {item.displayName ?? 'Not defined'}
+                  {item.displayName ?? "Not defined"}
                 </Typography>
               </Grid>
 

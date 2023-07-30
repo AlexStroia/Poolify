@@ -1,22 +1,23 @@
+import React, { useEffect } from "react";
 import { Box, Container, Divider, Grid, Typography } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import QuestionList, { QuestionListType } from "../views/QuestionList";
-import React, { useEffect, useState } from "react";
-import { getAllQuestions } from "../actions/GetAllQuestions";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../state/ApplicationState";
 import { useNavigate } from "react-router-dom";
 import { SpinnerComponent } from "./SpinnerComponent";
 import { getUserQuestions } from "../actions/GetUserQuestions";
+import { getAllQuestions } from "../actions/GetAllQuestions";
 
-export const HomeComponent = () => {
+const HomeComponent: React.FC = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const state = useSelector((state: ApplicationState) => state);
   const dashboardState = state.dashboard;
   const user = state.authentication.user;
+  const [isToggle, setIsToggle] = React.useState<"new" | "done">("new");
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getAllQuestions());
     if (user?.userId !== null) {
       dispatch(getUserQuestions(user!.userId!));
@@ -35,7 +36,7 @@ export const HomeComponent = () => {
           .slice()
           .sort(
             (first, second) =>
-              new Date(second.date).getTime() - new Date(first.date).getTime()
+              new Date(second.date).getTime() - new Date(first.date).getTime(),
           )
       : [];
 
@@ -47,7 +48,7 @@ export const HomeComponent = () => {
           .slice()
           .sort(
             (first, second) =>
-              new Date(second.date).getTime() - new Date(first.date).getTime()
+              new Date(second.date).getTime() - new Date(first.date).getTime(),
           )
       : [];
 
@@ -57,7 +58,7 @@ export const HomeComponent = () => {
       <Container
         sx={{
           flexDirection: "column",
-          gap: "124px", // Increase the spacing between elements to 24px
+          gap: "24px", // Increase the spacing between elements to 24px
         }}
       >
         <Box height="32px" />
@@ -66,20 +67,40 @@ export const HomeComponent = () => {
         ) : (
           <Grid>
             <Grid item>
-              <Typography variant="h1">Add a toggle and can show all, or one of the qeustions</Typography>
+              <div>
+                <input
+                  type="radio"
+                  id="newQuestions"
+                  name="toggle"
+                  value="new"
+                  checked={isToggle === "new"}
+                  onChange={() => setIsToggle("new")}
+                />
+                <label htmlFor="newQuestions">New Questions</label>
+                <input
+                  type="radio"
+                  id="doneQuestions"
+                  name="toggle"
+                  value="done"
+                  checked={isToggle === "done"}
+                  onChange={() => setIsToggle("done")}
+                />
+                <label htmlFor="doneQuestions">Done Questions</label>
+              </div>
             </Grid>
-            <Grid data-testid="questions-list-new" item>
+            <Grid item>
+              {/* Render the New or Done Questions list based on the selected toggle */}
               <QuestionList
-                questionListType={QuestionListType.NEW}
-                questionDataList={questionsNewOrdered}
-                onTapQuestion={handleOnTapQuestion}
-              />
-            </Grid>
-
-            <Grid data-testid="questions-list-done" item>
-              <QuestionList
-                questionListType={QuestionListType.DONE}
-                questionDataList={questionAnsweredOrdered}
+                questionListType={
+                  isToggle === "new"
+                    ? QuestionListType.NEW
+                    : QuestionListType.DONE
+                }
+                questionDataList={
+                  isToggle === "new"
+                    ? questionsNewOrdered
+                    : questionAnsweredOrdered
+                }
                 onTapQuestion={handleOnTapQuestion}
               />
             </Grid>
@@ -89,3 +110,5 @@ export const HomeComponent = () => {
     </div>
   );
 };
+
+export default HomeComponent;

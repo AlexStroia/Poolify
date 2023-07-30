@@ -17,11 +17,11 @@ import {
 } from "./actions/SaveUserProfileAction";
 import NewComponent from "./components/NewComponent";
 import { LeaderboardComponent } from "./components/LeaderboardComponent";
-import { HomeComponent } from "./components/HomeComponent";
 import { NotFoundComponent } from "./components/NotFoundComponent";
 import { QuestionComponent } from "./components/QuestionComponent";
 import { ProtectedRouteComponent } from "./components/ProtectedRouteComponent";
 import React from "react";
+import HomeComponent from "./components/HomeComponent";
 
 function App() {
   const navigator = useNavigate();
@@ -31,7 +31,7 @@ function App() {
     return state;
   });
   const user = state.authentication.user;
-  const authenticated = (user && user.email !== null ) ?? false ;
+  const authenticated = (user && user.email !== null) ?? false;
   const loggedOut = state.authentication.loggedOut ?? false;
   useEffect(() => {
     if (user && user.email !== null) {
@@ -44,12 +44,10 @@ function App() {
       dispatch(saveUserProfileAction(userData));
       navigator("/home");
     }
-    if(loggedOut) {
-      navigator('/')
+    if (loggedOut) {
+      navigator("/");
     }
-  }, [authenticated,loggedOut]);
-
-
+  }, [authenticated, loggedOut]);
 
   const getPageTitle = () => {
     const { pathname } = location;
@@ -80,7 +78,7 @@ function App() {
     email?: string,
     password?: string,
     displayName?: string,
-    avatar?: File
+    avatar?: File,
   ) => {
     if (
       email !== undefined &&
@@ -94,7 +92,7 @@ function App() {
           password: password!,
           displayName: displayName!,
           avatarFile: avatar,
-        })
+        }),
       );
     }
   };
@@ -105,7 +103,7 @@ function App() {
         loginAction({
           email: email!,
           password: password!,
-        })
+        }),
       );
     }
   };

@@ -21,9 +21,9 @@ describe("LoginComponent", () => {
     });
 
     const { getByLabelText, getByText } = render(
-        <Provider store={store}>
-          <LoginComponent />
-        </Provider>
+      <Provider store={store}>
+        <LoginComponent />
+      </Provider>,
     );
 
     const emailInput = getByLabelText("Email");
@@ -83,9 +83,9 @@ describe("LoginComponent", () => {
     });
 
     const { getByTestId } = render(
-        <Provider store={store}>
-          <LoginComponent />
-        </Provider>
+      <Provider store={store}>
+        <LoginComponent />
+      </Provider>,
     );
 
     expect(getByTestId("spinner")).toBeInTheDocument;
