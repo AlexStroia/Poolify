@@ -1,11 +1,10 @@
 import { Box, Grid, Tab, Tabs, Typography } from "@mui/material";
 import { PoolifyButton } from "./PoolifyButton";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { ApplicationState } from "../state/ApplicationState";
 import { logoutAction } from "../actions/LogoutAction";
 import { theme } from "../theme";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { changePage } from "../reducers/DashboardSlice";
 import { DashboardPage } from "../state/DashboardState";
 import React from "react";

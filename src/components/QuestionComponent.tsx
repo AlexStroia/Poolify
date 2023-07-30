@@ -1,6 +1,6 @@
 import { Grid, Typography, Card, Avatar } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../actions/GetQuestionAction";
@@ -26,10 +26,6 @@ export const QuestionComponent = () => {
   const questionData = questionState.question;
   const error = questionState.error;
   const avatar = state.question.avatarUrl;
-  const userAnswer = questionState.userAnswer;
-  console.log(questionState);
-  console.log("====");
-  console.log(userAnswer);
 
   const handlePercentageVotes = (
     firstOptionVotes: number,
@@ -51,27 +47,27 @@ export const QuestionComponent = () => {
       parseInt(questionData?.voteOptionSecond! ?? 0, 10),
     );
 
-  function getUserInformation() {
-    if (question_id !== null && question_id !== undefined) {
-      dispatch(getQuestionAction(question_id!));
-    }
-    if (questionData?.userId !== null && questionData?.userId !== undefined) {
-      dispatch(getAvatarUrlAction(questionData?.userId));
-    }
-
-    if (authenticatedUser?.userId !== null && questionData?.id !== null) {
-      dispatch(
-        getUserQuestionAnswerById({
-          userId: authenticatedUser!.userId!,
-          questionId: question_id!,
-        }),
-      );
-    }
-  }
-
   useEffect(() => {
+    function getUserInformation() {
+      if (question_id !== null && question_id !== undefined) {
+        dispatch(getQuestionAction(question_id!));
+      }
+      if (questionData?.userId !== null && questionData?.userId !== undefined) {
+        dispatch(getAvatarUrlAction(questionData?.userId));
+      }
+
+      if (authenticatedUser?.userId !== null && questionData?.id !== null) {
+        dispatch(
+          getUserQuestionAnswerById({
+            userId: authenticatedUser!.userId!,
+            questionId: question_id!,
+          }),
+        );
+      }
+    }
     getUserInformation();
-  }, [userAnswer]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleUserFirstAnswer = (value: string) => {
     if (authenticatedUser !== null || authenticatedUser !== undefined) {

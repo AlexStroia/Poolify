@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, Container, Divider, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import QuestionList, { QuestionListType } from "../views/QuestionList";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,11 +17,20 @@ const HomeComponent: React.FC = () => {
   const user = state.authentication.user;
   const [isToggle, setIsToggle] = React.useState<"new" | "done">("new");
 
-  React.useEffect(() => {
-    dispatch(getAllQuestions());
-    if (user?.userId !== null) {
-      dispatch(getUserQuestions(user!.userId!));
+  useEffect(() => {
+    function getUserDataAllQuestions() {
+      dispatch(getAllQuestions());
     }
+
+    function getUserDataQuestions() {
+      if (user?.userId !== null) {
+        dispatch(getUserQuestions(user!.userId!));
+      }
+    }
+
+    getUserDataAllQuestions();
+    getUserDataQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOnTapQuestion = (questionId: string) => {

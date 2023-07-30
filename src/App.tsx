@@ -8,9 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
 import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ApplicationState } from "./state/ApplicationState";
-import firebase from "firebase";
 import {
   SaveUserData,
   saveUserProfileAction,
@@ -34,20 +33,27 @@ function App() {
   const authenticated = (user && user.email !== null) ?? false;
   const loggedOut = state.authentication.loggedOut ?? false;
   useEffect(() => {
-    if (user && user.email !== null) {
-      const userData: SaveUserData = {
-        email: user?.email ?? "",
-        userId: user?.userId ?? "",
-        displayName: user?.displayName ?? "",
-        avatar: user?.avatarUrl ?? "",
-      };
-      dispatch(saveUserProfileAction(userData));
-      navigator("/home");
+    function navigateToHomeIfLoggedIn() {
+      if (user && user.email !== null) {
+        const userData: SaveUserData = {
+          email: user?.email ?? "",
+          userId: user?.userId ?? "",
+          displayName: user?.displayName ?? "",
+          avatar: user?.avatarUrl ?? "",
+        };
+        dispatch(saveUserProfileAction(userData));
+        navigator("/home");
+      }
     }
-    if (loggedOut) {
-      navigator("/");
+    function navigateToMainPageIfLoggedOut() {
+      if (loggedOut) {
+        navigator("/");
+      }
     }
-  }, [authenticated, loggedOut]);
+
+    navigateToHomeIfLoggedIn();
+    navigateToMainPageIfLoggedOut();
+  }, [loggedOut, user]);
 
   const getPageTitle = () => {
     const { pathname } = location;
