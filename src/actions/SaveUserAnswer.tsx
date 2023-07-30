@@ -34,6 +34,7 @@ export const saveUserAnswerAction = createAsyncThunk(
           .doc(date)
           .update(userQuestionAnswer);
       }
+      return userQuestionAnswer;
     } catch (error) {
       return rejectWithValue(error);
     }

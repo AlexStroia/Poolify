@@ -64,12 +64,11 @@ export const HomeComponent = () => {
         {dashboardState.loadingNewQuestions ? (
           <SpinnerComponent />
         ) : (
-          <Grid
-          >
-            <Grid 
-                      data-testid="questions-list-new"
-
-            item>
+          <Grid>
+            <Grid item>
+              <Typography variant="h1">Add a toggle and can show all, or one of the qeustions</Typography>
+            </Grid>
+            <Grid data-testid="questions-list-new" item>
               <QuestionList
                 questionListType={QuestionListType.NEW}
                 questionDataList={questionsNewOrdered}
@@ -77,9 +76,7 @@ export const HomeComponent = () => {
               />
             </Grid>
 
-            <Grid 
-                      data-testid="questions-list-done"
-            item>
+            <Grid data-testid="questions-list-done" item>
               <QuestionList
                 questionListType={QuestionListType.DONE}
                 questionDataList={questionAnsweredOrdered}

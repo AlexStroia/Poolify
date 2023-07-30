@@ -39,8 +39,10 @@ export const questionSlice = createSlice({
         state.loading = false;
       })
       .addCase(saveUserAnswerAction.fulfilled, (state, action) => {
+             const userAnswer = action.payload ?? "";
         state.loading = false;
         state.error = null;
+        state.userAnswer = userAnswer.questionOptionFirst === null ? userAnswer.questionOptionSecond : userAnswer.questionOptionFirst;
       })
 
       .addCase(updateQuestionVotesAction.pending, (state, _) => {

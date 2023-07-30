@@ -14,9 +14,9 @@ import { updateQuestionVotesAction } from "../actions/UpdateQuestionVotesAction"
 import { getAvatarUrlAction } from "../actions/GetAvatarUrlAction";
 import { getUserQuestionAnswerById } from "../actions/GetUserQuestionAnswerById";
 import React from "react";
+import ArrowDown from "../views/ArrowDown";
 
 export const QuestionComponent = () => {
-  const navigator = useNavigate();
   const { question_id } = useParams();
   const dispatch = useDispatch();
   const state = useSelector((state: ApplicationState) => state);
@@ -26,17 +26,21 @@ export const QuestionComponent = () => {
   const questionData = questionState.question;
   const error = questionState.error;
   const avatar = state.question.avatarUrl;
+  const userAnswer = questionState.userAnswer;
+  console.log(questionState);
+  console.log("====");
+  console.log(userAnswer);
 
   const handlePercentageVotes = (
     firstOptionVotes: number,
-    secondOptionVotes: number,
+    secondOptionVotes: number
   ) => {
     const totalVotes = firstOptionVotes + secondOptionVotes;
     const percentageFirstOption = Math.round(
-      (firstOptionVotes / totalVotes) * 100,
+      (firstOptionVotes / totalVotes) * 100
     );
     const percentageSecondOption = Math.round(
-      (secondOptionVotes / totalVotes) * 100,
+      (secondOptionVotes / totalVotes) * 100
     );
     return { percentageFirstOption, percentageSecondOption };
   };
@@ -44,10 +48,10 @@ export const QuestionComponent = () => {
   const { percentageFirstOption, percentageSecondOption } =
     handlePercentageVotes(
       parseInt(questionData?.voteOptionFirst! ?? 0, 10),
-      parseInt(questionData?.voteOptionSecond! ?? 0, 10),
+      parseInt(questionData?.voteOptionSecond! ?? 0, 10)
     );
 
-  useEffect(() => {
+  function getUserInformation() {
     if (question_id !== null && question_id !== undefined) {
       dispatch(getQuestionAction(question_id!));
     }
@@ -60,10 +64,14 @@ export const QuestionComponent = () => {
         getUserQuestionAnswerById({
           userId: authenticatedUser!.userId!,
           questionId: question_id!,
-        }),
+        })
       );
     }
-  },[]);
+  }
+
+  useEffect(() => {
+    getUserInformation();
+  }, [userAnswer]);
 
   const handleUserFirstAnswer = (value: string) => {
     if (authenticatedUser !== null || authenticatedUser !== undefined) {
@@ -82,10 +90,8 @@ export const QuestionComponent = () => {
           questionId,
           voteOptionFirst,
           voteOptionSecond,
-        }),
+        })
       );
-      dispatch(getQuestionAction(question_id!));
-      navigator(-1);
     }
   };
 
@@ -106,9 +112,8 @@ export const QuestionComponent = () => {
           questionId,
           voteOptionFirst,
           voteOptionSecond,
-        }),
+        })
       );
-  //    navigator(-1);
     }
   };
 
@@ -169,7 +174,7 @@ export const QuestionComponent = () => {
                   title={questionData?.questionOptionFirst ?? ""}
                   onTap={() =>
                     handleUserFirstAnswer(
-                      questionData?.questionOptionFirst ?? "",
+                      questionData?.questionOptionFirst ?? ""
                     )
                   }
                 ></PoolifyButton>
@@ -193,7 +198,7 @@ export const QuestionComponent = () => {
                   title={questionData?.questionOptionSecond ?? ""}
                   onTap={() =>
                     handleUserSecondAnswer(
-                      questionData?.questionOptionSecond ?? "",
+                      questionData?.questionOptionSecond ?? ""
                     )
                   }
                 ></PoolifyButton>{" "}
@@ -219,11 +224,46 @@ export const QuestionComponent = () => {
                 }}
               >
                 {questionState.userAnswer!.length > 0 ? (
-                  <Typography>{`You have voted ${questionState.userAnswer}`}</Typography>
+                  <Typography variant="h2">{`You have voted ${
+                    questionState.userAnswer ===
+                    questionData?.questionOptionSecond
+                      ? "Option Second"
+                      : "Optione One"
+                  }`}</Typography>
                 ) : (
                   <div></div>
                 )}
               </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                {questionState.userAnswer!.length > 0 ? (
+                  <ArrowDown />
+                ) : (
+                  <div></div>
+                )}
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                {questionState.userAnswer!.length > 0 ? (
+                  <PoolifyButton
+                    title={questionState.userAnswer?.toString() ?? ""}
+                    onTap={() => {}}
+                  ></PoolifyButton>
+                ) : (
+                  <div></div>
+                )}
+              </Grid>
+
               <Grid
                 item
                 sx={{
