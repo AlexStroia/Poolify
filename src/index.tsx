@@ -9,6 +9,7 @@ import firebase from "firebase";
 import { firebaseConfig } from "./firebase";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+// eslint-disable-next-line
 import "firebase/auth";
 import React from "react";
 

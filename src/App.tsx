@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "./actions/LoginAction";
 import { forgotPasswordAction } from "./actions/ForgotPasswordAction";
 import { reset } from "./reducers/AuthenticationSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ApplicationState } from "./state/ApplicationState";
 import {
   SaveUserData,
@@ -21,6 +21,7 @@ import { QuestionComponent } from "./components/QuestionComponent";
 import { ProtectedRouteComponent } from "./components/ProtectedRouteComponent";
 import React from "react";
 import HomeComponent from "./components/HomeComponent";
+import firebase from "firebase";
 
 function App() {
   const navigator = useNavigate();
@@ -30,8 +31,9 @@ function App() {
     return state;
   });
   const user = state.authentication.user;
-  const authenticated = (user && user.email !== null) ?? false;
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
   const loggedOut = state.authentication.loggedOut ?? false;
+
   useEffect(() => {
     function navigateToHomeIfLoggedIn() {
       if (user && user.email !== null) {
@@ -42,17 +44,36 @@ function App() {
           avatar: user?.avatarUrl ?? "",
         };
         dispatch(saveUserProfileAction(userData));
-        navigator("/home");
+
+        const redirectPath = localStorage.getItem("redirectPath");
+        if (redirectPath) {
+          navigator(redirectPath);
+        } else {
+          navigator("/home");
+        }
       }
     }
     function navigateToMainPageIfLoggedOut() {
-      if (loggedOut) {
+      if (!authenticated) {
         navigator("/");
       }
     }
 
     navigateToHomeIfLoggedIn();
     navigateToMainPageIfLoggedOut();
+
+    // Add an authentication state observer to handle user login status
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+
+    // Clean up the observer when the component unmounts
+    return () => unsubscribe();
+    // eslint-disable-next-line
   }, [loggedOut, user]);
 
   const getPageTitle = () => {

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthenticationData } from "../model/AuthenticationData";
 import firebase from "firebase";
+// eslint-disable-next-line
 import "firebase/auth";
 
 export const signupAction = createAsyncThunk(

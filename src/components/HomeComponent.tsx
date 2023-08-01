@@ -9,7 +9,7 @@ import { SpinnerComponent } from "./SpinnerComponent";
 import { getUserQuestions } from "../actions/GetUserQuestions";
 import { getAllQuestions } from "../actions/GetAllQuestions";
 
-const HomeComponent: React.FC = () => {
+export const HomeComponent: React.FC = () => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
   const state = useSelector((state: ApplicationState) => state);
@@ -97,7 +97,7 @@ const HomeComponent: React.FC = () => {
                 <label htmlFor="doneQuestions">Done Questions</label>
               </div>
             </Grid>
-            <Grid item>
+            <Grid data-test-id="questions-list-new" item>
               {/* Render the New or Done Questions list based on the selected toggle */}
               <QuestionList
                 questionListType={

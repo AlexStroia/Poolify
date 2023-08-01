@@ -19,18 +19,38 @@ export const updateQuestionVotesAction = createAsyncThunk(
       const database = firebase.firestore();
       const questions = database.collection("questions");
       const question = questions.doc(questionId);
-      const exists = await question.get();
-      if (exists) {
+      const currentQuestion = await question.get();
+
+      const currentVoteOptionFirst = parseInt(
+        currentQuestion.data()?.voteOptionFirst ?? "0",
+      );
+
+      const currentVoteOptionSecond = parseInt(
+        currentQuestion.data()?.voteOptionSecond ?? "0",
+      );
+
+      console.log("Current");
+      console.log(currentVoteOptionFirst);
+      console.log(currentVoteOptionSecond);
+
+      if (currentQuestion) {
         if (voteOptionFirst !== null) {
+          const newVoteOptionFirstValue = currentVoteOptionFirst + 1;
           await question.update({
-            voteOptionFirst: firebase.firestore.FieldValue.increment(1) ?? 0,
+            voteOptionFirst: currentVoteOptionFirst! + 1,
           });
+          return {
+            voteOptionFirst: newVoteOptionFirstValue.toString(),
+          };
         } else if (voteOptionSecond !== null) {
+          const newVoteOptionSecondValue = currentVoteOptionSecond + 1;
           await question.update({
-            voteOptionSecond: firebase.firestore.FieldValue.increment(1) ?? 0,
+            voteOptionSecond: newVoteOptionSecondValue,
           });
+          return {
+            voteOptionSecond: newVoteOptionSecondValue.toString(),
+          };
         }
-        question.update({});
       } else {
         return rejectWithValue({ message: "Could not update question" });
       }

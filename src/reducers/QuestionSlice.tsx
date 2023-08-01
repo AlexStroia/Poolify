@@ -59,8 +59,20 @@ export const questionSlice = createSlice({
         state.loading = false;
       })
       .addCase(updateQuestionVotesAction.fulfilled, (state, action) => {
+        const payload = action.payload;
         state.loading = false;
         state.error = null;
+
+        const question = state.question;
+
+        if (payload?.voteOptionFirst) {
+          question!.voteOptionFirst = payload.voteOptionFirst ?? "0";
+        }
+
+        if (payload?.voteOptionSecond) {
+          question!.voteOptionSecond = payload.voteOptionSecond ?? "0";
+        }
+        state.question = question;
       })
       .addCase(getAvatarUrlAction.pending, (state, _) => {
         state.loading = true;

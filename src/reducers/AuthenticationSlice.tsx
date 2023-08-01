@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authenticationState } from "../state/ApplicationState";
+// eslint-disable-next-line
 import "firebase/auth";
 import { loginAction } from "../actions/LoginAction";
 import { signupAction } from "../actions/SignupAction";

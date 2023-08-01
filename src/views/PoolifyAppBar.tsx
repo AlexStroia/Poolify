@@ -16,7 +16,12 @@ export const PoolifyAppBar: React.FC<PoolifyAppBarProps> = ({
   const pathName = useLocation().pathname;
   const showBackButton = navigator.length > 1 && pathName !== "/";
   const handleGoBack = () => {
-    navigator(-1);
+    const redirectPath = localStorage.getItem("redirectPath");
+    if (redirectPath) {
+      navigator("/home");
+    } else {
+      navigator(-1);
+    }
   };
 
   return (

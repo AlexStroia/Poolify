@@ -1,6 +1,6 @@
 import { Grid, Typography, Card, Avatar } from "@mui/material";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../actions/GetQuestionAction";
@@ -17,6 +17,7 @@ import React from "react";
 import ArrowDown from "../views/ArrowDown";
 
 export const QuestionComponent = () => {
+  const navigate = useNavigate();
   const { question_id } = useParams();
   const dispatch = useDispatch();
   const state = useSelector((state: ApplicationState) => state);
@@ -26,6 +27,10 @@ export const QuestionComponent = () => {
   const questionData = questionState.question;
   const error = questionState.error;
   const avatar = state.question.avatarUrl;
+  console.log("Question boss is " + state.question.question);
+  if (state.question.question === null) {
+    navigate("/error");
+  }
 
   const handlePercentageVotes = (
     firstOptionVotes: number,
@@ -65,9 +70,18 @@ export const QuestionComponent = () => {
         );
       }
     }
+
     getUserInformation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [
+    questionData?.id,
+    dispatch,
+    authenticatedUser,
+    question_id,
+    authenticatedUser?.userId,
+    questionData?.userId,
+    questionState.userAnswer,
+  ]);
 
   const handleUserFirstAnswer = (value: string) => {
     if (authenticatedUser !== null || authenticatedUser !== undefined) {
@@ -79,7 +93,7 @@ export const QuestionComponent = () => {
       };
       const questionId = question_id!;
       const voteOptionFirst = value;
-      const voteOptionSecond = null;
+      const voteOptionSecond = "0";
       dispatch(saveUserAnswerAction({ userId, userQuestionAnswer }));
       dispatch(
         updateQuestionVotesAction({
@@ -100,7 +114,7 @@ export const QuestionComponent = () => {
         questionOptionFirst: null,
       };
       const questionId = question_id!;
-      const voteOptionSecond = value;
+      const voteOptionSecond = "0";
       const voteOptionFirst = null;
       dispatch(saveUserAnswerAction({ userId, userQuestionAnswer }));
       dispatch(
@@ -219,7 +233,9 @@ export const QuestionComponent = () => {
                   display: "flex",
                 }}
               >
-                {questionState.userAnswer!.length > 0 ? (
+                {questionState &&
+                questionState.userAnswer &&
+                questionState.userAnswer?.length > 0 ? (
                   <Typography variant="h2">{`You have voted ${
                     questionState.userAnswer ===
                     questionData?.questionOptionSecond
@@ -237,7 +253,7 @@ export const QuestionComponent = () => {
                   display: "flex",
                 }}
               >
-                {questionState.userAnswer!.length > 0 ? (
+                {questionState.userAnswer?.length ?? 0 > 0 ? (
                   <ArrowDown />
                 ) : (
                   <div></div>
@@ -250,14 +266,10 @@ export const QuestionComponent = () => {
                   display: "flex",
                 }}
               >
-                {questionState.userAnswer!.length > 0 ? (
-                  <PoolifyButton
-                    title={questionState.userAnswer?.toString() ?? ""}
-                    onTap={() => {}}
-                  ></PoolifyButton>
-                ) : (
-                  <div></div>
-                )}
+                <PoolifyButton
+                  title={questionState.userAnswer?.toString() ?? ""}
+                  onTap={() => {}}
+                ></PoolifyButton>
               </Grid>
 
               <Grid
