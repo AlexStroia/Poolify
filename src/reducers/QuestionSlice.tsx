@@ -30,7 +30,6 @@ export const questionSlice = createSlice({
       })
       .addCase(saveUserAnswerAction.pending, (state, _) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(saveUserAnswerAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
@@ -50,7 +49,6 @@ export const questionSlice = createSlice({
 
       .addCase(updateQuestionVotesAction.pending, (state, _) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(updateQuestionVotesAction.rejected, (state, action) => {
         const payload = action.payload as { message: string };
@@ -87,24 +85,21 @@ export const questionSlice = createSlice({
       .addCase(getAvatarUrlAction.fulfilled, (state, action) => {
         const avatarUrl = action.payload;
         state.loading = false;
-        state.error = null;
         state.avatarUrl = avatarUrl;
       })
 
       .addCase(getUserQuestionAnswerById.pending, (state, _) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(getUserQuestionAnswerById.rejected, (state, action) => {
         const payload = action.payload as { message: string };
         const message = payload.message;
-        state.error = message;
         state.loading = false;
+        state.error = message;
       })
       .addCase(getUserQuestionAnswerById.fulfilled, (state, action) => {
         const userAnswer = action.payload ?? "";
         state.loading = false;
-        state.error = null;
         state.userAnswer = userAnswer;
       });
   },

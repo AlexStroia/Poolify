@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Typography, Container } from "@mui/material";
 
-export const NotFoundComponent = () => {
+export const NotFoundComponent = ({
+  authenticated,
+}: {
+  authenticated: boolean;
+}) => {
   return (
     <Container
       sx={{
@@ -21,7 +25,7 @@ export const NotFoundComponent = () => {
       </Typography>
       <Button
         component={Link}
-        to="/"
+        to={authenticated ? "/home" : "/"}
         variant="contained"
         color="primary"
         sx={{ marginTop: 2 }}

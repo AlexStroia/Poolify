@@ -52,8 +52,9 @@ let users: UsersData = {
     name: "Tyler McGinnis",
     avatarURL: null,
     answers: {
-      vthrdm985a262al8qx3do: "optionOne",
-      xj352vofupe1dqz9emx13r: "optionTwo",
+      xj352vofupe1dqz9emx13r: "optionOne",
+      vthrdm985a262al8qx3do: "optionTwo",
+      "6ni6ok3ym7mf1p33lnez": "optionOne",
     },
     questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
   },
@@ -76,6 +77,8 @@ let users: UsersData = {
     avatarURL: null,
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
+      vthrdm985a262al8qx3do: "optionTwo",
+      "6ni6ok3ym7mf1p33lnez": "optionOne",
     },
     questions: [],
   },
@@ -273,39 +276,47 @@ export function _saveQuestionAnswer({
   });
 }
 
-describe("_saveQuestionAnswer", () => {
-  test("should return true when correctly formatted data is passed", async () => {
+describe("_saveQuestion", () => {
+  test("should return the saved question when correctly formatted data is passed", async () => {
     // Mock the necessary data
-    const authedUser = "sarahedo";
-    const qid = "8xf0y6ziyjabvozdd253nd";
-    const answer = "optionTwo";
+    const questionData = {
+      optionOneText: "Option One Text",
+      optionTwoText: "Option Two Text",
+      author: "sarahedo",
+    };
 
-    // Call the _saveQuestionAnswer function and await the result
-    const result = await _saveQuestionAnswer({ authedUser, qid, answer });
+    // Call the _saveQuestion function and await the result
+    const savedQuestion: Question = await _saveQuestion(questionData);
 
-    // Verify that the result is true
-    expect(result).toBe(true);
+    // Verify that the saved question is returned and all expected fields are populated
+    expect(savedQuestion.id).toBeTruthy();
+    expect(savedQuestion.timestamp).toBeTruthy();
+    expect(savedQuestion.author).toBe(questionData.author);
+    expect(savedQuestion.optionOne.votes).toEqual([]);
+    expect(savedQuestion.optionOne.text).toBe(questionData.optionOneText);
+    expect(savedQuestion.optionTwo.votes).toEqual([]);
+    expect(savedQuestion.optionTwo.text).toBe(questionData.optionTwoText);
   });
 
   test("should return an error when incorrect data is passed", async () => {
     // Mock the necessary data with incorrect data
-    const authedUser = "";
-    const qid = "";
-    const answer: Answer = "optionTwo";
+    const questionData = {
+      optionOneText: "Option One Text",
+      optionTwoText: "",
+      author: "",
+    };
 
     try {
-      // Call the _saveQuestionAnswer function with incorrect data
-      await _saveQuestionAnswer({
-        authedUser: authedUser,
-        qid: qid,
-        answer: answer,
-      });
+      // Call the _saveQuestion function with incorrect data
+      await _saveQuestion(questionData);
 
       // If the function does not throw an error, fail the test
-      fail("Expected _saveQuestionAnswer to throw an error, but it did not.");
+      fail("Expected _saveQuestion to throw an error, but it did not.");
     } catch (error) {
       // Verify that the error message is as expected
-      expect(error).toBe("Please provide authedUser, qid, and answer");
+      expect(error).toBe(
+        "Please provide optionOneText, optionTwoText, and author",
+      );
     }
   });
 });

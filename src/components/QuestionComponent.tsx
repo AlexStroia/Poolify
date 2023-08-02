@@ -27,10 +27,6 @@ export const QuestionComponent = () => {
   const questionData = questionState.question;
   const error = questionState.error;
   const avatar = state.question.avatarUrl;
-  console.log("Question boss is " + state.question.question);
-  if (state.question.question === null) {
-    navigate("/error");
-  }
 
   const handlePercentageVotes = (
     firstOptionVotes: number,
@@ -54,6 +50,7 @@ export const QuestionComponent = () => {
 
   useEffect(() => {
     function getUserInformation() {
+      console.log("Question id is " + question_id);
       if (question_id !== null && question_id !== undefined) {
         dispatch(getQuestionAction(question_id!));
       }
@@ -73,15 +70,7 @@ export const QuestionComponent = () => {
 
     getUserInformation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    questionData?.id,
-    dispatch,
-    authenticatedUser,
-    question_id,
-    authenticatedUser?.userId,
-    questionData?.userId,
-    questionState.userAnswer,
-  ]);
+  }, [questionState.userAnswer]);
 
   const handleUserFirstAnswer = (value: string) => {
     if (authenticatedUser !== null || authenticatedUser !== undefined) {
@@ -126,6 +115,10 @@ export const QuestionComponent = () => {
       );
     }
   };
+
+  if (error === "Question does not exist") {
+    navigate("/error");
+  }
 
   return questionState.loading ? (
     <SpinnerComponent />
@@ -253,11 +246,7 @@ export const QuestionComponent = () => {
                   display: "flex",
                 }}
               >
-                {questionState.userAnswer?.length ?? 0 > 0 ? (
-                  <ArrowDown />
-                ) : (
-                  <div></div>
-                )}
+                {questionState.userAnswer ? <ArrowDown /> : <div></div>}
               </Grid>
               <Grid
                 item

@@ -158,7 +158,10 @@ function App() {
       />
 
       <Routes>
-        <Route path="/error" element={<NotFoundComponent />} />
+        <Route
+          path="/error"
+          element={<NotFoundComponent authenticated={authenticated} />}
+        />
         <Route
           path="/"
           element={

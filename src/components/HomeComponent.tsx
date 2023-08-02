@@ -78,6 +78,7 @@ export const HomeComponent: React.FC = () => {
             <Grid item>
               <div>
                 <input
+                  data-testid="toggle-new"
                   type="radio"
                   id="newQuestions"
                   name="toggle"
@@ -87,6 +88,7 @@ export const HomeComponent: React.FC = () => {
                 />
                 <label htmlFor="newQuestions">New Questions</label>
                 <input
+                  data-testid="toggle-done"
                   type="radio"
                   id="doneQuestions"
                   name="toggle"
@@ -97,7 +99,14 @@ export const HomeComponent: React.FC = () => {
                 <label htmlFor="doneQuestions">Done Questions</label>
               </div>
             </Grid>
-            <Grid data-test-id="questions-list-new" item>
+            <Grid
+              data-testid={
+                isToggle === "done"
+                  ? "questions-list-done"
+                  : "questions-list-new"
+              }
+              item
+            >
               {/* Render the New or Done Questions list based on the selected toggle */}
               <QuestionList
                 questionListType={

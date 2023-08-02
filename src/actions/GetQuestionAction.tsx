@@ -22,11 +22,13 @@ export const getQuestionAction = createAsyncThunk(
           voteOptionSecond: data?.voteOptionSecond ?? "0",
           userId: data?.userId ?? "",
         };
+        console.log("Question data is " + questionData);
         return questionData;
       } else {
         return rejectWithValue({ message: "Question does not exist" });
       }
     } catch (error) {
+      console.log("Error is " + error);
       return rejectWithValue(error);
     }
   },
