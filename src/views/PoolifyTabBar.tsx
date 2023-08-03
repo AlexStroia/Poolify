@@ -15,6 +15,7 @@ export const PoolifyTabBar = () => {
 
   const user = state.authentication.user;
   const page = state.dashboard.page;
+  console.log("Page is " + page);
 
   const handleTabChange = (page: DashboardPage) => {
     dispatch(changePage(page));

@@ -12,8 +12,11 @@ import { SpinnerComponent } from "./SpinnerComponent";
 import { PoolifyTabBar } from "../views/PoolifyTabBar";
 import ErrorComponent from "./ErrorComponent";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { changePage } from "../reducers/DashboardSlice";
 
 export const NewComponent = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const questionOptionFirst = useRef<HTMLInputElement>(null);
   const questionOptionSecond = useRef<HTMLInputElement>(null);
@@ -41,6 +44,8 @@ export const NewComponent = () => {
         saveUserQuestionData: saveUserQuestionData,
       }),
     );
+    dispatch(changePage(0));
+    navigate("/home");
   };
 
   return dashboardState.loading ? (
